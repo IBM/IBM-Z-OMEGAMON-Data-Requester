@@ -1,0 +1,884 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Token mapping AT clause 1`] = `
+[
+  {
+    "affectedAstNodes": [
+      {
+        "items": [
+          {
+            "asUserDefinedValue": "*HUB",
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 52,
+                "genericKind": "literal",
+                "kind": "string_literal",
+                "problems": [],
+                "startIdx": 46,
+                "tokenText": "'*HUB'",
+                "value": "*HUB",
+              },
+            ],
+          },
+        ],
+        "keyword": {
+          "endIdx": 45,
+          "genericKind": "keyword",
+          "kind": "at_keyword",
+          "problems": [],
+          "startIdx": 43,
+          "tokenText": "AT",
+        },
+        "nodeType": "at",
+      },
+    ],
+    "message": "AT clause is generated automatically, any hardcoded AT clause in the formula will be ignored",
+    "severity": "informational",
+  },
+  {
+    "affectedTokens": [
+      {
+        "endIdx": 70,
+        "genericKind": "identifier",
+        "kind": "identifier",
+        "problems": [],
+        "startIdx": 60,
+        "tokenText": "ORIGINNODE",
+      },
+      {
+        "endIdx": 72,
+        "genericKind": "comparison_operator",
+        "kind": "eq_comparison_operator",
+        "problems": [],
+        "startIdx": 71,
+        "tokenText": "=",
+      },
+      {
+        "endIdx": 88,
+        "genericKind": "literal",
+        "kind": "string_literal",
+        "problems": [],
+        "startIdx": 73,
+        "tokenText": "'IC1A:RSD1:DB2'",
+        "value": "IC1A:RSD1:DB2",
+      },
+    ],
+    "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+    "severity": "informational",
+  },
+]
+`;
+
+exports[`Token mapping SYSTEM.PARMA(NODELIST) Multiple NODELIST 1`] = `
+[
+  {
+    "affectedAstNodes": [
+      {
+        "args": [
+          {
+            "asUserDefinedValue": "NODELIST",
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 65,
+                "genericKind": "literal",
+                "kind": "string_literal",
+                "problems": [],
+                "startIdx": 55,
+                "tokenText": "'NODELIST'",
+                "value": "NODELIST",
+              },
+            ],
+          },
+          {
+            "asUserDefinedValue": "*MVS_DB2,IBA1:RSD1:DB2",
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 91,
+                "genericKind": "literal",
+                "kind": "string_literal",
+                "problems": [],
+                "startIdx": 67,
+                "tokenText": "'*MVS_DB2,IBA1:RSD1:DB2'",
+                "value": "*MVS_DB2,IBA1:RSD1:DB2",
+              },
+            ],
+          },
+          {
+            "asUserDefinedValue": 22,
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 95,
+                "genericKind": "literal",
+                "kind": "decimal_literal",
+                "problems": [],
+                "resolved": true,
+                "startIdx": 93,
+                "tokenText": "22",
+                "value": 22,
+              },
+            ],
+          },
+        ],
+        "closeParenthesis": {
+          "endIdx": 96,
+          "genericKind": "parenthesis",
+          "kind": "close_parenthesis",
+          "problems": [],
+          "startIdx": 95,
+          "tokenText": ")",
+        },
+        "funcIdentifier": {
+          "left": {
+            "endIdx": 48,
+            "genericKind": "identifier",
+            "kind": "identifier",
+            "problems": [],
+            "startIdx": 42,
+            "tokenText": "SYSTEM",
+          },
+          "nodeType": "qualified_identifier",
+          "right": {
+            "endIdx": 54,
+            "genericKind": "identifier",
+            "kind": "identifier",
+            "problems": [],
+            "startIdx": 49,
+            "tokenText": "PARMA",
+          },
+        },
+        "nodeType": "function_call",
+        "openParenthesis": {
+          "endIdx": 55,
+          "genericKind": "parenthesis",
+          "kind": "open_parenthesis",
+          "problems": [],
+          "startIdx": 54,
+          "tokenText": "(",
+        },
+      },
+    ],
+    "message": "There should be only one NODELIST",
+    "severity": "error",
+  },
+  {
+    "affectedAstNodes": [
+      {
+        "args": [
+          {
+            "asUserDefinedValue": "NODELIST",
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 124,
+                "genericKind": "literal",
+                "kind": "string_literal",
+                "problems": [],
+                "startIdx": 114,
+                "tokenText": "'NODELIST'",
+                "value": "NODELIST",
+              },
+            ],
+          },
+          {
+            "asUserDefinedValue": "A",
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 129,
+                "genericKind": "literal",
+                "kind": "string_literal",
+                "problems": [],
+                "startIdx": 126,
+                "tokenText": "'A'",
+                "value": "A",
+              },
+            ],
+          },
+          {
+            "asUserDefinedValue": 1,
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 132,
+                "genericKind": "literal",
+                "kind": "decimal_literal",
+                "problems": [],
+                "resolved": true,
+                "startIdx": 131,
+                "tokenText": "1",
+                "value": 1,
+              },
+            ],
+          },
+        ],
+        "closeParenthesis": {
+          "endIdx": 133,
+          "genericKind": "parenthesis",
+          "kind": "close_parenthesis",
+          "problems": [],
+          "startIdx": 132,
+          "tokenText": ")",
+        },
+        "funcIdentifier": {
+          "left": {
+            "endIdx": 107,
+            "genericKind": "identifier",
+            "kind": "identifier",
+            "problems": [],
+            "startIdx": 101,
+            "tokenText": "SYSTEM",
+          },
+          "nodeType": "qualified_identifier",
+          "right": {
+            "endIdx": 113,
+            "genericKind": "identifier",
+            "kind": "identifier",
+            "problems": [],
+            "startIdx": 108,
+            "tokenText": "PARMA",
+          },
+        },
+        "nodeType": "function_call",
+        "openParenthesis": {
+          "endIdx": 114,
+          "genericKind": "parenthesis",
+          "kind": "open_parenthesis",
+          "problems": [],
+          "startIdx": 113,
+          "tokenText": "(",
+        },
+      },
+    ],
+    "message": "There should be only one NODELIST",
+    "severity": "error",
+  },
+  {
+    "affectedAstNodes": [
+      {
+        "args": [
+          {
+            "asUserDefinedValue": "NODELIST",
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 161,
+                "genericKind": "literal",
+                "kind": "string_literal",
+                "problems": [],
+                "startIdx": 151,
+                "tokenText": "'NODELIST'",
+                "value": "NODELIST",
+              },
+            ],
+          },
+          {
+            "asUserDefinedValue": "B",
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 166,
+                "genericKind": "literal",
+                "kind": "string_literal",
+                "problems": [],
+                "startIdx": 163,
+                "tokenText": "'B'",
+                "value": "B",
+              },
+            ],
+          },
+          {
+            "asUserDefinedValue": 1,
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 169,
+                "genericKind": "literal",
+                "kind": "decimal_literal",
+                "problems": [],
+                "resolved": true,
+                "startIdx": 168,
+                "tokenText": "1",
+                "value": 1,
+              },
+            ],
+          },
+        ],
+        "closeParenthesis": {
+          "endIdx": 170,
+          "genericKind": "parenthesis",
+          "kind": "close_parenthesis",
+          "problems": [],
+          "startIdx": 169,
+          "tokenText": ")",
+        },
+        "funcIdentifier": {
+          "left": {
+            "endIdx": 144,
+            "genericKind": "identifier",
+            "kind": "identifier",
+            "problems": [],
+            "startIdx": 138,
+            "tokenText": "SYSTEM",
+          },
+          "nodeType": "qualified_identifier",
+          "right": {
+            "endIdx": 150,
+            "genericKind": "identifier",
+            "kind": "identifier",
+            "problems": [],
+            "startIdx": 145,
+            "tokenText": "PARMA",
+          },
+        },
+        "nodeType": "function_call",
+        "openParenthesis": {
+          "endIdx": 151,
+          "genericKind": "parenthesis",
+          "kind": "open_parenthesis",
+          "problems": [],
+          "startIdx": 150,
+          "tokenText": "(",
+        },
+      },
+    ],
+    "message": "There should be only one NODELIST",
+    "severity": "error",
+  },
+  {
+    "affectedAstNodes": [
+      {
+        "args": [
+          {
+            "asUserDefinedValue": "NODELIST",
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 198,
+                "genericKind": "literal",
+                "kind": "string_literal",
+                "problems": [],
+                "startIdx": 188,
+                "tokenText": "'NODELIST'",
+                "value": "NODELIST",
+              },
+            ],
+          },
+          {
+            "asUserDefinedValue": "C",
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 203,
+                "genericKind": "literal",
+                "kind": "string_literal",
+                "problems": [],
+                "startIdx": 200,
+                "tokenText": "'C'",
+                "value": "C",
+              },
+            ],
+          },
+          {
+            "asUserDefinedValue": 1,
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 206,
+                "genericKind": "literal",
+                "kind": "decimal_literal",
+                "problems": [],
+                "resolved": true,
+                "startIdx": 205,
+                "tokenText": "1",
+                "value": 1,
+              },
+            ],
+          },
+        ],
+        "closeParenthesis": {
+          "endIdx": 207,
+          "genericKind": "parenthesis",
+          "kind": "close_parenthesis",
+          "problems": [],
+          "startIdx": 206,
+          "tokenText": ")",
+        },
+        "funcIdentifier": {
+          "left": {
+            "endIdx": 181,
+            "genericKind": "identifier",
+            "kind": "identifier",
+            "problems": [],
+            "startIdx": 175,
+            "tokenText": "SYSTEM",
+          },
+          "nodeType": "qualified_identifier",
+          "right": {
+            "endIdx": 187,
+            "genericKind": "identifier",
+            "kind": "identifier",
+            "problems": [],
+            "startIdx": 182,
+            "tokenText": "PARMA",
+          },
+        },
+        "nodeType": "function_call",
+        "openParenthesis": {
+          "endIdx": 188,
+          "genericKind": "parenthesis",
+          "kind": "open_parenthesis",
+          "problems": [],
+          "startIdx": 187,
+          "tokenText": "(",
+        },
+      },
+    ],
+    "message": "There should be only one NODELIST",
+    "severity": "error",
+  },
+]
+`;
+
+exports[`Token mapping SYSTEM.PARMA(NODELIST) Multiple NODELIST 2`] = `[]`;
+
+exports[`Token mapping SYSTEM.PARMA(NODELIST) Nodelist and Originnode 1`] = `
+[
+  {
+    "affectedTokens": [
+      {
+        "endIdx": 111,
+        "genericKind": "identifier",
+        "kind": "identifier",
+        "problems": [],
+        "startIdx": 101,
+        "tokenText": "ORIGINNODE",
+      },
+      {
+        "endIdx": 113,
+        "genericKind": "comparison_operator",
+        "kind": "eq_comparison_operator",
+        "problems": [],
+        "startIdx": 112,
+        "tokenText": "=",
+      },
+      {
+        "endIdx": 117,
+        "genericKind": "literal",
+        "kind": "string_literal",
+        "problems": [],
+        "startIdx": 114,
+        "tokenText": "'A'",
+        "value": "A",
+      },
+    ],
+    "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+    "severity": "informational",
+  },
+]
+`;
+
+exports[`Token mapping SYSTEM.PARMA(NODELIST) Nodelist and Originnode 2`] = `
+[
+  {
+    "id": "agentOrGroupName",
+    "name": "A",
+  },
+  {
+    "id": "agentOrGroupName",
+    "name": "*MVS_DB2",
+  },
+  {
+    "id": "agentOrGroupName",
+    "name": "IBA1:RSD1:DB2",
+  },
+]
+`;
+
+exports[`Token mapping SYSTEM.PARMA(NODELIST) Nodelist and multiple Originnode 1`] = `
+[
+  {
+    "affectedTokens": [
+      {
+        "endIdx": 53,
+        "genericKind": "identifier",
+        "kind": "identifier",
+        "problems": [],
+        "startIdx": 43,
+        "tokenText": "ORIGINNODE",
+      },
+      {
+        "endIdx": 55,
+        "genericKind": "comparison_operator",
+        "kind": "eq_comparison_operator",
+        "problems": [],
+        "startIdx": 54,
+        "tokenText": "=",
+      },
+      {
+        "endIdx": 59,
+        "genericKind": "literal",
+        "kind": "string_literal",
+        "problems": [],
+        "startIdx": 56,
+        "tokenText": "'A'",
+        "value": "A",
+      },
+    ],
+    "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+    "severity": "informational",
+  },
+  {
+    "affectedTokens": [
+      {
+        "endIdx": 73,
+        "genericKind": "identifier",
+        "kind": "identifier",
+        "problems": [],
+        "startIdx": 63,
+        "tokenText": "ORIGINNODE",
+      },
+      {
+        "endIdx": 75,
+        "genericKind": "comparison_operator",
+        "kind": "eq_comparison_operator",
+        "problems": [],
+        "startIdx": 74,
+        "tokenText": "=",
+      },
+      {
+        "endIdx": 79,
+        "genericKind": "literal",
+        "kind": "string_literal",
+        "problems": [],
+        "startIdx": 76,
+        "tokenText": "'B'",
+        "value": "B",
+      },
+    ],
+    "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+    "severity": "informational",
+  },
+]
+`;
+
+exports[`Token mapping SYSTEM.PARMA(NODELIST) Nodelist and multiple Originnode 2`] = `
+[
+  {
+    "id": "agentOrGroupName",
+    "name": "A",
+  },
+  {
+    "id": "agentOrGroupName",
+    "name": "B",
+  },
+  {
+    "id": "agentOrGroupName",
+    "name": "*MVS_DB2",
+  },
+  {
+    "id": "agentOrGroupName",
+    "name": "IBA1:RSD1:DB2",
+  },
+]
+`;
+
+exports[`Token mapping SYSTEM.PARMA(NODELIST) Nodelist and simple parma 1`] = `
+[
+  {
+    "length": 6,
+    "name": "SIMPLE",
+    "value": "Falcon",
+  },
+]
+`;
+
+exports[`Token mapping SYSTEM.PARMA(NODELIST) Nodelist and simple parma 2`] = `
+[
+  {
+    "id": "agentOrGroupName",
+    "name": "*MVS_DB2",
+  },
+  {
+    "id": "agentOrGroupName",
+    "name": "IBA1:RSD1:DB2",
+  },
+]
+`;
+
+exports[`Token mapping SYSTEM.PARMA(NODELIST) One node 1`] = `
+[
+  {
+    "id": "agentOrGroupName",
+    "name": "IC1A:RSD1:DB2",
+  },
+]
+`;
+
+exports[`Token mapping SYSTEM.PARMA(NODELIST) Two nodes 1`] = `
+[
+  {
+    "id": "agentOrGroupName",
+    "name": "*MVS_DB2",
+  },
+  {
+    "id": "agentOrGroupName",
+    "name": "IBA1:RSD1:DB2",
+  },
+]
+`;
+
+exports[`Token mapping Unknown application code 1`] = `
+[
+  {
+    "affectedAstNodes": [
+      {
+        "keyword": {
+          "endIdx": 22,
+          "genericKind": "keyword",
+          "kind": "from_keyword",
+          "problems": [],
+          "startIdx": 18,
+          "tokenText": "FROM",
+        },
+        "nodeType": "from",
+        "tables": [
+          {
+            "left": {
+              "endIdx": 30,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 23,
+              "tokenText": "UNKNOWN",
+            },
+            "nodeType": "qualified_identifier",
+            "right": {
+              "endIdx": 39,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 31,
+              "tokenText": "REALTHDA",
+            },
+          },
+        ],
+      },
+    ],
+    "message": "Specified applicationCode 'UNKNOWN' doesn't exist. Available options: KDP, KCP, KM5, O4SRV, APPL",
+    "severity": "error",
+  },
+]
+`;
+
+exports[`Token mapping Unknown table id 1`] = `
+[
+  {
+    "affectedAstNodes": [
+      {
+        "keyword": {
+          "endIdx": 22,
+          "genericKind": "keyword",
+          "kind": "from_keyword",
+          "problems": [],
+          "startIdx": 18,
+          "tokenText": "FROM",
+        },
+        "nodeType": "from",
+        "tables": [
+          {
+            "left": {
+              "endIdx": 26,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 23,
+              "tokenText": "KDP",
+            },
+            "nodeType": "qualified_identifier",
+            "right": {
+              "endIdx": 34,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 27,
+              "tokenText": "UNKNOWN",
+            },
+          },
+        ],
+      },
+    ],
+    "message": "Specified tableId 'UNKNOWN' doesn't exist in application(s) 'DB2 Subsystems' (KDP)",
+    "severity": "error",
+  },
+]
+`;
+
+exports[`Token mapping WRITETIME filters 1`] = `
+[
+  {
+    "affectedAstNodes": [
+      {
+        "left": {
+          "nodeType": "unqualified_identifier",
+          "token": {
+            "endIdx": 91,
+            "genericKind": "identifier",
+            "kind": "identifier",
+            "problems": [],
+            "startIdx": 82,
+            "tokenText": "WRITETIME",
+          },
+        },
+        "nodeType": "binary",
+        "operator": {
+          "endIdx": 93,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 92,
+          "tokenText": "=",
+        },
+        "right": {
+          "asUserDefinedValue": "123",
+          "nodeType": "value",
+          "tokens": [
+            {
+              "endIdx": 99,
+              "genericKind": "literal",
+              "kind": "string_literal",
+              "problems": [],
+              "startIdx": 94,
+              "tokenText": "'123'",
+              "value": "123",
+            },
+          ],
+        },
+      },
+    ],
+    "message": "Grafana time range selector should be used to define time range. WRITETIME filters will be ignored",
+    "severity": "informational",
+  },
+  {
+    "affectedTokens": [
+      {
+        "endIdx": 59,
+        "genericKind": "identifier",
+        "kind": "identifier",
+        "problems": [],
+        "startIdx": 49,
+        "tokenText": "ORIGINNODE",
+      },
+      {
+        "endIdx": 61,
+        "genericKind": "comparison_operator",
+        "kind": "eq_comparison_operator",
+        "problems": [],
+        "startIdx": 60,
+        "tokenText": "=",
+      },
+      {
+        "endIdx": 77,
+        "genericKind": "literal",
+        "kind": "string_literal",
+        "problems": [],
+        "startIdx": 62,
+        "tokenText": "'IC1A:RSD1:DB2'",
+        "value": "IC1A:RSD1:DB2",
+      },
+    ],
+    "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+    "severity": "informational",
+  },
+]
+`;
+
+exports[`Token mapping WRITETIME filters 2`] = `
+[
+  {
+    "affectedAstNodes": [
+      {
+        "left": {
+          "left": {
+            "endIdx": 90,
+            "genericKind": "identifier",
+            "kind": "identifier",
+            "problems": [],
+            "startIdx": 82,
+            "tokenText": "REALTHDA",
+          },
+          "nodeType": "qualified_identifier",
+          "right": {
+            "endIdx": 100,
+            "genericKind": "identifier",
+            "kind": "identifier",
+            "problems": [],
+            "startIdx": 91,
+            "tokenText": "WRITETIME",
+          },
+        },
+        "nodeType": "binary",
+        "operator": {
+          "endIdx": 102,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 101,
+          "tokenText": "=",
+        },
+        "right": {
+          "asUserDefinedValue": "123",
+          "nodeType": "value",
+          "tokens": [
+            {
+              "endIdx": 108,
+              "genericKind": "literal",
+              "kind": "string_literal",
+              "problems": [],
+              "startIdx": 103,
+              "tokenText": "'123'",
+              "value": "123",
+            },
+          ],
+        },
+      },
+    ],
+    "message": "Grafana time range selector should be used to define time range. WRITETIME filters will be ignored",
+    "severity": "informational",
+  },
+  {
+    "affectedTokens": [
+      {
+        "endIdx": 59,
+        "genericKind": "identifier",
+        "kind": "identifier",
+        "problems": [],
+        "startIdx": 49,
+        "tokenText": "ORIGINNODE",
+      },
+      {
+        "endIdx": 61,
+        "genericKind": "comparison_operator",
+        "kind": "eq_comparison_operator",
+        "problems": [],
+        "startIdx": 60,
+        "tokenText": "=",
+      },
+      {
+        "endIdx": 77,
+        "genericKind": "literal",
+        "kind": "string_literal",
+        "problems": [],
+        "startIdx": 62,
+        "tokenText": "'IC1A:RSD1:DB2'",
+        "value": "IC1A:RSD1:DB2",
+      },
+    ],
+    "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+    "severity": "informational",
+  },
+]
+`;

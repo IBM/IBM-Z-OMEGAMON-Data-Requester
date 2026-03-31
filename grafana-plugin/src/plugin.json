@@ -1,0 +1,40 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "app",
+  "name": "IBM Z OMEGAMON",
+  "id": "rocketsoftware-omegamon-app",
+  "preload": true,
+  "autoEnabled": true,
+  "info": {
+    "description": "Grafana plugin for IBM Z OMEGAMON",
+    "author": {
+      "name": "Rocket Software"
+    },
+    "logos": {
+      "small": "img/OMEGAMON-icon.png",
+      "large": "img/OMEGAMON-icon.png"
+    },
+    "version": "%VERSION%",
+    "updated": "%TODAY%",
+    "keywords": ["OMEGAMON", "Data Requester", "IBM"],
+    "screenshots": [{ "name": "DB2 Statistic Overview", "path": "img/DB2_Statistics_Overview.png" }],
+    "links": [
+      {
+        "name": "documentation",
+        "url": "https://www.ibm.com/docs/en/zodr?topic=z-omegamon-data-requester"
+      }
+    ]
+  },
+  "includes": [
+    {
+      "uid": "rocketsoftware-omegamon-datasource",
+      "path": "datasource/plugin.json",
+      "type": "datasource",
+      "name": "IBM Z OMEGAMON Datasource Plugin"
+    }
+  ],
+  "dependencies": {
+    "grafanaDependency": ">=12.1.0",
+    "plugins": []
+  }
+}

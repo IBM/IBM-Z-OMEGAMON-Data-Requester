@@ -1,0 +1,72 @@
+import { EnumMap, ColumnMetadata } from 'public-domain';
+
+export const stringEnumColumnMetadataAndValues = {
+  columnMetadata: {
+    attributeName: 'Thread\\Type',
+    defaultSortDirection: 'A',
+    description: 'The thread type.',
+    enums: {
+      '0': 'Unknown',
+      '1': 'DB Access',
+      '3': 'SYSTEM',
+      '5': 'UTILITY',
+      '6': 'RRSAF',
+      '7': 'TSO',
+      '9': 'Allied',
+      A: 'IMS',
+      B: 'BATCH',
+      C: 'CICS',
+      'IN-TRIGGER': 'IN-TRIGGER',
+      'IN-USER-FUNC': 'IN-USER-FUNC',
+      INDOUBT: 'IN-DOUBT',
+    } as EnumMap,
+    extensions: {
+      MEMBER: 'Thread_Type',
+      NULL: 'N',
+      PARM: "H'14',H'00',H'0001',C'C31 ',F'0192'",
+      SHARE: 'Y',
+      STRUCT: 'ALL_THREADS',
+      TEXT: 'THREAD TYPE',
+    },
+    id: 'TDIDTTYP',
+    maxLength: 1,
+    name: 'Thread\nType',
+    odpName: '',
+    sortType: 'lexical',
+    type: 'string',
+    version: 0,
+    atomize: false,
+  } as ColumnMetadata,
+  values: ['0', '3', 'A', 'IN-TRIGGER', 'IN-USER-FUNC', 'INDOUBT'],
+};
+
+export const numberEnumColumnMetadataAndValues = {
+  columnMetadata: {
+    attributeName: 'Performance\\Index',
+    defaultSortDirection: 'A',
+    description: 'This field is related to the z/OS Workload manager.',
+    enums: {
+      '0': 'N/A',
+      '123': 'some other enum',
+      '-123': 'even other enum',
+    } as EnumMap,
+    extensions: {
+      MEMBER: 'Performance_Index',
+      NULL: 'N',
+      PARM: "H'14',H'00',H'0004',C'C31 ',F'0416'",
+      RANGE: '1-999',
+      SHARE: 'Y',
+      STRUCT: 'ALL_THREADS',
+      TEXT: 'PERFORMANCE INDEX THIS PERIOD',
+    },
+    id: 'ENCLPIDX',
+    maxLength: 4,
+    name: 'Performance\nIndex',
+    odpName: '',
+    sortType: 'lexical',
+    type: 'number',
+    version: 0,
+    atomize: false,
+  } as ColumnMetadata,
+  values: [0, 123, -123],
+};

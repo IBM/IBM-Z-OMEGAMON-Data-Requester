@@ -1,0 +1,230 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OnChangePreprocessor multi empty input 1`] = `
+{
+  "input": "",
+  "options": [
+    {
+      "apply": [Function],
+      "id": "%IBM.STATIC017",
+      "label": "DB2 Subsystems",
+      "value": "KDP",
+    },
+    {
+      "apply": [Function],
+      "id": "%IBM.STATIC115",
+      "label": "MVS CICSTG",
+      "value": "KGW",
+    },
+    {
+      "apply": [Function],
+      "id": "%IBM.STATIC014",
+      "label": "IMS Subsystems",
+      "value": "KIP",
+    },
+  ],
+}
+`;
+
+exports[`OnChangePreprocessor multi empty state 1`] = `
+{
+  "input": "",
+  "options": [],
+}
+`;
+
+exports[`OnChangePreprocessor multi input is not empty and in closed variables 1`] = `
+{
+  "input": "testOfVar:\${db2id}",
+}
+`;
+
+exports[`OnChangePreprocessor multi input is not empty and in variables 1`] = `
+{
+  "input": "testOfVar:\${db2id}",
+}
+`;
+
+exports[`OnChangePreprocessor multi input is not empty and not in variables 1`] = `
+{
+  "input": "",
+  "options": [
+    {
+      "apply": [Function],
+      "id": "%IBM.STATIC017",
+      "label": "DB2 Subsystems",
+      "value": "KDP",
+    },
+    {
+      "apply": [Function],
+      "id": "%IBM.STATIC115",
+      "label": "MVS CICSTG",
+      "value": "KGW",
+    },
+    {
+      "apply": [Function],
+      "id": "%IBM.STATIC014",
+      "label": "IMS Subsystems",
+      "value": "KIP",
+    },
+    {
+      "apply": [Function],
+      "id": "db2id",
+      "label": "DB2 variable",
+      "value": "\${db2id}",
+    },
+  ],
+}
+`;
+
+exports[`Options Generator empty input 1`] = `
+[
+  {
+    "apply": [Function],
+    "id": "%IBM.STATIC017",
+    "label": "DB2 Subsystems",
+    "value": "KDP",
+  },
+  {
+    "apply": [Function],
+    "id": "%IBM.STATIC115",
+    "label": "MVS CICSTG",
+    "value": "KGW",
+  },
+  {
+    "apply": [Function],
+    "id": "%IBM.STATIC014",
+    "label": "IMS Subsystems",
+    "value": "KIP",
+  },
+]
+`;
+
+exports[`Options Generator empty input, all selected 1`] = `[]`;
+
+exports[`Options Generator empty input, few options selected, all selected 1`] = `
+[
+  {
+    "apply": [Function],
+    "id": "%IBM.STATIC115",
+    "label": "MVS CICSTG",
+    "value": "KGW",
+  },
+  {
+    "apply": [Function],
+    "id": "%IBM.STATIC014",
+    "label": "IMS Subsystems",
+    "value": "KIP",
+  },
+]
+`;
+
+exports[`Options Generator empty state 1`] = `[]`;
+
+exports[`Options Generator some input, all selected, custom values are allowed 1`] = `
+[
+  {
+    "apply": [Function],
+    "id": "testOfFunctions",
+    "isNewCustom": true,
+    "label": "testOfFunctions",
+    "value": "testOfFunctions",
+  },
+]
+`;
+
+exports[`Options Generator some input, all selected, custom values are not allowed 1`] = `[]`;
+
+exports[`Options Generator some input, some selected, allows custom - custom option returns 1`] = `
+[
+  {
+    "apply": [Function],
+    "id": "KD",
+    "isNewCustom": true,
+    "label": "KD",
+    "value": "KD",
+  },
+]
+`;
+
+exports[`Options Generator some input, some selected, allows custom - few and custom options returns 1`] = `
+[
+  {
+    "apply": [Function],
+    "id": "%IBM.STATIC017",
+    "label": "DB2 Subsystems",
+    "value": "KDP",
+  },
+  {
+    "apply": [Function],
+    "id": "%IBM.STATIC014",
+    "label": "IMS Subsystems",
+    "value": "KIP",
+  },
+  {
+    "apply": [Function],
+    "id": "K",
+    "isNewCustom": true,
+    "label": "K",
+    "value": "K",
+  },
+]
+`;
+
+exports[`Options Generator some input, some selected, allows custom - one and custom options returns 1`] = `
+[
+  {
+    "apply": [Function],
+    "id": "%IBM.STATIC017",
+    "label": "DB2 Subsystems",
+    "value": "KDP",
+  },
+  {
+    "apply": [Function],
+    "id": "KD",
+    "isNewCustom": true,
+    "label": "KD",
+    "value": "KD",
+  },
+]
+`;
+
+exports[`Options Generator some input, some selected, allows custom - one and custom options returns 2`] = `
+{
+  "apply": [Function],
+  "id": "KD",
+  "isNewCustom": true,
+  "label": "KD",
+  "value": "KD",
+}
+`;
+
+exports[`Options Generator some input, some selected, few options returns 1`] = `
+[
+  {
+    "apply": [Function],
+    "id": "%IBM.STATIC017",
+    "label": "DB2 Subsystems",
+    "value": "KDP",
+  },
+  {
+    "apply": [Function],
+    "id": "%IBM.STATIC014",
+    "label": "IMS Subsystems",
+    "value": "KIP",
+  },
+]
+`;
+
+exports[`Options Generator some input, some selected, no options returns 1`] = `[]`;
+
+exports[`Options Generator some input, some selected, one option returns 1`] = `
+[
+  {
+    "apply": [Function],
+    "id": "%IBM.STATIC017",
+    "label": "DB2 Subsystems",
+    "value": "KDP",
+  },
+]
+`;

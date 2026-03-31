@@ -1,0 +1,22 @@
+version: '3.0'
+
+services:
+  grafana:
+    container_name: 'itm-datasource-plugin'
+    build:
+      context: ./.config
+      args:
+        grafana_version: ${GRAFANA_VERSION:-12.1.0}
+        grafana_image: grafana-oss
+        development: true
+    environment:
+      - GF_LOG_MODE=console file
+      - GF_LOG_LEVEL=info
+      - GF_LOG_FILTERS=plugin.rocketsoftware-omegamon-app:debug plugin.rocketsoftware-omegamon-datasource:debug
+    volumes:
+      - ./dist:/var/lib/grafana/plugins/itm-datasource-plugin
+      - ./logs:/var/log/grafana
+      - grafana-data:/var/lib/grafana
+    network_mode: host
+volumes:
+  grafana-data:

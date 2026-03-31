@@ -1,0 +1,2482 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SELECT AFFINITIES, EXPIRYTIME, GBLTMSTMP FROM O4SRV.INODESTS WHERE AFFINITIES <> '%IBM.CICSplex 00000000050000yA043'; 1`] = `
+{
+  "_queryStr": "SELECT AFFINITIES, EXPIRYTIME, GBLTMSTMP FROM O4SRV.INODESTS WHERE AFFINITIES <> '%IBM.CICSplex 00000000050000yA043';",
+  "problems": [],
+  "result": {
+    "affinityId": "%IBM.ITM_INTERNAL",
+    "agentsAndGroups": [],
+    "columns": [
+      {
+        "id": "AFFINITIES",
+      },
+      {
+        "id": "EXPIRYTIME",
+      },
+      {
+        "id": "GBLTMSTMP",
+      },
+    ],
+    "filter": {
+      "nonAggregated": {
+        "clause": {
+          "columnId": "AFFINITIES",
+          "operator": "<>",
+          "userDefinedValue": "%IBM.CICSplex 00000000050000yA043",
+        },
+      },
+    },
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "INODESTS",
+  },
+}
+`;
+
+exports[`SELECT AFFINITIES, EXPIRYTIME, GBLTMSTMP FROM O4SRV.INODESTS WHERE AFFINITIES LIKE '%IBM.CICSplex 00000000050000yA043'; 1`] = `
+{
+  "_queryStr": "SELECT AFFINITIES, EXPIRYTIME, GBLTMSTMP FROM O4SRV.INODESTS WHERE AFFINITIES LIKE '%IBM.CICSplex 00000000050000yA043';",
+  "problems": [],
+  "result": {
+    "affinityId": "%IBM.ITM_INTERNAL",
+    "agentsAndGroups": [],
+    "columns": [
+      {
+        "id": "AFFINITIES",
+      },
+      {
+        "id": "EXPIRYTIME",
+      },
+      {
+        "id": "GBLTMSTMP",
+      },
+    ],
+    "filter": {
+      "nonAggregated": {
+        "clause": {
+          "columnId": "AFFINITIES",
+          "operator": "LIKE",
+          "userDefinedValue": "%IBM.CICSplex 00000000050000yA043",
+        },
+      },
+    },
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "INODESTS",
+  },
+}
+`;
+
+exports[`SELECT AFFINITIES, EXPIRYTIME, GBLTMSTMP FROM O4SRV.INODESTS WHERE FIRST(5); 1`] = `
+{
+  "_queryStr": "SELECT AFFINITIES, EXPIRYTIME, GBLTMSTMP FROM O4SRV.INODESTS WHERE FIRST(5);",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "args": [
+            {
+              "asUserDefinedValue": 5,
+              "nodeType": "value",
+              "tokens": [
+                {
+                  "endIdx": 74,
+                  "genericKind": "literal",
+                  "kind": "decimal_literal",
+                  "problems": [],
+                  "resolved": true,
+                  "startIdx": 73,
+                  "tokenText": "5",
+                  "value": 5,
+                },
+              ],
+            },
+          ],
+          "closeParenthesis": {
+            "endIdx": 75,
+            "genericKind": "parenthesis",
+            "kind": "close_parenthesis",
+            "problems": [],
+            "startIdx": 74,
+            "tokenText": ")",
+          },
+          "funcIdentifier": {
+            "nodeType": "unqualified_identifier",
+            "token": {
+              "endIdx": 72,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 67,
+              "tokenText": "FIRST",
+            },
+          },
+          "nodeType": "function_call",
+          "openParenthesis": {
+            "endIdx": 73,
+            "genericKind": "parenthesis",
+            "kind": "open_parenthesis",
+            "problems": [],
+            "startIdx": 72,
+            "tokenText": "(",
+          },
+        },
+      ],
+      "message": "Row limits are ignored",
+      "severity": "warning",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.ITM_INTERNAL",
+    "agentsAndGroups": [],
+    "columns": [
+      {
+        "id": "AFFINITIES",
+      },
+      {
+        "id": "EXPIRYTIME",
+      },
+      {
+        "id": "GBLTMSTMP",
+      },
+    ],
+    "filter": {
+      "nonAggregated": undefined,
+    },
+    "first": 5,
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "INODESTS",
+  },
+}
+`;
+
+exports[`SELECT AFFINITIES, EXPIRYTIME, GBLTMSTMP FROM O4SRV.INODESTS WHERE STRSCAN(AFFINITIES, 'HyQ') = 1; 1`] = `
+{
+  "_queryStr": "SELECT AFFINITIES, EXPIRYTIME, GBLTMSTMP FROM O4SRV.INODESTS WHERE STRSCAN(AFFINITIES, 'HyQ') = 1;",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "args": [
+            {
+              "nodeType": "unqualified_identifier",
+              "token": {
+                "endIdx": 85,
+                "genericKind": "identifier",
+                "kind": "identifier",
+                "problems": [],
+                "startIdx": 75,
+                "tokenText": "AFFINITIES",
+              },
+            },
+            {
+              "asUserDefinedValue": "HyQ",
+              "nodeType": "value",
+              "tokens": [
+                {
+                  "endIdx": 92,
+                  "genericKind": "literal",
+                  "kind": "string_literal",
+                  "problems": [],
+                  "startIdx": 87,
+                  "tokenText": "'HyQ'",
+                  "value": "HyQ",
+                },
+              ],
+            },
+          ],
+          "closeParenthesis": {
+            "endIdx": 93,
+            "genericKind": "parenthesis",
+            "kind": "close_parenthesis",
+            "problems": [],
+            "startIdx": 92,
+            "tokenText": ")",
+          },
+          "funcIdentifier": {
+            "nodeType": "unqualified_identifier",
+            "token": {
+              "endIdx": 74,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 67,
+              "tokenText": "STRSCAN",
+            },
+          },
+          "nodeType": "function_call",
+          "openParenthesis": {
+            "endIdx": 75,
+            "genericKind": "parenthesis",
+            "kind": "open_parenthesis",
+            "problems": [],
+            "startIdx": 74,
+            "tokenText": "(",
+          },
+        },
+      ],
+      "message": "Functions are not supported",
+      "severity": "error",
+    },
+  ],
+  "result": null,
+}
+`;
+
+exports[`SELECT AFFINITIES, EXPIRYTIME, GBLTMSTMP FROM O4SRV.INODESTS WHERE SYSTEM.MATCH('LIKE', AFFINITIES, '*IBM.CICSplex*') = 0; 1`] = `
+{
+  "_queryStr": "SELECT AFFINITIES, EXPIRYTIME, GBLTMSTMP FROM O4SRV.INODESTS WHERE SYSTEM.MATCH('LIKE', AFFINITIES, '*IBM.CICSplex*') = 0;",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "args": [
+            {
+              "asUserDefinedValue": "LIKE",
+              "nodeType": "value",
+              "tokens": [
+                {
+                  "endIdx": 86,
+                  "genericKind": "literal",
+                  "kind": "string_literal",
+                  "problems": [],
+                  "startIdx": 80,
+                  "tokenText": "'LIKE'",
+                  "value": "LIKE",
+                },
+              ],
+            },
+            {
+              "nodeType": "unqualified_identifier",
+              "token": {
+                "endIdx": 98,
+                "genericKind": "identifier",
+                "kind": "identifier",
+                "problems": [],
+                "startIdx": 88,
+                "tokenText": "AFFINITIES",
+              },
+            },
+            {
+              "asUserDefinedValue": "*IBM.CICSplex*",
+              "nodeType": "value",
+              "tokens": [
+                {
+                  "endIdx": 116,
+                  "genericKind": "literal",
+                  "kind": "string_literal",
+                  "problems": [],
+                  "startIdx": 100,
+                  "tokenText": "'*IBM.CICSplex*'",
+                  "value": "*IBM.CICSplex*",
+                },
+              ],
+            },
+          ],
+          "closeParenthesis": {
+            "endIdx": 117,
+            "genericKind": "parenthesis",
+            "kind": "close_parenthesis",
+            "problems": [],
+            "startIdx": 116,
+            "tokenText": ")",
+          },
+          "funcIdentifier": {
+            "left": {
+              "endIdx": 73,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 67,
+              "tokenText": "SYSTEM",
+            },
+            "nodeType": "qualified_identifier",
+            "right": {
+              "endIdx": 79,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 74,
+              "tokenText": "MATCH",
+            },
+          },
+          "nodeType": "function_call",
+          "openParenthesis": {
+            "endIdx": 80,
+            "genericKind": "parenthesis",
+            "kind": "open_parenthesis",
+            "problems": [],
+            "startIdx": 79,
+            "tokenText": "(",
+          },
+        },
+      ],
+      "message": "Functions are not supported",
+      "severity": "error",
+    },
+  ],
+  "result": null,
+}
+`;
+
+exports[`SELECT CMD FROM O4SRV.CCT WHERE CMD > '22' AND FIRST(5); 1`] = `
+{
+  "_queryStr": "SELECT CMD FROM O4SRV.CCT WHERE CMD > '22' AND FIRST(5);",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "args": [
+            {
+              "asUserDefinedValue": 5,
+              "nodeType": "value",
+              "tokens": [
+                {
+                  "endIdx": 54,
+                  "genericKind": "literal",
+                  "kind": "decimal_literal",
+                  "problems": [],
+                  "resolved": true,
+                  "startIdx": 53,
+                  "tokenText": "5",
+                  "value": 5,
+                },
+              ],
+            },
+          ],
+          "closeParenthesis": {
+            "endIdx": 55,
+            "genericKind": "parenthesis",
+            "kind": "close_parenthesis",
+            "problems": [],
+            "startIdx": 54,
+            "tokenText": ")",
+          },
+          "funcIdentifier": {
+            "nodeType": "unqualified_identifier",
+            "token": {
+              "endIdx": 52,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 47,
+              "tokenText": "FIRST",
+            },
+          },
+          "nodeType": "function_call",
+          "openParenthesis": {
+            "endIdx": 53,
+            "genericKind": "parenthesis",
+            "kind": "open_parenthesis",
+            "problems": [],
+            "startIdx": 52,
+            "tokenText": "(",
+          },
+        },
+      ],
+      "message": "Row limits are ignored",
+      "severity": "warning",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.ITM_INTERNAL",
+    "agentsAndGroups": [],
+    "columns": [
+      {
+        "id": "CMD",
+      },
+    ],
+    "filter": {
+      "nonAggregated": {
+        "clause": {
+          "columnId": "CMD",
+          "operator": ">",
+          "userDefinedValue": "22",
+        },
+      },
+    },
+    "first": 5,
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "CCT",
+  },
+}
+`;
+
+exports[`SELECT COUNT(ORIGINNODE) FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' GROUP BY ORIGINNODE; 1`] = `
+{
+  "_queryStr": "SELECT COUNT(ORIGINNODE) FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' GROUP BY ORIGINNODE;",
+  "problems": [
+    {
+      "affectedTokens": [
+        {
+          "endIdx": 59,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 49,
+          "tokenText": "ORIGINNODE",
+        },
+        {
+          "endIdx": 61,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 60,
+          "tokenText": "=",
+        },
+        {
+          "endIdx": 77,
+          "genericKind": "literal",
+          "kind": "string_literal",
+          "problems": [],
+          "startIdx": 62,
+          "tokenText": "'IC1A:RSD1:DB2'",
+          "value": "IC1A:RSD1:DB2",
+        },
+      ],
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "severity": "informational",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "IC1A:RSD1:DB2",
+      },
+    ],
+    "columns": [
+      {
+        "aggregationFunction": "COUNT",
+        "id": "ORIGINNODE",
+      },
+    ],
+    "filter": {
+      "nonAggregated": undefined,
+    },
+    "groupBy": [
+      "ORIGINNODE",
+    ],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+}
+`;
+
+exports[`SELECT DELTASTAT, RESULTS, ORIGINNODE, LCLTMSTMP FROM O4SRV.TADVISOR AT ( "HUB_WALDEVYSDED101" ) WHERE EVENT(DELTA("ZIBM_STATIC134_B4D8667934D54DA6_", "DELTAOR")) AND SYSTEM.PARMA("NODELIST", "IZSME:LZ", 8) AND SYSTEM.PARMA("ORIGINNODE", "IZSME:LZ", 8) AND SYSTEM.PARMA("IGNOREFILTER", "r", 1) AND SYSTEM.PARMA("CURRENTATTR", "Y", 1) AND (ORIGINNODE = "IZSME:LZ") 1`] = `
+{
+  "_queryStr": "SELECT DELTASTAT, RESULTS, ORIGINNODE, LCLTMSTMP FROM O4SRV.TADVISOR AT ( "HUB_WALDEVYSDED101" ) WHERE EVENT(DELTA("ZIBM_STATIC134_B4D8667934D54DA6_", "DELTAOR")) AND SYSTEM.PARMA("NODELIST", "IZSME:LZ", 8) AND SYSTEM.PARMA("ORIGINNODE", "IZSME:LZ", 8) AND SYSTEM.PARMA("IGNOREFILTER", "r", 1) AND SYSTEM.PARMA("CURRENTATTR", "Y", 1) AND (ORIGINNODE = "IZSME:LZ")",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "args": [
+            {
+              "args": [
+                {
+                  "asUserDefinedValue": "ZIBM_STATIC134_B4D8667934D54DA6_",
+                  "nodeType": "value",
+                  "tokens": [
+                    {
+                      "endIdx": 149,
+                      "genericKind": "literal",
+                      "kind": "string_literal",
+                      "problems": [],
+                      "startIdx": 115,
+                      "tokenText": ""ZIBM_STATIC134_B4D8667934D54DA6_"",
+                      "value": "ZIBM_STATIC134_B4D8667934D54DA6_",
+                    },
+                  ],
+                },
+                {
+                  "asUserDefinedValue": "DELTAOR",
+                  "nodeType": "value",
+                  "tokens": [
+                    {
+                      "endIdx": 160,
+                      "genericKind": "literal",
+                      "kind": "string_literal",
+                      "problems": [],
+                      "startIdx": 151,
+                      "tokenText": ""DELTAOR"",
+                      "value": "DELTAOR",
+                    },
+                  ],
+                },
+              ],
+              "closeParenthesis": {
+                "endIdx": 161,
+                "genericKind": "parenthesis",
+                "kind": "close_parenthesis",
+                "problems": [],
+                "startIdx": 160,
+                "tokenText": ")",
+              },
+              "funcIdentifier": {
+                "nodeType": "unqualified_identifier",
+                "token": {
+                  "endIdx": 114,
+                  "genericKind": "identifier",
+                  "kind": "identifier",
+                  "problems": [],
+                  "startIdx": 109,
+                  "tokenText": "DELTA",
+                },
+              },
+              "nodeType": "function_call",
+              "openParenthesis": {
+                "endIdx": 115,
+                "genericKind": "parenthesis",
+                "kind": "open_parenthesis",
+                "problems": [],
+                "startIdx": 114,
+                "tokenText": "(",
+              },
+            },
+          ],
+          "closeParenthesis": {
+            "endIdx": 162,
+            "genericKind": "parenthesis",
+            "kind": "close_parenthesis",
+            "problems": [],
+            "startIdx": 161,
+            "tokenText": ")",
+          },
+          "funcIdentifier": {
+            "nodeType": "unqualified_identifier",
+            "token": {
+              "endIdx": 108,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 103,
+              "tokenText": "EVENT",
+            },
+          },
+          "nodeType": "function_call",
+          "openParenthesis": {
+            "endIdx": 109,
+            "genericKind": "parenthesis",
+            "kind": "open_parenthesis",
+            "problems": [],
+            "startIdx": 108,
+            "tokenText": "(",
+          },
+        },
+      ],
+      "message": "Functions are not supported",
+      "severity": "error",
+    },
+  ],
+  "result": null,
+}
+`;
+
+exports[`SELECT KEY, AFFINITIES, EXPIRYTIME, GBLTMSTMP FROM O4SRV.INODESTS WHERE KEY LIKE 'IC??:RSD1:DB2'; 1`] = `
+{
+  "_queryStr": "SELECT KEY, AFFINITIES, EXPIRYTIME, GBLTMSTMP FROM O4SRV.INODESTS WHERE KEY LIKE 'IC??:RSD1:DB2';",
+  "problems": [],
+  "result": {
+    "affinityId": "%IBM.ITM_INTERNAL",
+    "agentsAndGroups": [],
+    "columns": [
+      {
+        "id": "KEY",
+      },
+      {
+        "id": "AFFINITIES",
+      },
+      {
+        "id": "EXPIRYTIME",
+      },
+      {
+        "id": "GBLTMSTMP",
+      },
+    ],
+    "filter": {
+      "nonAggregated": {
+        "clause": {
+          "columnId": "KEY",
+          "operator": "LIKE",
+          "userDefinedValue": "IC??:RSD1:DB2",
+        },
+      },
+    },
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "INODESTS",
+  },
+}
+`;
+
+exports[`SELECT KEY, NAME, AFFINITIES FROM O4SRV.CCT WHERE EVENT("ZIBM_STATIC134_B4D8667934D54DA6_"); 1`] = `
+{
+  "_queryStr": "SELECT KEY, NAME, AFFINITIES FROM O4SRV.CCT WHERE EVENT("ZIBM_STATIC134_B4D8667934D54DA6_");",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "args": [
+            {
+              "asUserDefinedValue": "ZIBM_STATIC134_B4D8667934D54DA6_",
+              "nodeType": "value",
+              "tokens": [
+                {
+                  "endIdx": 90,
+                  "genericKind": "literal",
+                  "kind": "string_literal",
+                  "problems": [],
+                  "startIdx": 56,
+                  "tokenText": ""ZIBM_STATIC134_B4D8667934D54DA6_"",
+                  "value": "ZIBM_STATIC134_B4D8667934D54DA6_",
+                },
+              ],
+            },
+          ],
+          "closeParenthesis": {
+            "endIdx": 91,
+            "genericKind": "parenthesis",
+            "kind": "close_parenthesis",
+            "problems": [],
+            "startIdx": 90,
+            "tokenText": ")",
+          },
+          "funcIdentifier": {
+            "nodeType": "unqualified_identifier",
+            "token": {
+              "endIdx": 55,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 50,
+              "tokenText": "EVENT",
+            },
+          },
+          "nodeType": "function_call",
+          "openParenthesis": {
+            "endIdx": 56,
+            "genericKind": "parenthesis",
+            "kind": "open_parenthesis",
+            "problems": [],
+            "startIdx": 55,
+            "tokenText": "(",
+          },
+        },
+      ],
+      "message": "Functions are not supported",
+      "severity": "error",
+    },
+  ],
+  "result": null,
+}
+`;
+
+exports[`SELECT NODE, ORIGINNODE, PRODUCT, O4ONLINE, AFFINITIES FROM O4SRV.INODESTS ORDER BY O4ONLINE DESC, PRODUCT; 1`] = `
+{
+  "_queryStr": "SELECT NODE, ORIGINNODE, PRODUCT, O4ONLINE, AFFINITIES FROM O4SRV.INODESTS ORDER BY O4ONLINE DESC, PRODUCT;",
+  "problems": [],
+  "result": {
+    "affinityId": "%IBM.ITM_INTERNAL",
+    "agentsAndGroups": [],
+    "columns": [
+      {
+        "id": "NODE",
+      },
+      {
+        "id": "ORIGINNODE",
+      },
+      {
+        "id": "PRODUCT",
+      },
+      {
+        "id": "O4ONLINE",
+      },
+      {
+        "id": "AFFINITIES",
+      },
+    ],
+    "filter": {},
+    "groupBy": [],
+    "history": false,
+    "orderBy": [
+      {
+        "columnId": "O4ONLINE",
+        "type": "DESC",
+      },
+      {
+        "columnId": "PRODUCT",
+        "type": "ASC",
+      },
+    ],
+    "parmas": [],
+    "tableId": "INODESTS",
+  },
+}
+`;
+
+exports[`SELECT ORIGINNODE THRUNODE FROM O4SRV.INODESTS 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE THRUNODE FROM O4SRV.INODESTS",
+  "problems": [],
+  "result": {
+    "affinityId": "%IBM.ITM_INTERNAL",
+    "agentsAndGroups": [],
+    "columns": [
+      {
+        "id": "ORIGINNODE",
+      },
+    ],
+    "filter": {},
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "INODESTS",
+  },
+}
+`;
+
+exports[`SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' GROUP BY THDXSTAT HAVING MIN(QW0148CR) > 3 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' GROUP BY THDXSTAT HAVING MIN(QW0148CR) > 3",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "filter": {
+            "left": {
+              "args": [
+                {
+                  "nodeType": "unqualified_identifier",
+                  "token": {
+                    "endIdx": 133,
+                    "genericKind": "identifier",
+                    "kind": "identifier",
+                    "problems": [],
+                    "startIdx": 125,
+                    "tokenText": "QW0148CR",
+                  },
+                },
+              ],
+              "closeParenthesis": {
+                "endIdx": 134,
+                "genericKind": "parenthesis",
+                "kind": "close_parenthesis",
+                "problems": [],
+                "startIdx": 133,
+                "tokenText": ")",
+              },
+              "funcIdentifier": {
+                "nodeType": "unqualified_identifier",
+                "token": {
+                  "endIdx": 124,
+                  "genericKind": "identifier",
+                  "kind": "identifier",
+                  "problems": [],
+                  "startIdx": 121,
+                  "tokenText": "MIN",
+                },
+              },
+              "nodeType": "function_call",
+              "openParenthesis": {
+                "endIdx": 125,
+                "genericKind": "parenthesis",
+                "kind": "open_parenthesis",
+                "problems": [],
+                "startIdx": 124,
+                "tokenText": "(",
+              },
+            },
+            "nodeType": "binary",
+            "operator": {
+              "endIdx": 136,
+              "genericKind": "comparison_operator",
+              "kind": "gt_comparison_operator",
+              "problems": [],
+              "startIdx": 135,
+              "tokenText": ">",
+            },
+            "right": {
+              "asUserDefinedValue": 3,
+              "nodeType": "value",
+              "tokens": [
+                {
+                  "endIdx": 138,
+                  "genericKind": "literal",
+                  "kind": "decimal_literal",
+                  "problems": [],
+                  "resolved": true,
+                  "startIdx": 137,
+                  "tokenText": "3",
+                  "value": 3,
+                },
+              ],
+            },
+          },
+          "keyword": {
+            "endIdx": 120,
+            "genericKind": "keyword",
+            "kind": "having_keyword",
+            "problems": [],
+            "startIdx": 114,
+            "tokenText": "HAVING",
+          },
+          "nodeType": "having",
+        },
+      ],
+      "message": "HAVING clause is not supported",
+      "severity": "error",
+    },
+  ],
+  "result": null,
+}
+`;
+
+exports[`SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' GROUP BY THDXSTAT ORDER BY THDXSTAT 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' GROUP BY THDXSTAT ORDER BY THDXSTAT",
+  "problems": [
+    {
+      "affectedTokens": [
+        {
+          "endIdx": 77,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 67,
+          "tokenText": "ORIGINNODE",
+        },
+        {
+          "endIdx": 79,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 78,
+          "tokenText": "=",
+        },
+        {
+          "endIdx": 95,
+          "genericKind": "literal",
+          "kind": "string_literal",
+          "problems": [],
+          "startIdx": 80,
+          "tokenText": "'IC1A:RSD1:DB2'",
+          "value": "IC1A:RSD1:DB2",
+        },
+      ],
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "severity": "informational",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "IC1A:RSD1:DB2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "ORIGINNODE",
+      },
+      {
+        "aggregationFunction": "MIN",
+        "id": "QW0148CR",
+      },
+      {
+        "id": "THDXSTAT",
+      },
+    ],
+    "filter": {
+      "nonAggregated": undefined,
+    },
+    "groupBy": [
+      "THDXSTAT",
+    ],
+    "history": false,
+    "orderBy": [
+      {
+        "columnId": "THDXSTAT",
+        "type": "ASC",
+      },
+    ],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+}
+`;
+
+exports[`SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' GROUP BY THDXSTAT ORDER BY THDXSTAT DESC 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' GROUP BY THDXSTAT ORDER BY THDXSTAT DESC",
+  "problems": [
+    {
+      "affectedTokens": [
+        {
+          "endIdx": 77,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 67,
+          "tokenText": "ORIGINNODE",
+        },
+        {
+          "endIdx": 79,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 78,
+          "tokenText": "=",
+        },
+        {
+          "endIdx": 95,
+          "genericKind": "literal",
+          "kind": "string_literal",
+          "problems": [],
+          "startIdx": 80,
+          "tokenText": "'IC1A:RSD1:DB2'",
+          "value": "IC1A:RSD1:DB2",
+        },
+      ],
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "severity": "informational",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "IC1A:RSD1:DB2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "ORIGINNODE",
+      },
+      {
+        "aggregationFunction": "MIN",
+        "id": "QW0148CR",
+      },
+      {
+        "id": "THDXSTAT",
+      },
+    ],
+    "filter": {
+      "nonAggregated": undefined,
+    },
+    "groupBy": [
+      "THDXSTAT",
+    ],
+    "history": false,
+    "orderBy": [
+      {
+        "columnId": "THDXSTAT",
+        "type": "DESC",
+      },
+    ],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+}
+`;
+
+exports[`SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' GROUP BY THDXSTAT ORDER BY THDXSTAT DESC, QW0148EL ASC 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' GROUP BY THDXSTAT ORDER BY THDXSTAT DESC, QW0148EL ASC",
+  "problems": [
+    {
+      "affectedTokens": [
+        {
+          "endIdx": 77,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 67,
+          "tokenText": "ORIGINNODE",
+        },
+        {
+          "endIdx": 79,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 78,
+          "tokenText": "=",
+        },
+        {
+          "endIdx": 95,
+          "genericKind": "literal",
+          "kind": "string_literal",
+          "problems": [],
+          "startIdx": 80,
+          "tokenText": "'IC1A:RSD1:DB2'",
+          "value": "IC1A:RSD1:DB2",
+        },
+      ],
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "severity": "informational",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "IC1A:RSD1:DB2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "ORIGINNODE",
+      },
+      {
+        "aggregationFunction": "MIN",
+        "id": "QW0148CR",
+      },
+      {
+        "id": "THDXSTAT",
+      },
+    ],
+    "filter": {
+      "nonAggregated": undefined,
+    },
+    "groupBy": [
+      "THDXSTAT",
+    ],
+    "history": false,
+    "orderBy": [
+      {
+        "columnId": "THDXSTAT",
+        "type": "DESC",
+      },
+      {
+        "columnId": "QW0148EL",
+        "type": "ASC",
+      },
+    ],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+}
+`;
+
+exports[`SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' HAVING MIN(THDXSTAT) > 3 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' HAVING MIN(THDXSTAT) > 3",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "filter": {
+            "left": {
+              "args": [
+                {
+                  "nodeType": "unqualified_identifier",
+                  "token": {
+                    "endIdx": 115,
+                    "genericKind": "identifier",
+                    "kind": "identifier",
+                    "problems": [],
+                    "startIdx": 107,
+                    "tokenText": "THDXSTAT",
+                  },
+                },
+              ],
+              "closeParenthesis": {
+                "endIdx": 116,
+                "genericKind": "parenthesis",
+                "kind": "close_parenthesis",
+                "problems": [],
+                "startIdx": 115,
+                "tokenText": ")",
+              },
+              "funcIdentifier": {
+                "nodeType": "unqualified_identifier",
+                "token": {
+                  "endIdx": 106,
+                  "genericKind": "identifier",
+                  "kind": "identifier",
+                  "problems": [],
+                  "startIdx": 103,
+                  "tokenText": "MIN",
+                },
+              },
+              "nodeType": "function_call",
+              "openParenthesis": {
+                "endIdx": 107,
+                "genericKind": "parenthesis",
+                "kind": "open_parenthesis",
+                "problems": [],
+                "startIdx": 106,
+                "tokenText": "(",
+              },
+            },
+            "nodeType": "binary",
+            "operator": {
+              "endIdx": 118,
+              "genericKind": "comparison_operator",
+              "kind": "gt_comparison_operator",
+              "problems": [],
+              "startIdx": 117,
+              "tokenText": ">",
+            },
+            "right": {
+              "asUserDefinedValue": 3,
+              "nodeType": "value",
+              "tokens": [
+                {
+                  "endIdx": 120,
+                  "genericKind": "literal",
+                  "kind": "decimal_literal",
+                  "problems": [],
+                  "resolved": true,
+                  "startIdx": 119,
+                  "tokenText": "3",
+                  "value": 3,
+                },
+              ],
+            },
+          },
+          "keyword": {
+            "endIdx": 102,
+            "genericKind": "keyword",
+            "kind": "having_keyword",
+            "problems": [],
+            "startIdx": 96,
+            "tokenText": "HAVING",
+          },
+          "nodeType": "having",
+        },
+      ],
+      "message": "HAVING clause is not supported",
+      "severity": "error",
+    },
+  ],
+  "result": null,
+}
+`;
+
+exports[`SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' HAVING THDXSTAT > 3 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' HAVING THDXSTAT > 3",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "filter": {
+            "left": {
+              "nodeType": "unqualified_identifier",
+              "token": {
+                "endIdx": 111,
+                "genericKind": "identifier",
+                "kind": "identifier",
+                "problems": [],
+                "startIdx": 103,
+                "tokenText": "THDXSTAT",
+              },
+            },
+            "nodeType": "binary",
+            "operator": {
+              "endIdx": 113,
+              "genericKind": "comparison_operator",
+              "kind": "gt_comparison_operator",
+              "problems": [],
+              "startIdx": 112,
+              "tokenText": ">",
+            },
+            "right": {
+              "asUserDefinedValue": 3,
+              "nodeType": "value",
+              "tokens": [
+                {
+                  "endIdx": 115,
+                  "genericKind": "literal",
+                  "kind": "decimal_literal",
+                  "problems": [],
+                  "resolved": true,
+                  "startIdx": 114,
+                  "tokenText": "3",
+                  "value": 3,
+                },
+              ],
+            },
+          },
+          "keyword": {
+            "endIdx": 102,
+            "genericKind": "keyword",
+            "kind": "having_keyword",
+            "problems": [],
+            "startIdx": 96,
+            "tokenText": "HAVING",
+          },
+          "nodeType": "having",
+        },
+      ],
+      "message": "HAVING clause is not supported",
+      "severity": "error",
+    },
+  ],
+  "result": null,
+}
+`;
+
+exports[`SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT, COUNT(THDXSTAT), SUM(THDXSTAT) FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' GROUP BY THDXSTAT, QW0148CR; 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT, COUNT(THDXSTAT), SUM(THDXSTAT) FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' GROUP BY THDXSTAT, QW0148CR;",
+  "problems": [
+    {
+      "affectedTokens": [
+        {
+          "endIdx": 109,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 99,
+          "tokenText": "ORIGINNODE",
+        },
+        {
+          "endIdx": 111,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 110,
+          "tokenText": "=",
+        },
+        {
+          "endIdx": 127,
+          "genericKind": "literal",
+          "kind": "string_literal",
+          "problems": [],
+          "startIdx": 112,
+          "tokenText": "'IC1A:RSD1:DB2'",
+          "value": "IC1A:RSD1:DB2",
+        },
+      ],
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "severity": "informational",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "IC1A:RSD1:DB2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "ORIGINNODE",
+      },
+      {
+        "aggregationFunction": "MIN",
+        "id": "QW0148CR",
+      },
+      {
+        "id": "THDXSTAT",
+      },
+      {
+        "aggregationFunction": "COUNT",
+        "id": "THDXSTAT",
+      },
+      {
+        "aggregationFunction": "SUM",
+        "id": "THDXSTAT",
+      },
+    ],
+    "filter": {
+      "nonAggregated": undefined,
+    },
+    "groupBy": [
+      "THDXSTAT",
+      "QW0148CR",
+    ],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+}
+`;
+
+exports[`SELECT ORIGINNODE, MVSID FROM KDP.REALTHDA AT('*HUB') WHERE ORIGINNODE = 'IC1A:RSD1:DB2'; 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, MVSID FROM KDP.REALTHDA AT('*HUB') WHERE ORIGINNODE = 'IC1A:RSD1:DB2';",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "items": [
+            {
+              "asUserDefinedValue": "*HUB",
+              "nodeType": "value",
+              "tokens": [
+                {
+                  "endIdx": 52,
+                  "genericKind": "literal",
+                  "kind": "string_literal",
+                  "problems": [],
+                  "startIdx": 46,
+                  "tokenText": "'*HUB'",
+                  "value": "*HUB",
+                },
+              ],
+            },
+          ],
+          "keyword": {
+            "endIdx": 45,
+            "genericKind": "keyword",
+            "kind": "at_keyword",
+            "problems": [],
+            "startIdx": 43,
+            "tokenText": "AT",
+          },
+          "nodeType": "at",
+        },
+      ],
+      "message": "AT clause is generated automatically, any hardcoded AT clause in the formula will be ignored",
+      "severity": "informational",
+    },
+    {
+      "affectedTokens": [
+        {
+          "endIdx": 70,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 60,
+          "tokenText": "ORIGINNODE",
+        },
+        {
+          "endIdx": 72,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 71,
+          "tokenText": "=",
+        },
+        {
+          "endIdx": 88,
+          "genericKind": "literal",
+          "kind": "string_literal",
+          "problems": [],
+          "startIdx": 73,
+          "tokenText": "'IC1A:RSD1:DB2'",
+          "value": "IC1A:RSD1:DB2",
+        },
+      ],
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "severity": "informational",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "IC1A:RSD1:DB2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "ORIGINNODE",
+      },
+      {
+        "id": "MVSID",
+      },
+    ],
+    "filter": {
+      "nonAggregated": undefined,
+    },
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+}
+`;
+
+exports[`SELECT ORIGINNODE, MVSID FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' OR ORIGINNODE = 'ICA4:RSD1:DB2'; 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, MVSID FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' OR ORIGINNODE = 'ICA4:RSD1:DB2';",
+  "problems": [
+    {
+      "affectedTokens": [
+        {
+          "endIdx": 59,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 49,
+          "tokenText": "ORIGINNODE",
+        },
+        {
+          "endIdx": 61,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 60,
+          "tokenText": "=",
+        },
+        {
+          "endIdx": 77,
+          "genericKind": "literal",
+          "kind": "string_literal",
+          "problems": [],
+          "startIdx": 62,
+          "tokenText": "'IC1A:RSD1:DB2'",
+          "value": "IC1A:RSD1:DB2",
+        },
+      ],
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "severity": "informational",
+    },
+    {
+      "affectedTokens": [
+        {
+          "endIdx": 91,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 81,
+          "tokenText": "ORIGINNODE",
+        },
+        {
+          "endIdx": 93,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 92,
+          "tokenText": "=",
+        },
+        {
+          "endIdx": 109,
+          "genericKind": "literal",
+          "kind": "string_literal",
+          "problems": [],
+          "startIdx": 94,
+          "tokenText": "'ICA4:RSD1:DB2'",
+          "value": "ICA4:RSD1:DB2",
+        },
+      ],
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "severity": "informational",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "IC1A:RSD1:DB2",
+      },
+      {
+        "id": "agentOrGroupName",
+        "name": "ICA4:RSD1:DB2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "ORIGINNODE",
+      },
+      {
+        "id": "MVSID",
+      },
+    ],
+    "filter": {
+      "nonAggregated": undefined,
+    },
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+}
+`;
+
+exports[`SELECT ORIGINNODE, MVSID FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2';  1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, MVSID FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2'; ",
+  "problems": [
+    {
+      "affectedTokens": [
+        {
+          "endIdx": 59,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 49,
+          "tokenText": "ORIGINNODE",
+        },
+        {
+          "endIdx": 61,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 60,
+          "tokenText": "=",
+        },
+        {
+          "endIdx": 77,
+          "genericKind": "literal",
+          "kind": "string_literal",
+          "problems": [],
+          "startIdx": 62,
+          "tokenText": "'IC1A:RSD1:DB2'",
+          "value": "IC1A:RSD1:DB2",
+        },
+      ],
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "severity": "informational",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "IC1A:RSD1:DB2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "ORIGINNODE",
+      },
+      {
+        "id": "MVSID",
+      },
+    ],
+    "filter": {
+      "nonAggregated": undefined,
+    },
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+}
+`;
+
+exports[`SELECT ORIGINNODE, THDXSTAT, COUNT(THDXSTAT), SUM(THDXSTAT) FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' GROUP BY THDXSTAT; 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, THDXSTAT, COUNT(THDXSTAT), SUM(THDXSTAT) FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' GROUP BY THDXSTAT;",
+  "problems": [
+    {
+      "affectedTokens": [
+        {
+          "endIdx": 94,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 84,
+          "tokenText": "ORIGINNODE",
+        },
+        {
+          "endIdx": 96,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 95,
+          "tokenText": "=",
+        },
+        {
+          "endIdx": 112,
+          "genericKind": "literal",
+          "kind": "string_literal",
+          "problems": [],
+          "startIdx": 97,
+          "tokenText": "'IC1A:RSD1:DB2'",
+          "value": "IC1A:RSD1:DB2",
+        },
+      ],
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "severity": "informational",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "IC1A:RSD1:DB2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "ORIGINNODE",
+      },
+      {
+        "id": "THDXSTAT",
+      },
+      {
+        "aggregationFunction": "COUNT",
+        "id": "THDXSTAT",
+      },
+      {
+        "aggregationFunction": "SUM",
+        "id": "THDXSTAT",
+      },
+    ],
+    "filter": {
+      "nonAggregated": undefined,
+    },
+    "groupBy": [
+      "THDXSTAT",
+    ],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+}
+`;
+
+exports[`SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND (TDIDASID + 1) > 0; 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND (TDIDASID + 1) > 0;",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "left": {
+            "nodeType": "unqualified_identifier",
+            "token": {
+              "endIdx": 140,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 132,
+              "tokenText": "TDIDASID",
+            },
+          },
+          "nodeType": "binary",
+          "operator": {
+            "endIdx": 142,
+            "genericKind": "arithmetic_operator",
+            "kind": "add_arithmetic_operator",
+            "problems": [],
+            "startIdx": 141,
+            "tokenText": "+",
+          },
+          "right": {
+            "asUserDefinedValue": 1,
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 144,
+                "genericKind": "literal",
+                "kind": "decimal_literal",
+                "problems": [],
+                "resolved": true,
+                "startIdx": 143,
+                "tokenText": "1",
+                "value": 1,
+              },
+            ],
+          },
+        },
+      ],
+      "message": "Identifier is expected",
+      "severity": "error",
+    },
+  ],
+  "result": null,
+}
+`;
+
+exports[`SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND (TDIDASID > 160 OR THDXGETP > 0); 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND (TDIDASID > 160 OR THDXGETP > 0);",
+  "problems": [
+    {
+      "affectedTokens": [
+        {
+          "endIdx": 108,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 98,
+          "tokenText": "ORIGINNODE",
+        },
+        {
+          "endIdx": 110,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 109,
+          "tokenText": "=",
+        },
+        {
+          "endIdx": 126,
+          "genericKind": "literal",
+          "kind": "string_literal",
+          "problems": [],
+          "startIdx": 111,
+          "tokenText": "'IC1A:RSD1:DB2'",
+          "value": "IC1A:RSD1:DB2",
+        },
+      ],
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "severity": "informational",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "IC1A:RSD1:DB2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "ORIGINNODE",
+      },
+      {
+        "id": "TIMESTAMP",
+      },
+      {
+        "id": "MVSID",
+      },
+      {
+        "id": "SSID",
+      },
+      {
+        "id": "TDIDASID",
+      },
+      {
+        "id": "THWTTOTW",
+      },
+      {
+        "id": "THDXGETP64",
+      },
+    ],
+    "filter": {
+      "nonAggregated": {
+        "or": [
+          {
+            "clause": {
+              "columnId": "TDIDASID",
+              "operator": ">",
+              "userDefinedValue": "160",
+            },
+          },
+          {
+            "clause": {
+              "columnId": "THDXGETP",
+              "operator": ">",
+              "userDefinedValue": "0",
+            },
+          },
+        ],
+      },
+    },
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+}
+`;
+
+exports[`SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND (THDXGETP * 2) >= (TDIDASID /2) + 2; 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND (THDXGETP * 2) >= (TDIDASID /2) + 2;",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "left": {
+            "nodeType": "unqualified_identifier",
+            "token": {
+              "endIdx": 140,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 132,
+              "tokenText": "THDXGETP",
+            },
+          },
+          "nodeType": "binary",
+          "operator": {
+            "endIdx": 142,
+            "genericKind": "arithmetic_operator",
+            "kind": "mul_arithmetic_operator",
+            "problems": [],
+            "startIdx": 141,
+            "tokenText": "*",
+          },
+          "right": {
+            "asUserDefinedValue": 2,
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 144,
+                "genericKind": "literal",
+                "kind": "decimal_literal",
+                "problems": [],
+                "resolved": true,
+                "startIdx": 143,
+                "tokenText": "2",
+                "value": 2,
+              },
+            ],
+          },
+        },
+      ],
+      "message": "Identifier is expected",
+      "severity": "error",
+    },
+  ],
+  "result": null,
+}
+`;
+
+exports[`SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND 0 <= TDIDASID; 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND 0 <= TDIDASID;",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "asUserDefinedValue": 0,
+          "nodeType": "value",
+          "tokens": [
+            {
+              "endIdx": 132,
+              "genericKind": "literal",
+              "kind": "decimal_literal",
+              "problems": [],
+              "resolved": true,
+              "startIdx": 131,
+              "tokenText": "0",
+              "value": 0,
+            },
+          ],
+        },
+      ],
+      "message": "Identifier is expected",
+      "severity": "error",
+    },
+  ],
+  "result": null,
+}
+`;
+
+exports[`SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND SYSTEM.PARMA('IGNOREFILTER', 'r', 1); 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND SYSTEM.PARMA('IGNOREFILTER', 'r', 1);",
+  "problems": [
+    {
+      "affectedTokens": [
+        {
+          "endIdx": 108,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 98,
+          "tokenText": "ORIGINNODE",
+        },
+        {
+          "endIdx": 110,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 109,
+          "tokenText": "=",
+        },
+        {
+          "endIdx": 126,
+          "genericKind": "literal",
+          "kind": "string_literal",
+          "problems": [],
+          "startIdx": 111,
+          "tokenText": "'IC1A:RSD1:DB2'",
+          "value": "IC1A:RSD1:DB2",
+        },
+      ],
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "severity": "informational",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "IC1A:RSD1:DB2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "ORIGINNODE",
+      },
+      {
+        "id": "TIMESTAMP",
+      },
+      {
+        "id": "MVSID",
+      },
+      {
+        "id": "SSID",
+      },
+      {
+        "id": "TDIDASID",
+      },
+      {
+        "id": "THWTTOTW",
+      },
+      {
+        "id": "THDXGETP64",
+      },
+    ],
+    "filter": {
+      "nonAggregated": undefined,
+    },
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [
+      {
+        "length": 1,
+        "name": "IGNOREFILTER",
+        "value": "r",
+      },
+    ],
+    "tableId": "REALTHDA",
+  },
+}
+`;
+
+exports[`SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND TDIDASID >= 0; 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND TDIDASID >= 0;",
+  "problems": [
+    {
+      "affectedTokens": [
+        {
+          "endIdx": 108,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 98,
+          "tokenText": "ORIGINNODE",
+        },
+        {
+          "endIdx": 110,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 109,
+          "tokenText": "=",
+        },
+        {
+          "endIdx": 126,
+          "genericKind": "literal",
+          "kind": "string_literal",
+          "problems": [],
+          "startIdx": 111,
+          "tokenText": "'IC1A:RSD1:DB2'",
+          "value": "IC1A:RSD1:DB2",
+        },
+      ],
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "severity": "informational",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "IC1A:RSD1:DB2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "ORIGINNODE",
+      },
+      {
+        "id": "TIMESTAMP",
+      },
+      {
+        "id": "MVSID",
+      },
+      {
+        "id": "SSID",
+      },
+      {
+        "id": "TDIDASID",
+      },
+      {
+        "id": "THWTTOTW",
+      },
+      {
+        "id": "THDXGETP64",
+      },
+    ],
+    "filter": {
+      "nonAggregated": {
+        "clause": {
+          "columnId": "TDIDASID",
+          "operator": ">=",
+          "userDefinedValue": "0",
+        },
+      },
+    },
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+}
+`;
+
+exports[`SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND TDIDASID >= TDIDASID * 2 / 3; 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND TDIDASID >= TDIDASID * 2 / 3;",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "left": {
+            "left": {
+              "nodeType": "unqualified_identifier",
+              "token": {
+                "endIdx": 151,
+                "genericKind": "identifier",
+                "kind": "identifier",
+                "problems": [],
+                "startIdx": 143,
+                "tokenText": "TDIDASID",
+              },
+            },
+            "nodeType": "binary",
+            "operator": {
+              "endIdx": 153,
+              "genericKind": "arithmetic_operator",
+              "kind": "mul_arithmetic_operator",
+              "problems": [],
+              "startIdx": 152,
+              "tokenText": "*",
+            },
+            "right": {
+              "asUserDefinedValue": 2,
+              "nodeType": "value",
+              "tokens": [
+                {
+                  "endIdx": 155,
+                  "genericKind": "literal",
+                  "kind": "decimal_literal",
+                  "problems": [],
+                  "resolved": true,
+                  "startIdx": 154,
+                  "tokenText": "2",
+                  "value": 2,
+                },
+              ],
+            },
+          },
+          "nodeType": "binary",
+          "operator": {
+            "endIdx": 157,
+            "genericKind": "arithmetic_operator",
+            "kind": "div_arithmetic_operator",
+            "problems": [],
+            "startIdx": 156,
+            "tokenText": "/",
+          },
+          "right": {
+            "asUserDefinedValue": 3,
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 159,
+                "genericKind": "literal",
+                "kind": "decimal_literal",
+                "problems": [],
+                "resolved": true,
+                "startIdx": 158,
+                "tokenText": "3",
+                "value": 3,
+              },
+            ],
+          },
+        },
+      ],
+      "message": "Literal or variable is expected",
+      "severity": "error",
+    },
+  ],
+  "result": null,
+}
+`;
+
+exports[`SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND THDXGETP <= (TDIDASID + THDXGETP); 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND THDXGETP <= (TDIDASID + THDXGETP);",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "left": {
+            "nodeType": "unqualified_identifier",
+            "token": {
+              "endIdx": 152,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 144,
+              "tokenText": "TDIDASID",
+            },
+          },
+          "nodeType": "binary",
+          "operator": {
+            "endIdx": 154,
+            "genericKind": "arithmetic_operator",
+            "kind": "add_arithmetic_operator",
+            "problems": [],
+            "startIdx": 153,
+            "tokenText": "+",
+          },
+          "right": {
+            "nodeType": "unqualified_identifier",
+            "token": {
+              "endIdx": 163,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 155,
+              "tokenText": "THDXGETP",
+            },
+          },
+        },
+      ],
+      "message": "Literal or variable is expected",
+      "severity": "error",
+    },
+  ],
+  "result": null,
+}
+`;
+
+exports[`SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND THDXGETP <> 0; 1`] = `
+{
+  "_queryStr": "SELECT ORIGINNODE, TIMESTAMP, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND THDXGETP <> 0;",
+  "problems": [
+    {
+      "affectedTokens": [
+        {
+          "endIdx": 108,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 98,
+          "tokenText": "ORIGINNODE",
+        },
+        {
+          "endIdx": 110,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 109,
+          "tokenText": "=",
+        },
+        {
+          "endIdx": 126,
+          "genericKind": "literal",
+          "kind": "string_literal",
+          "problems": [],
+          "startIdx": 111,
+          "tokenText": "'IC1A:RSD1:DB2'",
+          "value": "IC1A:RSD1:DB2",
+        },
+      ],
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "severity": "informational",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "IC1A:RSD1:DB2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "ORIGINNODE",
+      },
+      {
+        "id": "TIMESTAMP",
+      },
+      {
+        "id": "MVSID",
+      },
+      {
+        "id": "SSID",
+      },
+      {
+        "id": "TDIDASID",
+      },
+      {
+        "id": "THWTTOTW",
+      },
+      {
+        "id": "THDXGETP64",
+      },
+    ],
+    "filter": {
+      "nonAggregated": {
+        "clause": {
+          "columnId": "THDXGETP",
+          "operator": "<>",
+          "userDefinedValue": "0",
+        },
+      },
+    },
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+}
+`;
+
+exports[`SELECT WRITETIME, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA AT('SOME_NODE') HISTORY() WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND WRITETIME > 23423423; 1`] = `
+{
+  "_queryStr": "SELECT WRITETIME, MVSID, SSID, TDIDASID, THWTTOTW, THDXGETP64 FROM KDP.REALTHDA AT('SOME_NODE') HISTORY() WHERE ORIGINNODE = 'IC1A:RSD1:DB2' AND WRITETIME > 23423423;",
+  "problems": [
+    {
+      "affectedAstNodes": [
+        {
+          "left": {
+            "nodeType": "unqualified_identifier",
+            "token": {
+              "endIdx": 154,
+              "genericKind": "identifier",
+              "kind": "identifier",
+              "problems": [],
+              "startIdx": 145,
+              "tokenText": "WRITETIME",
+            },
+          },
+          "nodeType": "binary",
+          "operator": {
+            "endIdx": 156,
+            "genericKind": "comparison_operator",
+            "kind": "gt_comparison_operator",
+            "problems": [],
+            "startIdx": 155,
+            "tokenText": ">",
+          },
+          "right": {
+            "asUserDefinedValue": 23423423,
+            "nodeType": "value",
+            "tokens": [
+              {
+                "endIdx": 165,
+                "genericKind": "literal",
+                "kind": "decimal_literal",
+                "problems": [],
+                "resolved": true,
+                "startIdx": 157,
+                "tokenText": "23423423",
+                "value": 23423423,
+              },
+            ],
+          },
+        },
+      ],
+      "message": "Grafana time range selector should be used to define time range. WRITETIME filters will be ignored",
+      "severity": "informational",
+    },
+    {
+      "affectedAstNodes": [
+        {
+          "items": [
+            {
+              "asUserDefinedValue": "SOME_NODE",
+              "nodeType": "value",
+              "tokens": [
+                {
+                  "endIdx": 94,
+                  "genericKind": "literal",
+                  "kind": "string_literal",
+                  "problems": [],
+                  "startIdx": 83,
+                  "tokenText": "'SOME_NODE'",
+                  "value": "SOME_NODE",
+                },
+              ],
+            },
+          ],
+          "keyword": {
+            "endIdx": 82,
+            "genericKind": "keyword",
+            "kind": "at_keyword",
+            "problems": [],
+            "startIdx": 80,
+            "tokenText": "AT",
+          },
+          "nodeType": "at",
+        },
+      ],
+      "message": "AT clause is generated automatically, any hardcoded AT clause in the formula will be ignored",
+      "severity": "informational",
+    },
+    {
+      "affectedTokens": [
+        {
+          "endIdx": 122,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 112,
+          "tokenText": "ORIGINNODE",
+        },
+        {
+          "endIdx": 124,
+          "genericKind": "comparison_operator",
+          "kind": "eq_comparison_operator",
+          "problems": [],
+          "startIdx": 123,
+          "tokenText": "=",
+        },
+        {
+          "endIdx": 140,
+          "genericKind": "literal",
+          "kind": "string_literal",
+          "problems": [],
+          "startIdx": 125,
+          "tokenText": "'IC1A:RSD1:DB2'",
+          "value": "IC1A:RSD1:DB2",
+        },
+      ],
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "severity": "informational",
+    },
+  ],
+  "result": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "IC1A:RSD1:DB2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "WRITETIME",
+      },
+      {
+        "id": "MVSID",
+      },
+      {
+        "id": "SSID",
+      },
+      {
+        "id": "TDIDASID",
+      },
+      {
+        "id": "THWTTOTW",
+      },
+      {
+        "id": "THDXGETP64",
+      },
+    ],
+    "filter": {
+      "nonAggregated": undefined,
+    },
+    "groupBy": [],
+    "history": true,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+}
+`;
+
+exports[`SElECT JCPUTM FROM KM5.ASCPUUTIL WHERE JCPUTM < 100 1`] = `
+{
+  "_queryStr": "SElECT JCPUTM FROM KM5.ASCPUUTIL WHERE JCPUTM < 100",
+  "problems": [],
+  "result": {
+    "affinityId": "%IBM.STATIC007",
+    "agentsAndGroups": [],
+    "columns": [
+      {
+        "id": "JCPUTM",
+      },
+    ],
+    "filter": {
+      "nonAggregated": {
+        "clause": {
+          "columnId": "JCPUTM",
+          "operator": "<",
+          "userDefinedValue": "1.00",
+        },
+      },
+    },
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "ASCPUUTIL",
+  },
+}
+`;
+
+exports[`SElECT JPROGRESS FROM KM5.ASCPUUTIL WHERE JPROGRESS = 0 1`] = `
+{
+  "_queryStr": "SElECT JPROGRESS FROM KM5.ASCPUUTIL WHERE JPROGRESS = 0",
+  "problems": [],
+  "result": {
+    "affinityId": "%IBM.STATIC007",
+    "agentsAndGroups": [],
+    "columns": [
+      {
+        "id": "JPROGRESS",
+      },
+    ],
+    "filter": {
+      "nonAggregated": {
+        "clause": {
+          "columnId": "JPROGRESS",
+          "operator": "=",
+          "userDefinedValue": "Yes",
+        },
+      },
+    },
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "ASCPUUTIL",
+  },
+}
+`;

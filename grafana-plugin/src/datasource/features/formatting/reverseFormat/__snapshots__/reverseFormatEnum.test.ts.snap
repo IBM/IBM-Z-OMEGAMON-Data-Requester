@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reverseFormatEnum raw key = "-123" 1`] = `-123`;
+
+exports[`reverseFormatEnum raw key = "0" 1`] = `0`;
+
+exports[`reverseFormatEnum raw key = "00234" 1`] = `234`;
+
+exports[`reverseFormatEnum raw key = "0X0000" 1`] = `0`;
+
+exports[`reverseFormatEnum raw key = "0X0A" 1`] = `10`;
+
+exports[`reverseFormatEnum raw key = "0xFFFF" 1`] = `65535`;

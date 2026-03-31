@@ -1,0 +1,55 @@
+{
+  "name": "public-common",
+  "private": true,
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "verify": "pnpm prettier && pnpm lint && pnpm typecheck && pnpm test:ci",
+    "test": "jest --watch --onlyChanged",
+    "test:silent": "jest --watch --onlyChanged --silent",
+    "test:ci": "jest --passWithNoTests --maxWorkers 4 --silent",
+    "typecheck": "tsc --noEmit",
+    "prettier": "prettier --check ./",
+    "prettier:fix": "prettier --write ./",
+    "lint": "eslint --cache --max-warnings=0 --report-unused-disable-directives --ignore-path ./.gitignore --ext .js,.jsx,.ts,.tsx .",
+    "lint:fix": "pnpm run lint --fix"
+  },
+  "author": "Rocket software",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "devDependencies": {
+    "@swc/core": "catalog:",
+    "@swc/helpers": "catalog:",
+    "@swc/jest": "catalog:",
+    "@types/glob": "catalog:",
+    "@types/jest": "catalog:",
+    "@types/lodash": "catalog:",
+    "@types/node": "catalog:",
+    "@typescript-eslint/eslint-plugin": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "eslint": "catalog:",
+    "eslint-config-prettier": "catalog:",
+    "eslint-import-resolver-typescript": "catalog:",
+    "eslint-plugin-deprecation": "catalog:",
+    "eslint-plugin-import": "catalog:",
+    "eslint-plugin-jsdoc": "catalog:",
+    "eslint-plugin-prettier": "catalog:",
+    "jest": "catalog:",
+    "jest-environment-jsdom": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
+    "ts-node": "catalog:",
+    "devtools-configs": "workspace:*"
+  },
+  "peerDependencies": {
+    "rxjs": "catalog:"
+  },
+  "resolutions": {
+    "rxjs": "catalog:"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "packageManager": "pnpm@9.15.4"
+}

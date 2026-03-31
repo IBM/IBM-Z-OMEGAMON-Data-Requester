@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns null if there is no select keyword match 1`] = `
+[
+  {
+    "message": "Unexpected token(s) found",
+    "problemTokens": [
+      {
+        "endIdx": 5,
+        "genericKind": "identifier",
+        "kind": "identifier",
+        "problems": [],
+        "startIdx": 0,
+        "tokenText": "ELECT",
+      },
+      {
+        "endIdx": 16,
+        "genericKind": "identifier",
+        "kind": "identifier",
+        "problems": [],
+        "startIdx": 6,
+        "tokenText": "ORIGINNODE",
+      },
+      {
+        "endIdx": 17,
+        "genericKind": "separator",
+        "kind": "comma_separator",
+        "problems": [],
+        "startIdx": 16,
+        "tokenText": ",",
+      },
+      {
+        "endIdx": 26,
+        "genericKind": "identifier",
+        "kind": "identifier",
+        "problems": [],
+        "startIdx": 18,
+        "tokenText": "THRUNODE",
+      },
+    ],
+    "severity": "error",
+  },
+  {
+    "message": "Both SELECT and FROM clauses are mandatory",
+    "problemTokens": [
+      {
+        "endIdx": 5,
+        "genericKind": "identifier",
+        "kind": "identifier",
+        "problems": [],
+        "startIdx": 0,
+        "tokenText": "ELECT",
+      },
+      {
+        "endIdx": 16,
+        "genericKind": "identifier",
+        "kind": "identifier",
+        "problems": [],
+        "startIdx": 6,
+        "tokenText": "ORIGINNODE",
+      },
+      {
+        "endIdx": 17,
+        "genericKind": "separator",
+        "kind": "comma_separator",
+        "problems": [],
+        "startIdx": 16,
+        "tokenText": ",",
+      },
+      {
+        "endIdx": 26,
+        "genericKind": "identifier",
+        "kind": "identifier",
+        "problems": [],
+        "startIdx": 18,
+        "tokenText": "THRUNODE",
+      },
+      {
+        "endIdx": 31,
+        "genericKind": "keyword",
+        "kind": "from_keyword",
+        "problems": [],
+        "startIdx": 27,
+        "tokenText": "FROM",
+      },
+      {
+        "endIdx": 37,
+        "genericKind": "identifier",
+        "kind": "identifier",
+        "problems": [],
+        "startIdx": 32,
+        "tokenText": "O4SRV",
+      },
+    ],
+    "severity": "error",
+  },
+]
+`;
+
+exports[`returns partial match if comma is missed 1`] = `
+{
+  "_cmsSql": "SELECT ORIGINNODE THRUNODE FROM O4SRV",
+  "problems": [
+    {
+      "message": "Unexpected token(s) found",
+      "problemTokens": [
+        {
+          "endIdx": 26,
+          "genericKind": "identifier",
+          "kind": "identifier",
+          "problems": [],
+          "startIdx": 18,
+          "tokenText": "THRUNODE",
+        },
+      ],
+      "severity": "error",
+    },
+  ],
+  "statement": {
+    "at": null,
+    "from": {
+      "keyword": {
+        "endIdx": 31,
+        "genericKind": "keyword",
+        "kind": "from_keyword",
+        "problems": [],
+        "startIdx": 27,
+        "tokenText": "FROM",
+      },
+      "nodeType": "from",
+      "tables": [
+        {
+          "nodeType": "unqualified_identifier",
+          "token": {
+            "endIdx": 37,
+            "genericKind": "identifier",
+            "kind": "identifier",
+            "problems": [],
+            "startIdx": 32,
+            "tokenText": "O4SRV",
+          },
+        },
+      ],
+    },
+    "groupBy": null,
+    "having": null,
+    "history": null,
+    "nodeType": "select_statement",
+    "orderBy": null,
+    "select": {
+      "items": [
+        {
+          "nodeType": "unqualified_identifier",
+          "token": {
+            "endIdx": 17,
+            "genericKind": "identifier",
+            "kind": "identifier",
+            "problems": [],
+            "startIdx": 7,
+            "tokenText": "ORIGINNODE",
+          },
+        },
+      ],
+      "keyword": {
+        "endIdx": 6,
+        "genericKind": "keyword",
+        "kind": "select_keyword",
+        "problems": [],
+        "startIdx": 0,
+        "tokenText": "SELECT",
+      },
+      "nodeType": "select",
+    },
+    "where": null,
+  },
+}
+`;

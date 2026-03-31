@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`formatItmTimestamp "   1230608054618110  " 1`] = `2023-06-08T05:46:18.110Z`;
+
+exports[`formatItmTimestamp "0230608055952216" 1`] = `1923-06-08T05:59:52.216Z`;
+
+exports[`formatItmTimestamp "1230603095232971" 1`] = `2023-06-03T09:52:32.971Z`;
+
+exports[`formatItmTimestamp "1230608044722131" 1`] = `2023-06-08T04:47:22.131Z`;
+
+exports[`formatItmTimestamp "1230608044722133" 1`] = `2023-06-08T04:47:22.133Z`;
+
+exports[`formatItmTimestamp "1230608044722135" 1`] = `2023-06-08T04:47:22.135Z`;
+
+exports[`formatItmTimestamp "1230608044722196" 1`] = `2023-06-08T04:47:22.196Z`;
+
+exports[`formatItmTimestamp "1230608055952216" 1`] = `2023-06-08T05:59:52.216Z`;
+
+exports[`formatItmTimestamp "2230608054618110" 1`] = `2123-06-08T05:46:18.110Z`;

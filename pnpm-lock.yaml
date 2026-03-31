@@ -1,0 +1,12 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+overrides:
+  rxjs: 7.8.1
+
+importers:
+
+  .: {}

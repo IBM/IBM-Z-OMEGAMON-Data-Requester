@@ -1,0 +1,58 @@
+import { Originnode, AffinityId, Agent } from 'public-domain';
+
+export const mockedAgents: Agent[] = [
+  {
+    productCode: 'DP',
+    originnode: 'IB1A:RSD1:DB2' as Originnode,
+    versionString: '05.50.00',
+    version: 3,
+    isOnline: true,
+    managingTems: 'test' as Originnode,
+    affinityEntity: { displayText: '', id: '' as AffinityId, productCode: '', symbol: '' },
+  },
+  {
+    productCode: 'DP',
+    originnode: 'IB1D:RSD4:DB2' as Originnode,
+    versionString: '05.50.00',
+    version: 3,
+    isOnline: false,
+    managingTems: 'test' as Originnode,
+    affinityEntity: { displayText: '', id: '' as AffinityId, productCode: '', symbol: '' },
+  },
+  {
+    productCode: 'DP',
+    originnode: 'IC1A:RSD1:DB2' as Originnode,
+    versionString: '05.50.00',
+    version: 3,
+    isOnline: true,
+    managingTems: 'test' as Originnode,
+    affinityEntity: { displayText: '', id: '' as AffinityId, productCode: '', symbol: '' },
+  },
+  {
+    productCode: 'DP',
+    originnode: 'ICA4:RSD1:DB2' as Originnode,
+    versionString: '05.50.00',
+    version: 3,
+    isOnline: true,
+    managingTems: 'test' as Originnode,
+    affinityEntity: { displayText: '', id: '' as AffinityId, productCode: '', symbol: '' },
+  },
+  {
+    productCode: 'CP',
+    originnode: 'XXX1:RSD1:CICS' as Originnode,
+    versionString: '05.50.00',
+    version: 3,
+    isOnline: false,
+    managingTems: 'test' as Originnode,
+    affinityEntity: { displayText: '', id: '' as AffinityId, productCode: '', symbol: '' },
+  },
+  {
+    productCode: 'CP',
+    originnode: 'XXX2:RSD2:CICS' as Originnode,
+    versionString: '05.50.00',
+    version: 3,
+    isOnline: true,
+    managingTems: 'test' as Originnode,
+    affinityEntity: { displayText: '', id: '' as AffinityId, productCode: '', symbol: '' },
+  },
+];

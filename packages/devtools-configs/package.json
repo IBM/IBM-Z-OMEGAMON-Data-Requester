@@ -1,0 +1,15 @@
+{
+  "name": "devtools-configs",
+  "private": true,
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {},
+  "author": "Rocket software",
+  "license": "Apache-2.0",
+  "type": "commonjs",
+  "devDependencies": {},
+  "engines": {
+    "node": ">=16"
+  },
+  "packageManager": "pnpm@9.15.4"
+}

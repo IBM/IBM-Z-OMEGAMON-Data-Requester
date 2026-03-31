@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getVariations should return all possible strings variations for template with multiple variables 1`] = `
+[
+  "fooRMFGATbarUSSDSYSbazXCFAS",
+  "fooRMFGATbarUSSDSYSbazWLM",
+  "fooRMFGATbarUSSDSYSbazRMFGAT",
+  "fooRMFGATbarIMSRGNSbazXCFAS",
+  "fooRMFGATbarIMSRGNSbazWLM",
+  "fooRMFGATbarIMSRGNSbazRMFGAT",
+  "fooRMFGATbarSYSSTCbazXCFAS",
+  "fooRMFGATbarSYSSTCbazWLM",
+  "fooRMFGATbarSYSSTCbazRMFGAT",
+]
+`;
+
+exports[`getVariations should return all possible values for the variable when unspecified "All" is selected 1`] = `
+[
+  "OBC1",
+  "OBC2",
+]
+`;
+
+exports[`getVariations should return single value for variable that is multi-value and has single value selected 1`] = `
+[
+  "RS25",
+]
+`;
+
+exports[`getVariations should return single value for variable that is non-multivalue 1`] = `
+[
+  "RSPLUI01:RS25:MVSSYS",
+]
+`;
+
+exports[`getVariations should return the provided custom "All" value when it is specified 1`] = `
+[
+  "OCA5",
+]
+`;
+
+exports[`getVariations should return the received string unchanged when the string does not contain a variable 1`] = `
+[
+  "JOBNAME",
+]
+`;

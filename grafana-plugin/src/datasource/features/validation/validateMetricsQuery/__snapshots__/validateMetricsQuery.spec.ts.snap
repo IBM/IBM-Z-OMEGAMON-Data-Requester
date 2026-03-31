@@ -1,0 +1,585 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Validate GROUP BY 1`] = `
+{
+  "problems": [
+    {
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "position": {
+        "endColumn": 47,
+        "endLine": 7,
+        "globalEnd": 195,
+        "globalStart": 156,
+        "startColumn": 8,
+        "startLine": 7,
+      },
+      "severity": "informational",
+      "stage": "converter",
+    },
+    {
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "position": {
+        "endColumn": 36,
+        "endLine": 8,
+        "globalEnd": 235,
+        "globalStart": 207,
+        "startColumn": 8,
+        "startLine": 8,
+      },
+      "severity": "informational",
+      "stage": "converter",
+    },
+    {
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "position": {
+        "endColumn": 43,
+        "endLine": 9,
+        "globalEnd": 282,
+        "globalStart": 247,
+        "startColumn": 8,
+        "startLine": 9,
+      },
+      "severity": "informational",
+      "stage": "converter",
+    },
+    {
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "position": {
+        "endColumn": 33,
+        "endLine": 10,
+        "globalEnd": 319,
+        "globalStart": 294,
+        "startColumn": 8,
+        "startLine": 10,
+      },
+      "severity": "informational",
+      "stage": "converter",
+    },
+    {
+      "message": "Column "TIMESTAMP" is in SELECT without aggregation function and is not in GROUP BY",
+      "position": {
+        "endColumn": 17,
+        "endLine": 2,
+        "globalEnd": 31,
+        "globalStart": 22,
+        "startColumn": 8,
+        "startLine": 2,
+      },
+      "severity": "error",
+      "stage": "validator",
+    },
+    {
+      "message": "Column "MVSID" is in SELECT without aggregation function and is not in GROUP BY",
+      "position": {
+        "endColumn": 24,
+        "endLine": 2,
+        "globalEnd": 38,
+        "globalStart": 33,
+        "startColumn": 19,
+        "startLine": 2,
+      },
+      "severity": "error",
+      "stage": "validator",
+    },
+    {
+      "message": "Column "SSID" is in SELECT without aggregation function and is not in GROUP BY",
+      "position": {
+        "endColumn": 30,
+        "endLine": 2,
+        "globalEnd": 44,
+        "globalStart": 40,
+        "startColumn": 26,
+        "startLine": 2,
+      },
+      "severity": "error",
+      "stage": "validator",
+    },
+    {
+      "message": "Column "ENCLCPUT" is in SELECT without aggregation function and is not in GROUP BY",
+      "position": {
+        "endColumn": 40,
+        "endLine": 2,
+        "globalEnd": 54,
+        "globalStart": 46,
+        "startColumn": 32,
+        "startLine": 2,
+      },
+      "severity": "error",
+      "stage": "validator",
+    },
+    {
+      "message": "Column "ENCLPER_P_" is in SELECT without aggregation function and is not in GROUP BY",
+      "position": {
+        "endColumn": 52,
+        "endLine": 2,
+        "globalEnd": 66,
+        "globalStart": 56,
+        "startColumn": 42,
+        "startLine": 2,
+      },
+      "severity": "error",
+      "stage": "validator",
+    },
+    {
+      "message": "Column "ENCLPIDX" is in SELECT without aggregation function and is not in GROUP BY",
+      "position": {
+        "endColumn": 62,
+        "endLine": 2,
+        "globalEnd": 76,
+        "globalStart": 68,
+        "startColumn": 54,
+        "startLine": 2,
+      },
+      "severity": "error",
+      "stage": "validator",
+    },
+    {
+      "message": "Column "WRITETIME" is in SELECT without aggregation function and is not in GROUP BY",
+      "position": {
+        "endColumn": 73,
+        "endLine": 2,
+        "globalEnd": 87,
+        "globalStart": 78,
+        "startColumn": 64,
+        "startLine": 2,
+      },
+      "severity": "error",
+      "stage": "validator",
+    },
+    {
+      "message": "GROUP BY clause is present but no aggregation functions are found in SELECT clause",
+      "position": {
+        "endColumn": 73,
+        "endLine": 2,
+        "globalEnd": 87,
+        "globalStart": 7,
+        "startColumn": 6,
+        "startLine": 1,
+      },
+      "severity": "error",
+      "stage": "validator",
+    },
+    {
+      "message": "Attribute "BLABLA" in attribute group "KDP.REALTHDA" isn't supported by any existing agents and cannot be used in GROUP BY clause.",
+      "position": {
+        "endColumn": 14,
+        "endLine": 12,
+        "globalEnd": 349,
+        "globalStart": 343,
+        "startColumn": 8,
+        "startLine": 12,
+      },
+      "severity": "error",
+      "stage": "validator",
+    },
+  ],
+  "queryObject": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "DB2plex:DB2plex:Plexview",
+      },
+      {
+        "id": "agentOrGroupName",
+        "name": "ICB4:RSD2:DB2",
+      },
+      {
+        "id": "agentOrGroupName",
+        "name": "IDS4:DB2plex:DSGROUP",
+      },
+      {
+        "id": "agentOrGroupName",
+        "name": "XEDB2:RSD2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "TIMESTAMP",
+      },
+      {
+        "id": "MVSID",
+      },
+      {
+        "id": "SSID",
+      },
+      {
+        "id": "ENCLCPUT",
+      },
+      {
+        "id": "ENCLPER_P_",
+      },
+      {
+        "id": "ENCLPIDX",
+      },
+      {
+        "id": "WRITETIME",
+      },
+    ],
+    "filter": {
+      "nonAggregated": undefined,
+    },
+    "groupBy": [
+      "BLABLA",
+    ],
+    "history": true,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+  "queryString": "
+      SELECT
+        TIMESTAMP, MVSID, SSID, ENCLCPUT, ENCLPER_P_, ENCLPIDX, WRITETIME
+      FROM
+        KDP.REALTHDA
+      HISTORY()
+      WHERE
+        ORIGINNODE = 'DB2plex:DB2plex:Plexview' OR
+        ORIGINNODE = 'ICB4:RSD2:DB2' OR
+        ORIGINNODE = 'IDS4:DB2plex:DSGROUP' OR
+        ORIGINNODE = 'XEDB2:RSD2'
+      GROUP BY
+        BLABLA;
+    ",
+}
+`;
+
+exports[`Validate application code 1`] = `
+{
+  "problems": [
+    {
+      "message": "Specified applicationCode 'ABC' doesn't exist. Available options: KDP, KCP, KM5, O4SRV, APPL",
+      "position": {
+        "endColumn": 20,
+        "endLine": 4,
+        "globalEnd": 119,
+        "globalStart": 94,
+        "startColumn": 6,
+        "startLine": 3,
+      },
+      "severity": "error",
+      "stage": "converter",
+    },
+  ],
+  "queryObject": null,
+  "queryString": "
+      SELECT
+        TIMESTAMP, MVSID, SSID, ENCLCPUT, ENCLPER_P_, ENCLPIDX, WRITETIME
+      FROM
+        ABC.REALTHDA
+      HISTORY()
+      WHERE
+        ORIGINNODE = 'DB2plex:DB2plex:Plexview' OR
+        ORIGINNODE = 'ICB4:RSD2:DB2' OR
+        ORIGINNODE = 'IDS4:DB2plex:DSGROUP' OR
+        ORIGINNODE = 'XEDB2:RSD2';
+    ",
+}
+`;
+
+exports[`Validate columns and filters 1`] = `
+{
+  "problems": [
+    {
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "position": {
+        "endColumn": 49,
+        "endLine": 6,
+        "globalEnd": 191,
+        "globalStart": 152,
+        "startColumn": 10,
+        "startLine": 6,
+      },
+      "severity": "informational",
+      "stage": "converter",
+    },
+    {
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "position": {
+        "endColumn": 36,
+        "endLine": 7,
+        "globalEnd": 231,
+        "globalStart": 203,
+        "startColumn": 8,
+        "startLine": 7,
+      },
+      "severity": "informational",
+      "stage": "converter",
+    },
+    {
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "position": {
+        "endColumn": 43,
+        "endLine": 8,
+        "globalEnd": 278,
+        "globalStart": 243,
+        "startColumn": 8,
+        "startLine": 8,
+      },
+      "severity": "informational",
+      "stage": "converter",
+    },
+    {
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "position": {
+        "endColumn": 33,
+        "endLine": 9,
+        "globalEnd": 315,
+        "globalStart": 290,
+        "startColumn": 8,
+        "startLine": 9,
+      },
+      "severity": "informational",
+      "stage": "converter",
+    },
+    {
+      "message": ""WRITETIME" column can only be used in historical queries but no "HISTORY()" call found in query",
+      "position": {
+        "endColumn": 73,
+        "endLine": 2,
+        "globalEnd": 87,
+        "globalStart": 78,
+        "startColumn": 64,
+        "startLine": 2,
+      },
+      "severity": "error",
+      "stage": "validator",
+    },
+    {
+      "message": "Column "TESTABCD" not found in table "KDP.REALTHDA"",
+      "position": {
+        "endColumn": 83,
+        "endLine": 2,
+        "globalEnd": 97,
+        "globalStart": 89,
+        "startColumn": 75,
+        "startLine": 2,
+      },
+      "severity": "warning",
+      "stage": "validator",
+    },
+  ],
+  "queryObject": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "DB2plex:DB2plex:Plexview",
+      },
+      {
+        "id": "agentOrGroupName",
+        "name": "ICB4:RSD2:DB2",
+      },
+      {
+        "id": "agentOrGroupName",
+        "name": "IDS4:DB2plex:DSGROUP",
+      },
+      {
+        "id": "agentOrGroupName",
+        "name": "XEDB2:RSD2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "TIMESTAMP",
+      },
+      {
+        "id": "MVSID",
+      },
+      {
+        "id": "SSID",
+      },
+      {
+        "id": "ENCLCPUT",
+      },
+      {
+        "id": "ENCLPER_P_",
+      },
+      {
+        "id": "ENCLPIDX",
+      },
+      {
+        "id": "WRITETIME",
+      },
+      {
+        "id": "TESTABCD",
+      },
+    ],
+    "filter": {
+      "nonAggregated": undefined,
+    },
+    "groupBy": [],
+    "history": false,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+  "queryString": "
+      SELECT
+        TIMESTAMP, MVSID, SSID, ENCLCPUT, ENCLPER_P_, ENCLPIDX, WRITETIME, TESTABCD
+      FROM
+        KDP.REALTHDA
+      WHERE
+        ((ORIGINNODE = 'DB2plex:DB2plex:Plexview' OR
+        ORIGINNODE = 'ICB4:RSD2:DB2' OR
+        ORIGINNODE = 'IDS4:DB2plex:DSGROUP' OR
+        ORIGINNODE = 'XEDB2:RSD2') );
+    ",
+}
+`;
+
+exports[`Validate correct query 1`] = `
+{
+  "problems": [
+    {
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "position": {
+        "endColumn": 49,
+        "endLine": 7,
+        "globalEnd": 197,
+        "globalStart": 158,
+        "startColumn": 10,
+        "startLine": 7,
+      },
+      "severity": "informational",
+      "stage": "converter",
+    },
+    {
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "position": {
+        "endColumn": 36,
+        "endLine": 8,
+        "globalEnd": 237,
+        "globalStart": 209,
+        "startColumn": 8,
+        "startLine": 8,
+      },
+      "severity": "informational",
+      "stage": "converter",
+    },
+    {
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "position": {
+        "endColumn": 43,
+        "endLine": 9,
+        "globalEnd": 284,
+        "globalStart": 249,
+        "startColumn": 8,
+        "startLine": 9,
+      },
+      "severity": "informational",
+      "stage": "converter",
+    },
+    {
+      "message": "ORIGINNODE is handled in SYSTEM.PARMA('NODELIST'), will be moved to this section on Update Query Editor form",
+      "position": {
+        "endColumn": 33,
+        "endLine": 10,
+        "globalEnd": 321,
+        "globalStart": 296,
+        "startColumn": 8,
+        "startLine": 10,
+      },
+      "severity": "informational",
+      "stage": "converter",
+    },
+  ],
+  "queryObject": {
+    "affinityId": "%IBM.STATIC017",
+    "agentsAndGroups": [
+      {
+        "id": "agentOrGroupName",
+        "name": "DB2plex:DB2plex:Plexview",
+      },
+      {
+        "id": "agentOrGroupName",
+        "name": "ICB4:RSD2:DB2",
+      },
+      {
+        "id": "agentOrGroupName",
+        "name": "IDS4:DB2plex:DSGROUP",
+      },
+      {
+        "id": "agentOrGroupName",
+        "name": "XEDB2:RSD2",
+      },
+    ],
+    "columns": [
+      {
+        "id": "TIMESTAMP",
+      },
+      {
+        "id": "MVSID",
+      },
+      {
+        "id": "SSID",
+      },
+      {
+        "id": "ENCLCPUT",
+      },
+      {
+        "id": "ENCLPER_P_",
+      },
+      {
+        "id": "ENCLPIDX",
+      },
+      {
+        "id": "WRITETIME",
+      },
+    ],
+    "filter": {
+      "nonAggregated": undefined,
+    },
+    "groupBy": [],
+    "history": true,
+    "orderBy": [],
+    "parmas": [],
+    "tableId": "REALTHDA",
+  },
+  "queryString": "
+      SELECT
+        TIMESTAMP, MVSID, SSID, ENCLCPUT, ENCLPER_P_, ENCLPIDX, WRITETIME
+      FROM
+        KDP.REALTHDA
+      HISTORY()
+      WHERE
+        ((ORIGINNODE = 'DB2plex:DB2plex:Plexview' OR
+        ORIGINNODE = 'ICB4:RSD2:DB2' OR
+        ORIGINNODE = 'IDS4:DB2plex:DSGROUP' OR
+        ORIGINNODE = 'XEDB2:RSD2') );
+    ",
+}
+`;
+
+exports[`Validate table ID 1`] = `
+{
+  "problems": [
+    {
+      "message": "Specified tableId 'FAKETDA' doesn't exist in application(s) 'DB2 Subsystems' (KDP)",
+      "position": {
+        "endColumn": 19,
+        "endLine": 4,
+        "globalEnd": 118,
+        "globalStart": 94,
+        "startColumn": 6,
+        "startLine": 3,
+      },
+      "severity": "error",
+      "stage": "converter",
+    },
+  ],
+  "queryObject": null,
+  "queryString": "
+      SELECT
+        TIMESTAMP, MVSID, SSID, ENCLCPUT, ENCLPER_P_, ENCLPIDX, WRITETIME
+      FROM
+        KDP.FAKETDA
+      HISTORY()
+      WHERE
+        ORIGINNODE = 'DB2plex:DB2plex:Plexview' OR
+        ORIGINNODE = 'ICB4:RSD2:DB2' OR
+        ORIGINNODE = 'IDS4:DB2plex:DSGROUP' OR
+        ORIGINNODE = 'XEDB2:RSD2';
+    ",
+}
+`;

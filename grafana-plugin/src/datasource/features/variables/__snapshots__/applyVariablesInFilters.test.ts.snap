@@ -1,0 +1,346 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applyVariablesInFilters should correctly handle variables applying 1`] = `
+{
+  "aggregated": undefined,
+  "nonAggregated": {
+    "clause": {
+      "columnId": "MGTSTAT",
+      "operator": "=",
+      "userDefinedValue": "Unknown",
+    },
+  },
+}
+`;
+
+exports[`applyVariablesInFilters should correctly handle variables applying 2`] = `
+{
+  "aggregated": undefined,
+  "nonAggregated": {
+    "clause": {
+      "columnId": "SWPSTAT",
+      "operator": "=",
+      "userDefinedValue": "OutLSW",
+    },
+  },
+}
+`;
+
+exports[`applyVariablesInFilters should correctly handle variables applying 3`] = `
+{
+  "aggregated": undefined,
+  "nonAggregated": {
+    "clause": {
+      "columnId": "FRMSUSEPCT",
+      "operator": "=",
+      "userDefinedValue": "43.4",
+    },
+  },
+}
+`;
+
+exports[`applyVariablesInFilters should return filter with "and" that has multiple clauses, when the "and" filter with more than 2 clauses received, and one of them has "All" selected 1`] = `
+{
+  "aggregated": undefined,
+  "nonAggregated": {
+    "and": [
+      {
+        "clause": {
+          "columnId": "DB2ID",
+          "operator": "=",
+          "userDefinedValue": "OBC4",
+        },
+      },
+      {
+        "clause": {
+          "columnId": "SVCCLASS",
+          "operator": "=",
+          "userDefinedValue": "USSDSYS",
+        },
+      },
+    ],
+  },
+}
+`;
+
+exports[`applyVariablesInFilters should return filter with applied custom "All" value 1`] = `
+{
+  "aggregated": undefined,
+  "nonAggregated": {
+    "or": [
+      {
+        "clause": {
+          "columnId": "DB2SUBSYSTEM",
+          "operator": "=",
+          "userDefinedValue": "OCA5",
+        },
+      },
+      {
+        "clause": {
+          "columnId": "DB2ID",
+          "operator": "=",
+          "userDefinedValue": "OBC4",
+        },
+      },
+      {
+        "clause": {
+          "columnId": "SVCCLASS",
+          "operator": "=",
+          "userDefinedValue": "USSDSYS",
+        },
+      },
+    ],
+  },
+}
+`;
+
+exports[`applyVariablesInFilters should return filter with correctly applied variables when complex template filter is received 1`] = `
+{
+  "aggregated": undefined,
+  "nonAggregated": {
+    "or": [
+      {
+        "clause": {
+          "columnId": "JOBNAME",
+          "operator": "=",
+          "userDefinedValue": "fooRMFGATbarUSSDSYSbazXCFAS",
+        },
+      },
+      {
+        "clause": {
+          "columnId": "JOBNAME",
+          "operator": "=",
+          "userDefinedValue": "fooRMFGATbarUSSDSYSbazWLM",
+        },
+      },
+      {
+        "clause": {
+          "columnId": "JOBNAME",
+          "operator": "=",
+          "userDefinedValue": "fooRMFGATbarUSSDSYSbazRMFGAT",
+        },
+      },
+      {
+        "clause": {
+          "columnId": "JOBNAME",
+          "operator": "=",
+          "userDefinedValue": "fooRMFGATbarIMSRGNSbazXCFAS",
+        },
+      },
+      {
+        "clause": {
+          "columnId": "JOBNAME",
+          "operator": "=",
+          "userDefinedValue": "fooRMFGATbarIMSRGNSbazWLM",
+        },
+      },
+      {
+        "clause": {
+          "columnId": "JOBNAME",
+          "operator": "=",
+          "userDefinedValue": "fooRMFGATbarIMSRGNSbazRMFGAT",
+        },
+      },
+      {
+        "clause": {
+          "columnId": "JOBNAME",
+          "operator": "=",
+          "userDefinedValue": "fooRMFGATbarSYSSTCbazXCFAS",
+        },
+      },
+      {
+        "clause": {
+          "columnId": "JOBNAME",
+          "operator": "=",
+          "userDefinedValue": "fooRMFGATbarSYSSTCbazWLM",
+        },
+      },
+      {
+        "clause": {
+          "columnId": "JOBNAME",
+          "operator": "=",
+          "userDefinedValue": "fooRMFGATbarSYSSTCbazRMFGAT",
+        },
+      },
+    ],
+  },
+}
+`;
+
+exports[`applyVariablesInFilters should return filter with one clause, when complex filter with "All" is received 1`] = `
+{
+  "aggregated": undefined,
+  "nonAggregated": {
+    "clause": {
+      "columnId": "JOBNAME",
+      "operator": "=",
+      "userDefinedValue": "RMFGAT",
+    },
+  },
+}
+`;
+
+exports[`applyVariablesInFilters should return filter with single clause, when the filter has "and" clause, and variable in child clause has "All" selected 1`] = `
+{
+  "aggregated": undefined,
+  "nonAggregated": {
+    "clause": {
+      "columnId": "DB2ID",
+      "operator": "=",
+      "userDefinedValue": "OBC4",
+    },
+  },
+}
+`;
+
+exports[`applyVariablesInFilters should return processed filter with nonAggregated field 1`] = `
+{
+  "aggregated": undefined,
+  "nonAggregated": {
+    "or": [
+      {
+        "clause": {
+          "columnId": "JOBNAME",
+          "operator": "=",
+          "userDefinedValue": "RMFGAT",
+        },
+      },
+      {
+        "and": [
+          {
+            "or": [
+              {
+                "clause": {
+                  "columnId": "SVCCLASS",
+                  "operator": "=",
+                  "userDefinedValue": "USSDSYS",
+                },
+              },
+              {
+                "clause": {
+                  "columnId": "SVCCLASS",
+                  "operator": "=",
+                  "userDefinedValue": "IMSRGNS",
+                },
+              },
+              {
+                "clause": {
+                  "columnId": "SVCCLASS",
+                  "operator": "=",
+                  "userDefinedValue": "SYSSTC",
+                },
+              },
+            ],
+          },
+          {
+            "or": [
+              {
+                "clause": {
+                  "columnId": "STEPNAME",
+                  "operator": "=",
+                  "userDefinedValue": "XCFAS",
+                },
+              },
+              {
+                "clause": {
+                  "columnId": "STEPNAME",
+                  "operator": "=",
+                  "userDefinedValue": "WLM",
+                },
+              },
+              {
+                "clause": {
+                  "columnId": "STEPNAME",
+                  "operator": "=",
+                  "userDefinedValue": "RMFGAT",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+}
+`;
+
+exports[`applyVariablesInFilters should return unchanged filter when there is no variable defined in "userDefinedValue" 1`] = `
+{
+  "aggregated": undefined,
+  "nonAggregated": {
+    "clause": {
+      "columnId": "DB2ID",
+      "operator": "=",
+      "userDefinedValue": "OBC4",
+    },
+  },
+}
+`;
+
+exports[`handleClause should return clause with interpolated variables and formatted value, when template contains variables 1`] = `
+{
+  "clause": {
+    "columnId": "DB2ID",
+    "operator": "=",
+    "userDefinedValue": "OBC4",
+  },
+}
+`;
+
+exports[`handleClause should return clause with interpolated variables and formatted value, when template contains variables 2`] = `
+{
+  "clause": {
+    "columnId": "MGTSTAT",
+    "operator": "=",
+    "userDefinedValue": "Unknown",
+  },
+}
+`;
+
+exports[`handleClause should return clause with interpolated variables and formatted value, when template contains variables 3`] = `
+{
+  "clause": {
+    "columnId": "SWPSTAT",
+    "operator": "=",
+    "userDefinedValue": "OutLSW",
+  },
+}
+`;
+
+exports[`handleClause should return clause with interpolated variables and formatted value, when template contains variables 4`] = `
+{
+  "clause": {
+    "columnId": "FRMSUSEPCT",
+    "operator": "=",
+    "userDefinedValue": "43.4",
+  },
+}
+`;
+
+exports[`handleClauseWithMultipleValues should return "or" filter, when passed clause and string values 1`] = `
+{
+  "or": [
+    {
+      "clause": {
+        "columnId": "SVCCLASS",
+        "operator": "=",
+        "userDefinedValue": "USSDSYS",
+      },
+    },
+    {
+      "clause": {
+        "columnId": "SVCCLASS",
+        "operator": "=",
+        "userDefinedValue": "IMSRGNS",
+      },
+    },
+    {
+      "clause": {
+        "columnId": "SVCCLASS",
+        "operator": "=",
+        "userDefinedValue": "SYSSTC",
+      },
+    },
+  ],
+}
+`;

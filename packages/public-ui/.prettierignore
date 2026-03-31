@@ -1,0 +1,10 @@
+.config
+.github
+.vscode
+coverage
+cypress
+dist
+node_modules
+pnpm-lock.yaml
+.react-router
+build
