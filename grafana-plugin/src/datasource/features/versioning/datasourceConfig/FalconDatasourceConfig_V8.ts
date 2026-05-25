@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-/* eslint-disable @typescript-eslint/prefer-namespace-keyword */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-types */
 import { FalconDatasourceConfig_V7 } from './FalconDatasourceConfig_V7';
 
 export function updateTo_V8(current: FalconDatasourceConfig_V7): FalconDatasourceConfig_V8 {
@@ -43,7 +41,7 @@ type FalconDatasourceJsonData_V8 = GrafanaDefineJsonData_V8 &
 export type FalconDatasourceConfig_V8 = DEP_V8.DataSourceSettings<FalconDatasourceJsonData_V8>;
 
 /* Module without 'declare' keyword cannot have export declarations */
-declare module DEP_V8 {
+declare namespace DEP_V8 {
   interface DataSourceJsonData {
     authType?: string;
     defaultRegion?: string;
@@ -74,8 +72,10 @@ declare module DEP_V8 {
    * Data Source instance edit model.  This is returned from:
    *  /api/datasources
    */
-  interface DataSourceSettings<T extends DataSourceJsonData = DataSourceJsonData, S = {}>
-    extends WithAccessControlMetadata {
+  interface DataSourceSettings<
+    T extends DataSourceJsonData = DataSourceJsonData,
+    S = {},
+  > extends WithAccessControlMetadata {
     id: number;
     uid: string;
     orgId: number;

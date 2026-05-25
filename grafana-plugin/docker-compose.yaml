@@ -13,6 +13,12 @@ services:
       - GF_LOG_MODE=console file
       - GF_LOG_LEVEL=info
       - GF_LOG_FILTERS=plugin.rocketsoftware-omegamon-app:debug plugin.rocketsoftware-omegamon-datasource:debug
+      - GF_FEATURE_TOGGLES_ENABLE=secureSocksDSProxyEnabled
+
+      # PDC agent testing env vars
+      - GF_SECURE_SOCKS_DATASOURCE_PROXY_ENABLED=true
+      - GF_SECURE_SOCKS_DATASOURCE_PROXY_PROXY_ADDRESS=host.docker.internal:5555
+      - GF_SECURE_SOCKS_DATASOURCE_PROXY_ALLOW_INSECURE=true
     volumes:
       - ./dist:/var/lib/grafana/plugins/itm-datasource-plugin
       - ./logs:/var/log/grafana

@@ -19,7 +19,7 @@ export function validateVariables(
   return problems;
 }
 
-function validateManagedSystems(
+export function validateManagedSystems(
   agentsAndGroups: SourceDef[],
   getTokensOf?: TokenMapping['getTokensOf']
 ): ValidationProblem[] {

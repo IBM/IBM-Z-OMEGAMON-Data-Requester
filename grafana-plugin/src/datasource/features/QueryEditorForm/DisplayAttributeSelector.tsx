@@ -3,7 +3,7 @@ import { ColumnMetadata, writetimeColumnMetadata } from 'public-domain';
 import React, { useMemo, memo } from 'react';
 
 import { tid } from 'datasource/components';
-import { MetricsQueryColumn, MetricsQueryParams } from 'datasource/domain';
+import { MetricsQueryColumn, MetricsQueryParams, NON_ITM_HISTORY_TABLES } from 'datasource/domain';
 import { countColumnDisplayName } from 'datasource/features/formatting/format';
 import { useTableMetadata } from 'datasource/features/metadata';
 
@@ -81,7 +81,9 @@ function useSelectableColumnOptions(
     }
     const options = Object.values(
       history
-        ? { ...tableMetadataResult.data.columns, [writetimeColumnMetadata.id]: writetimeColumnMetadata }
+        ? NON_ITM_HISTORY_TABLES.has(tableId)
+          ? { ...tableMetadataResult.data.columns }
+          : { ...tableMetadataResult.data.columns, [writetimeColumnMetadata.id]: writetimeColumnMetadata }
         : tableMetadataResult.data.columns
     ).reduce((acc, v) => {
       acc.push(...getColumnOptions(v, groupByColumns));
@@ -104,7 +106,7 @@ function useSelectableColumnOptions(
     }
 
     return options;
-  }, [tableMetadataResult.data, groupByColumns, history]);
+  }, [tableMetadataResult.data, tableId, groupByColumns, history]);
 
   const result = getFormOptionsResult(tableMetadataResult, columnOptions);
   return result;

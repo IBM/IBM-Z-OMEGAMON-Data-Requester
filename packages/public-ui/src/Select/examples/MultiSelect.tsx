@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { AsBadge, AsButton, AsCombobox, AsFields, AsInput, AsOption, AsOptions, FUISelectProps } from './data';
-
 import {
   FUIMultipleCombobox,
   FUIComboboxFields,
@@ -15,6 +13,8 @@ import {
   onChangePreprocessor,
   generateOptions,
 } from '~/Select';
+
+import { AsBadge, AsButton, AsCombobox, AsFields, AsInput, AsOption, AsOptions, FUISelectProps } from './data';
 
 export default function MultiSelect({
   options,

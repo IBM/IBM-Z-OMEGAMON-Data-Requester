@@ -1,6 +1,6 @@
 import { default as React } from 'react';
-import { FUISelectProps } from './data';
 import { Option } from '..';
+import { FUISelectProps } from './data';
 export default function MultiSelect({ options, allowCustomValues, value, }: Omit<FUISelectProps, 'value'> & {
     value?: Option[];
 }): React.JSX.Element;

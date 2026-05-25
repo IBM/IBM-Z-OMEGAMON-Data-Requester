@@ -51,7 +51,49 @@ function getDisplayName(fieldName: string, nameFromMetadata: string): string {
   return `${aggregationFunctionDisplayName} ${nameFromMetadata}`;
 }
 
-export function addColumnMetadataToFieldConfig(columnMetadata: ColumnMetadata | null, fieldToMutate: Field): void {
+/**
+ * Generates the display name for a data field based on column metadata and query context.
+ * For historical queries with labels, formats the name as "columnName {label1="value1", label2="value2"}".
+ * This is consistent with how the backend handles parsedQuery.Params.History.
+ *
+ * @param field - The Grafana data field to generate a display name for
+ * @param columnMd - Metadata about the column from the table schema
+ * @param isWideTimeSeries - Whether the frame type is timeseries-wide
+ * @param labelColumnMetadata - Mapping of label keys to their corresponding human-readable column names, used to display descriptive names instead of raw column IDs
+ * @returns The formatted display name for the field
+ */
+function getFieldDisplayName(
+  field: Field,
+  columnMd: ColumnMetadata,
+  isWideTimeSeries: boolean,
+  labelColumnMetadata: Record<string, string> = {}
+): string {
+  // Only use label values when frame is timeseries-wide (labels are present after LongToWide conversion)
+  if (isWideTimeSeries && field.labels) {
+    const labelValue = Object.entries(field.labels)
+      .map(([key, value]) => `${labelColumnMetadata[key] || key}="${value}"`)
+      .join(', ');
+    if (labelValue) {
+      return columnMd?.name ? `${columnMd?.name} {${labelValue}}` : `{${labelValue}}`;
+    }
+  }
+  return getDisplayName(field.name, columnMd.name);
+}
+
+/**
+ * Adds column metadata configuration to a Grafana field, including value mappings, units, decimals, and display name.
+ *
+ * @param columnMetadata - The column metadata to apply to the field
+ * @param fieldToMutate - The Grafana field to configure
+ * @param isWideTimeSeries - Whether the frame type is timeseries-wide
+ * @param labelColumnMetadata - Mapping of label keys to their corresponding human-readable column names, used to display descriptive names in field labels
+ */
+export function addColumnMetadataToFieldConfig(
+  columnMetadata: ColumnMetadata | null,
+  fieldToMutate: Field,
+  isWideTimeSeries = false,
+  labelColumnMetadata: Record<string, string> = {}
+): void {
   if (!fieldToMutate.config) {
     fieldToMutate.config = {};
   }
@@ -70,7 +112,12 @@ export function addColumnMetadataToFieldConfig(columnMetadata: ColumnMetadata | 
     fieldToMutate.config.decimals = columnMetadata.scaleFactor;
   }
 
-  fieldToMutate.config.displayNameFromDS = getDisplayName(fieldToMutate.name, columnMetadata.name);
+  fieldToMutate.config.displayNameFromDS = getFieldDisplayName(
+    fieldToMutate,
+    columnMetadata,
+    isWideTimeSeries,
+    labelColumnMetadata
+  );
   fieldToMutate.config.description = columnMetadata.description;
 }
 

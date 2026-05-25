@@ -6,6 +6,8 @@ import (
 	"reflect"
 	"testing"
 	"time"
+
+	"github.com/grafana/grafana-plugin-sdk-go/data"
 )
 
 func TestGetFrame(t *testing.T) {
@@ -45,7 +47,7 @@ func TestGetFrame(t *testing.T) {
 		Type:           "Hub",
 	})
 
-	response, err := newQueryResponseFromStructs("ISITSTSH", situations, nil, situationsColumns)
+	response, err := newQueryResponseFromStructs("ISITSTSH", situations, nil, situationsColumns, false)
 	if err != nil {
 		t.Fatal("Error occurred during QueryResponse creation", err)
 	}
@@ -110,6 +112,137 @@ func TestGetPrimitiveAsInterface(t *testing.T) {
 		_, err := getPrimitiveAsInterface(reflect.ValueOf(input))
 		if err == nil {
 			t.Fatal("getPrimitiveAsInterface: should return error for input ", input)
+		}
+	}
+}
+
+func TestConvertHistoricalTimestamp(t *testing.T) {
+	tests := []struct {
+		name              string
+		colName           string
+		colValue          any
+		isHistoricalQuery bool
+		expectConverted   bool
+	}{
+		{
+			name:              "WRITETIME column in historical query with valid string",
+			colName:           "WRITETIME",
+			colValue:          "2026-01-20T07:30:00-05:00",
+			isHistoricalQuery: true,
+			expectConverted:   true,
+		},
+		{
+			name:              "WRITETIME column in non-historical query",
+			colName:           "WRITETIME",
+			colValue:          "2026-01-20T07:30:00-05:00",
+			isHistoricalQuery: false,
+			expectConverted:   false,
+		},
+		{
+			name:              "Non-WRITETIME column in historical query",
+			colName:           "TIMESTAMP",
+			colValue:          "2026-01-20T07:30:00-05:00",
+			isHistoricalQuery: true,
+			expectConverted:   false,
+		},
+		{
+			name:              "WRITETIME with non-string value",
+			colName:           "WRITETIME",
+			colValue:          12345,
+			isHistoricalQuery: true,
+			expectConverted:   false,
+		},
+		{
+			name:              "WRITETIME with invalid string format",
+			colName:           "WRITETIME",
+			colValue:          "invalid-date",
+			isHistoricalQuery: true,
+			expectConverted:   false, // Should return original on parse error
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			response := &QueryResponse{
+				isHistoricalQuery: tt.isHistoricalQuery,
+			}
+
+			result := response.convertHistoricalTimestamp(tt.colName, tt.colValue)
+
+			if tt.expectConverted {
+				// Should be converted to time.Time
+				if _, ok := result.(time.Time); !ok {
+					t.Errorf("Expected time.Time, got %T", result)
+				}
+			} else {
+				// Should return original value
+				if reflect.TypeOf(result) != reflect.TypeOf(tt.colValue) {
+					t.Errorf("Expected type %T, got %T", tt.colValue, result)
+				}
+			}
+		})
+	}
+}
+
+func TestGetFrames_WithWritetimeConversion(t *testing.T) {
+	// Test that WRITETIME conversion is applied during getFrames()
+	rows := []domain.GenericRow{
+		{
+			"WRITETIME": "2026-01-20T07:30:00-05:00",
+			"CPU":       float64(50.5),
+		},
+		{
+			"WRITETIME": "2026-01-20T07:31:00-05:00",
+			"CPU":       float64(60.2),
+		},
+	}
+
+	response := &QueryResponse{
+		name:              "test",
+		rows:              &rows,
+		requestColumns:    []string{"WRITETIME", "CPU"},
+		isHistoricalQuery: true,
+	}
+
+	frames := response.getFrames()
+
+	if len(frames) != 1 {
+		t.Fatalf("Expected 1 frame, got %d", len(frames))
+	}
+
+	frame := frames[0]
+
+	// Find WRITETIME field
+	var writetimeField *data.Field
+	for _, field := range frame.Fields {
+		if field.Name == "WRITETIME" {
+			writetimeField = field
+			break
+		}
+	}
+
+	if writetimeField == nil {
+		t.Fatal("WRITETIME field not found in frame")
+	}
+
+	// Check that the field contains time.Time values
+	for i := 0; i < writetimeField.Len(); i++ {
+		value := writetimeField.At(i)
+		if value == nil {
+			continue
+		}
+
+		// Dereference if it's a pointer
+		val := reflect.ValueOf(value)
+		if val.Kind() == reflect.Ptr {
+			if val.IsNil() {
+				continue
+			}
+			val = val.Elem()
+		}
+
+		if val.Type() != reflect.TypeOf(time.Time{}) {
+			t.Errorf("Expected time.Time at index %d, got %T", i, value)
 		}
 	}
 }

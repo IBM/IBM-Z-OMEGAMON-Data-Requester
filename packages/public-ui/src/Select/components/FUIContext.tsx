@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 
+// eslint-disable-next-line import/no-cycle
 import { Option, OptionsGenerator, TextSelection } from '~/Select';
 
 type FUIMultiComboboxContextType = {

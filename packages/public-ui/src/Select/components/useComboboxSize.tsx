@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 
+// eslint-disable-next-line import/no-cycle
 import { FUIComboboxContext } from '~/Select';
 
 export function useComboboxSize() {

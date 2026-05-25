@@ -2,6 +2,7 @@ import { Combobox, ComboboxProps } from '@headlessui/react';
 import { isEqual } from 'lodash';
 import React, { useRef, useState } from 'react';
 
+// eslint-disable-next-line import/no-cycle
 import { FUIComboboxContext, OnChangePreprocessor, Option, OptionsGenerator, TextSelection } from '~/Select';
 
 /**

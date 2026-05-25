@@ -78,12 +78,12 @@ describe('applyVariablesInFilters', () => {
     expect(applyVariablesInFilters(customAllFilter, mockedTableMetadata, scopedVars)).toMatchSnapshot();
   });
   it('should throw error when variables with "All" value is used in invalid format', () => {
-    expect(() => applyVariablesInFilters(invalidTemplateAllFilter, mockedTableMetadata, scopedVars)).toThrowError(
+    expect(() => applyVariablesInFilters(invalidTemplateAllFilter, mockedTableMetadata, scopedVars)).toThrow(
       'The provided template "${VLUNAME}test${VLUNAME}" does not match the expected format for variables with value "All"'
     );
   });
   it('should throw error when variable is not found in grafana', () => {
-    expect(() => applyVariablesInFilters(varNotFoundInDashboardFilter, mockedTableMetadata, scopedVars)).toThrowError(
+    expect(() => applyVariablesInFilters(varNotFoundInDashboardFilter, mockedTableMetadata, scopedVars)).toThrow(
       'There is no variable information for "$VarNotFoundInDashboard"'
     );
   });

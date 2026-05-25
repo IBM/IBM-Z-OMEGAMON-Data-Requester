@@ -6,7 +6,6 @@ import (
 	"net/url"
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
-	"github.com/julienschmidt/httprouter"
 
 	"itm-datasource-plugin/pkg/datasource/domain"
 	"itm-datasource-plugin/pkg/datasource/gateway"
@@ -21,14 +20,14 @@ type gatewayActionsResponse struct {
 	Data  []domain.ActionDefinition `json:"data"`
 }
 
-func AddActionEndpoints(router *httprouter.Router, prefix string, configuration domain.Configuration) {
+func AddActionEndpoints(mux *http.ServeMux, prefix string, configuration domain.Configuration) {
 	handler := getActionsEndpointHandler(configuration)
-	router.GET(prefix, handler)
-	router.GET(prefix+"/affinityId/:affinityId", handler)
+	mux.HandleFunc("GET "+prefix, handler)
+	mux.HandleFunc("GET "+prefix+"/affinityId/{affinityId}", handler)
 }
 
-func getActionsEndpointHandler(configuration domain.Configuration) func(rw http.ResponseWriter, req *http.Request, par httprouter.Params) {
-	return func(rw http.ResponseWriter, req *http.Request, par httprouter.Params) {
+func getActionsEndpointHandler(configuration domain.Configuration) http.HandlerFunc {
+	return func(rw http.ResponseWriter, req *http.Request) {
 		ctx := req.Context()
 		logger := backend.Logger.FromContext(ctx)
 		logger.Debug("Actions endpoint. Start getting actions")
@@ -47,7 +46,7 @@ func getActionsEndpointHandler(configuration domain.Configuration) func(rw http.
 		// Grafana before 10.4.0 version unescapes 1 time
 		// Grafana after and including 10.4.0 version does not unescape
 		// Frontend sends affinityId escaped 3 times
-		possiblyEscapedId := par.ByName("affinityId")
+		possiblyEscapedId := req.PathValue("affinityId")
 
 		unescapedId, err := url.QueryUnescape(possiblyEscapedId)
 		var id string
@@ -63,6 +62,9 @@ func getActionsEndpointHandler(configuration domain.Configuration) func(rw http.
 		query := url.Values{}
 		if id != "" {
 			query.Add("affinityId", id)
+		}
+		for _, cv := range req.URL.Query()["contextVariable"] {
+			query.Add("contextVariable", cv)
 		}
 
 		resp, _, err := gateway.Get[gatewayActionsResponse](ctx, configuration, apiPath, query)

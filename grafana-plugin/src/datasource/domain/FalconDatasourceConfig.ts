@@ -2,7 +2,7 @@ import { DataSourceJsonData, DataSourceSettings } from '@grafana/data';
 
 import { WithVersion } from 'datasource/features/versioning/common';
 
-export const FALCON_DATASOURCE_OPTIONS_VERSION = 8;
+export const FALCON_DATASOURCE_OPTIONS_VERSION = 9;
 
 /**
  * These are options configured for each Datasource instance.
@@ -19,6 +19,7 @@ type GrafanaDefineJsonData = DataSourceJsonData & {
   tlsSkipVerify: boolean;
   oauthPassThru: boolean;
   timeout: number; // http request timeout
+  enableSecureSocksProxy: boolean;
 };
 
 export type FalconDatasourceJsonData = GrafanaDefineJsonData &
@@ -38,6 +39,7 @@ const defaultFalconDatasourceJsonData: FalconDatasourceJsonData = {
   metadataCacheTimeInSec: 5 * 60,
   timeout: 10 * 60,
   adminUrl: '',
+  enableSecureSocksProxy: false,
 };
 
 export function constructDefaultConfig(options: UnknownConfig): FalconDatasourceConfig {

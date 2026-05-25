@@ -9,6 +9,8 @@ export type ClauseEditorProps<CLAUSE> = {
     enterClauseEditMode: () => void;
     cancelClauseEdit: () => void;
     submitClauseEdit: () => void;
+    /** True only when currently edited clause was created in this editor session. */
+    isNewClauseInSession: boolean;
     editClausePartially: (editedClauseFields: Partial<CLAUSE>) => void;
     editClauseFully: (editedClause: CLAUSE) => void;
 };

@@ -1,35 +1,15 @@
-import { variables as o, options as t } from "./data.js";
-import e from "./SingleSelect.js";
-const l = {
-  title: "Example/Single Select",
-  component: e,
-  parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
-    layout: "centered"
-  },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  // tags: ['autodocs'],
-  // More on argTypes: https://storybook.js.org/docs/api/argtypes
-  argTypes: {},
-  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
-  args: {}
-}, r = {
-  args: {
-    options: []
-  }
-}, n = {
-  args: {
-    options: [...o, ...t]
-  }
-}, p = {
-  args: {
-    options: [...o, ...t],
-    allowCustomValues: !0
-  }
-};
-export {
-  p as AllowCustomValues,
-  n as Default,
-  r as NoOptions,
-  l as default
-};
+import { c as e, l as t } from "../../data-SzAgacYd.js";
+import n from "./SingleSelect.js";
+//#region src/Select/examples/SingleSelect.stories.tsx
+var r = {
+	title: "Example/Single Select",
+	component: n,
+	parameters: { layout: "centered" },
+	argTypes: {},
+	args: {}
+}, i = { args: { options: [] } }, a = { args: { options: [...t, ...e] } }, o = { args: {
+	options: [...t, ...e],
+	allowCustomValues: !0
+} };
+//#endregion
+export { o as AllowCustomValues, a as Default, i as NoOptions, r as default };

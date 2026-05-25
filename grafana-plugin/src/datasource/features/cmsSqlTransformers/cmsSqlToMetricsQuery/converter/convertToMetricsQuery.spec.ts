@@ -420,4 +420,36 @@ describe('Token mapping', () => {
     expect(problems).toHaveLength(1);
     expect(problems).toMatchSnapshot();
   });
+
+  test('ORDER BY with aggregation functions', async () => {
+    const queryStr =
+      'SELECT ORIGINNODE, AVG(COL2), MAX(COL3) FROM KDP.REALTHDA GROUP BY ORIGINNODE ORDER BY AVG(COL2) DESC, MAX(COL3) ASC, ORIGINNODE';
+    const { query, getTokensOf } = await parseQueryString(queryStr);
+    const { orderBy } = query;
+
+    expect(orderBy).toHaveLength(3);
+
+    const [orderBy1, orderBy2, orderBy3] = orderBy;
+    assert(orderBy1 && orderBy2 && orderBy3);
+
+    expect(orderBy1.columnId).toBe('COL2');
+    expect(orderBy1.aggregationFunction).toBe('AVG');
+    expect(orderBy1.type).toBe('DESC');
+
+    expect(orderBy2.columnId).toBe('COL3');
+    expect(orderBy2.aggregationFunction).toBe('MAX');
+    expect(orderBy2.type).toBe('ASC');
+
+    expect(orderBy3.columnId).toBe('ORIGINNODE');
+    expect(orderBy3.aggregationFunction).toBeUndefined();
+    expect(orderBy3.type).toBe('ASC');
+
+    expect(getTokensOf(orderBy1, 'aggregationFunction')).toHaveLength(1);
+    expect(getTokensOf(orderBy1, 'aggregationFunction')[0]?.tokenText).toBe('AVG');
+
+    expect(getTokensOf(orderBy2, 'aggregationFunction')).toHaveLength(1);
+    expect(getTokensOf(orderBy2, 'aggregationFunction')[0]?.tokenText).toBe('MAX');
+
+    expect(getTokensOf(orderBy3, 'aggregationFunction')).toHaveLength(0);
+  });
 });

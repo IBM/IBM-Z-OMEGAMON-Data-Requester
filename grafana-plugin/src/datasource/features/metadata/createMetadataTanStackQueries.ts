@@ -72,7 +72,7 @@ export const createMetadataTanStackQueries = (getResource: DataSourceWithBackend
       },
     },
     actions: {
-      list: (affinityId: AffinityId) => {
+      list: (affinityId: AffinityId, contextKeys?: string[]) => {
         let path = 'actions';
         if (affinityId) {
           // TO DO OMUI5-1727 Remove unnecessary escape
@@ -82,10 +82,13 @@ export const createMetadataTanStackQueries = (getResource: DataSourceWithBackend
           // Frontend sends affinityId escaped 3 times
           path = `actions/affinityId/${encodeURIComponent(encodeURIComponent(encodeURIComponent(affinityId)))}`;
         }
+        const params: Record<string, string[]> | undefined = contextKeys?.length
+          ? { contextVariable: contextKeys }
+          : undefined;
         return {
-          queryKey: ['actions', 'list', { affinityId }],
+          queryKey: ['actions', 'list', { affinityId, contextKeys: contextKeys ?? [] }],
           queryFn: async () => {
-            const result = await getResource<{ actions: ActionDefinition[] }>(path);
+            const result = await getResource<{ actions: ActionDefinition[] }>(path, params);
             return result;
           },
         };

@@ -1,4 +1,4 @@
-import { addTouchedTrue, type ClauseFilter, combineWith, type Filter } from 'public-common';
+import { addTouchedTrue, isTouched, type ClauseFilter, combineWith, type Filter } from 'public-common';
 import { useCallback, useReducer } from 'react';
 
 import {
@@ -144,11 +144,13 @@ function reduce<CLAUSE>(
       return {
         originalClauseFilter: action.clauseFilter,
         editedClause: action.clauseFilter.clause,
+        editOrigin: 'existing',
       };
     case 'editing_canceled': {
       return {
         originalClauseFilter: null,
         editedClause: null,
+        editOrigin: null,
       };
     }
     case 'editing_applied': {
@@ -158,12 +160,14 @@ function reduce<CLAUSE>(
       return {
         originalClauseFilter: null,
         editedClause: null,
+        editOrigin: null,
       };
     }
     case 'new_clause_added': {
       return {
         originalClauseFilter: action.newClauseFilter,
         editedClause: action.newClauseFilter.clause,
+        editOrigin: 'new',
       };
     }
     case 'clause_removed': {
@@ -171,11 +175,25 @@ function reduce<CLAUSE>(
         return {
           originalClauseFilter: null,
           editedClause: null,
+          editOrigin: null,
         };
       }
       return state;
     }
   }
+}
+
+function createNoEditingState<CLAUSE>(): OriginalAndEditedClause<CLAUSE> {
+  return { originalClauseFilter: null, editedClause: null, editOrigin: null };
+}
+
+function initializeEditorStateFromFilter<CLAUSE>(filter: Filter<CLAUSE> | undefined): OriginalAndEditedClause<CLAUSE> {
+  // Auto-open only when initial filter is a single untouched root clause.
+  if (filter && filter.clause != null && isTouched(filter.clause) === false) {
+    const clauseFilter = filter as ClauseFilter<CLAUSE>;
+    return { originalClauseFilter: clauseFilter, editedClause: clauseFilter.clause, editOrigin: 'existing' };
+  }
+  return createNoEditingState<CLAUSE>();
 }
 
 export function useEditorReducer<CLAUSE>(
@@ -192,5 +210,5 @@ export function useEditorReducer<CLAUSE>(
     },
     [replaceClauseWith]
   );
-  return useReducer(reducer, { originalClauseFilter: null, editedClause: null });
+  return useReducer(reducer, filter, initializeEditorStateFromFilter<CLAUSE>);
 }

@@ -1,8 +1,9 @@
+import { t as e } from "../../combobox-Cj2a0Di7.js";
+import "react";
 import { jsx as t } from "react/jsx-runtime";
-import { U as r } from "../../combobox-BXFJAuVG.js";
-function f(o) {
-  return /* @__PURE__ */ t(r, { ...o });
+//#region src/Select/components/FUIButton.tsx
+function n(n) {
+	return /* @__PURE__ */ t(e, { ...n });
 }
-export {
-  f as FUIComboboxButton
-};
+//#endregion
+export { n as FUIComboboxButton };

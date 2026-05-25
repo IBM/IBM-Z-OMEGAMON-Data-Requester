@@ -9,9 +9,14 @@ export type OriginalAndEditedClause<CLAUSE> = {
      * the whole filter
      */
     editedClause: CLAUSE;
+    /** Tracks whether current edit session was started from an existing clause or
+     * from a newly added clause in this editor session.
+     */
+    editOrigin: 'existing' | 'new';
 } | {
     originalClauseFilter: null;
     editedClause: null;
+    editOrigin: null;
 };
 export type BaseEditorAction<CLAUSE> = {
     type: 'editing_started';

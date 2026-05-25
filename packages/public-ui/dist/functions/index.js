@@ -1,8 +1,4 @@
-import { tid as t } from "./tid.js";
-import { stopPropagation as p } from "./stopPropagation.js";
-import { usePrevious as i } from "./usePrevious.js";
-export {
-  p as stopPropagation,
-  t as tid,
-  i as usePrevious
-};
+import { tid as e } from "./tid.js";
+import { stopPropagation as t } from "./stopPropagation.js";
+import { usePrevious as n } from "./usePrevious.js";
+export { t as stopPropagation, e as tid, n as usePrevious };

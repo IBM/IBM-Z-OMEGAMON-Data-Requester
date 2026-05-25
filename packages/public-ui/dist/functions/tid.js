@@ -1,6 +1,6 @@
-function t(r) {
-  return `rs.omui.${r}`;
+//#region src/functions/tid.ts
+function e(e) {
+	return `rs.omui.${e}`;
 }
-export {
-  t as tid
-};
+//#endregion
+export { e as tid };

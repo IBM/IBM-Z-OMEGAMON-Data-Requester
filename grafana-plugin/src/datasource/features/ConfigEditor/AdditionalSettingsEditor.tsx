@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { ConfigSection } from '@grafana/plugin-ui';
 import { InlineField, Input } from '@grafana/ui';
 import React, { ChangeEvent, useCallback } from 'react';
 
 import { tid } from 'datasource/components';
+import { ConfigSection } from 'datasource/features/components/plugin-ui-inlined';
 
 import type { FalconDataSourceOptionsProps } from './FalconDataSourceOptionsProps';
 

@@ -60,5 +60,5 @@ test('multiple identifier returns correct amount of nodes in the same order as i
 test('throws if there is no single identifier provided', () => {
   expect(() => {
     parseSelectClause(tokenize('SELECT FRoM O4SRV.INODESTS'));
-  }).toThrowError('Select statement misses identifiers to select');
+  }).toThrow('Select statement misses identifiers to select');
 });

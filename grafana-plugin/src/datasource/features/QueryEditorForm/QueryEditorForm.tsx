@@ -6,7 +6,7 @@ import { FilterEditor } from 'public-ui';
 import React, { useCallback, useState } from 'react';
 
 import { CollapseWithInfoIcon, tid } from 'datasource/components';
-import { MetricsQueryFilter, MetricsQueryParams } from 'datasource/domain';
+import { MetricsQueryFilter, MetricsQueryParams, NON_ITM_HISTORY_TABLES } from 'datasource/domain';
 import { ConnectorLabel, NoFiltersMessage, useFilterEditorStyles } from 'datasource/features/filterEditorComponents';
 import { ClauseEditor } from 'datasource/features/filterEditorComponents/ClauseEditor';
 import { useTableMetadata, CurrentTableMetadataProvider } from 'datasource/features/metadata';
@@ -187,8 +187,9 @@ export function QueryEditorForm({ params, changeMetricsQueryParams, isVariableQu
           tableId={params.tableId}
           orderBy={params.orderBy}
           changeMetricsQueryParams={changeMetricsQueryParams}
-          disabled={params.groupBy.length > 0}
           className={styles.orderByField}
+          groupBy={params.groupBy}
+          columns={params.columns}
         />
 
         <InlineFieldRow className={styles.rowLimitAndHistoryFieldRow}>
@@ -204,13 +205,13 @@ export function QueryEditorForm({ params, changeMetricsQueryParams, isVariableQu
                 const newParams: Partial<MetricsQueryParams> = { history: e.currentTarget.checked };
                 // This set also exists in the backend, please update both :)
                 // https://git.rocketsoftware.com/projects/FAL/repos/falcon/browse/apps/grafana-plugin/pkg/datasource/infrastructure/itm_provider/cms_sql/non_itm_history_tables.go?at=5480e46c1aaf3b1bafdd60d0a3179a2946de2d45#12
-                const NON_ITM_HISTORY_TABLES = new Set(['HISTTHRD', 'ZCDETL', 'ATFSUMS', 'CICSODV']);
                 if (NON_ITM_HISTORY_TABLES.has(params.tableId)) {
                   changeMetricsQueryParams(newParams);
                   return;
                 }
                 if (!e.currentTarget.checked) {
                   newParams.columns = params.columns.filter(({ id }) => id !== writetimeColumnMetadata.id);
+                  newParams.orderBy = params.orderBy.filter(({ columnId }) => columnId !== writetimeColumnMetadata.id);
                 } else if (!params.groupBy.length) {
                   newParams.columns = [...params.columns, { id: writetimeColumnMetadata.id }];
                 }

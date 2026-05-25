@@ -1,88 +1,95 @@
-import { u as t, c as s } from "../useReplaceClauseWith-DewscVL1.js";
-import { b as c } from "../Touched-B_NvPUG5.js";
-import { useCallback as C, useReducer as o } from "react";
-function F(e, l, r) {
-  if (l.sourceFilter == null)
-    return r(["root", l.newClauseFilter]), {
-      type: "new_clause_added",
-      newClauseFilter: l.newClauseFilter
-    };
-  const { newClauseFilter: n, connector: d, sourceFilter: i } = l, u = [];
-  return e.originalClauseFilter === i ? u.push([i, s(d, { clause: e.editedClause }, n)]) : (u.push([i, s(d, i, n)]), e.originalClauseFilter && u.push([e.originalClauseFilter, { clause: e.editedClause }])), r(...u), {
-    type: "new_clause_added",
-    newClauseFilter: n
-  };
+import { n as e, r as t } from "../Touched-0GoKkw98.js";
+import { n, t as r } from "../useReplaceClauseWith-Czh9O6QD.js";
+import { useCallback as i, useReducer as a } from "react";
+//#region src/FilterEditor/useEditorReducer.ts
+function o(e, t, r) {
+	if (t.sourceFilter == null) return r(["root", t.newClauseFilter]), {
+		type: "new_clause_added",
+		newClauseFilter: t.newClauseFilter
+	};
+	let { newClauseFilter: i, connector: a, sourceFilter: o } = t, s = [];
+	return e.originalClauseFilter === o ? s.push([o, n(a, { clause: e.editedClause }, i)]) : (s.push([o, n(a, o, i)]), e.originalClauseFilter && s.push([e.originalClauseFilter, { clause: e.editedClause }])), r(...s), {
+		type: "new_clause_added",
+		newClauseFilter: i
+	};
 }
-function a(e, l, r) {
-  return e.originalClauseFilter && r([e.originalClauseFilter, { clause: { ...c(e.editedClause) } }]), l;
+function s(t, n, r) {
+	return t.originalClauseFilter && r([t.originalClauseFilter, { clause: { ...e(t.editedClause) } }]), n;
 }
-function g(e, l, r) {
-  return e.originalClauseFilter && r([e.originalClauseFilter, l.clauseFilter]), {
-    type: "editing_canceled"
-  };
+function c(e, t, n) {
+	return e.originalClauseFilter && n([e.originalClauseFilter, t.clauseFilter]), { type: "editing_canceled" };
 }
-function f(e, l, r) {
-  switch (l.type) {
-    case "editing_started":
-      return l.clauseFilter === e.originalClauseFilter ? l : a(e, l, r);
-    case "editing_canceled":
-      return g(e, l, r);
-    case "editing_applied":
-      return l.clauseFilter !== e.originalClauseFilter ? (console.warn(
-        `Filter Editor: got an 'editing_applied' action with source not matching the clause currently in editing mode. Filter from action: ${JSON.stringify(
-          l.clauseFilter
-        )}, current editable filter: ${JSON.stringify(e.originalClauseFilter)}`
-      ), l) : a(e, l, r);
-    case "new_clause_added":
-      return F(e, l, r);
-    case "clause_removed":
-      return r([l.clauseFilter, "no_filter"]), l;
-  }
-  return l;
+function l(e, t, n) {
+	switch (t.type) {
+		case "editing_started": return t.clauseFilter === e.originalClauseFilter ? t : s(e, t, n);
+		case "editing_canceled": return c(e, t, n);
+		case "editing_applied": return t.clauseFilter === e.originalClauseFilter ? s(e, t, n) : (console.warn(`Filter Editor: got an 'editing_applied' action with source not matching the clause currently in editing mode. Filter from action: ${JSON.stringify(t.clauseFilter)}, current editable filter: ${JSON.stringify(e.originalClauseFilter)}`), t);
+		case "new_clause_added": return o(e, t, n);
+		case "clause_removed": return n([t.clauseFilter, "no_filter"]), t;
+	}
+	return t;
 }
-function _(e, l) {
-  switch (l.type) {
-    case "clause_edited_partially":
-      return !e.editedClause || !e.originalClauseFilter ? e : { ...e, editedClause: { ...e.editedClause, ...l.clauseFields } };
-    case "clause_edited_fully":
-      return !e.editedClause || !e.originalClauseFilter ? e : { ...e, editedClause: { ...l.clause } };
-    case "editing_started":
-      return {
-        originalClauseFilter: l.clauseFilter,
-        editedClause: l.clauseFilter.clause
-      };
-    case "editing_canceled":
-      return {
-        originalClauseFilter: null,
-        editedClause: null
-      };
-    case "editing_applied":
-      return e.originalClauseFilter ? {
-        originalClauseFilter: null,
-        editedClause: null
-      } : e;
-    case "new_clause_added":
-      return {
-        originalClauseFilter: l.newClauseFilter,
-        editedClause: l.newClauseFilter.clause
-      };
-    case "clause_removed":
-      return e.originalClauseFilter === l.clauseFilter ? {
-        originalClauseFilter: null,
-        editedClause: null
-      } : e;
-  }
+function u(e, t) {
+	switch (t.type) {
+		case "clause_edited_partially": return !e.editedClause || !e.originalClauseFilter ? e : {
+			...e,
+			editedClause: {
+				...e.editedClause,
+				...t.clauseFields
+			}
+		};
+		case "clause_edited_fully": return !e.editedClause || !e.originalClauseFilter ? e : {
+			...e,
+			editedClause: { ...t.clause }
+		};
+		case "editing_started": return {
+			originalClauseFilter: t.clauseFilter,
+			editedClause: t.clauseFilter.clause,
+			editOrigin: "existing"
+		};
+		case "editing_canceled": return {
+			originalClauseFilter: null,
+			editedClause: null,
+			editOrigin: null
+		};
+		case "editing_applied": return e.originalClauseFilter ? {
+			originalClauseFilter: null,
+			editedClause: null,
+			editOrigin: null
+		} : e;
+		case "new_clause_added": return {
+			originalClauseFilter: t.newClauseFilter,
+			editedClause: t.newClauseFilter.clause,
+			editOrigin: "new"
+		};
+		case "clause_removed": return e.originalClauseFilter === t.clauseFilter ? {
+			originalClauseFilter: null,
+			editedClause: null,
+			editOrigin: null
+		} : e;
+	}
 }
-function y(e, l) {
-  const r = t(e, l), n = C(
-    (d, i) => {
-      const u = f(d, i, r);
-      return _(d, u);
-    },
-    [r]
-  );
-  return o(n, { originalClauseFilter: null, editedClause: null });
+function d() {
+	return {
+		originalClauseFilter: null,
+		editedClause: null,
+		editOrigin: null
+	};
 }
-export {
-  y as useEditorReducer
-};
+function f(e) {
+	if (e && e.clause != null && t(e.clause) === !1) {
+		let t = e;
+		return {
+			originalClauseFilter: t,
+			editedClause: t.clause,
+			editOrigin: "existing"
+		};
+	}
+	return d();
+}
+function p(e, t) {
+	let n = r(e, t);
+	return a(i((e, t) => u(e, l(e, t, n)), [n]), e, f);
+}
+//#endregion
+export { p as useEditorReducer };

@@ -24,8 +24,6 @@ const config: Config = {
     ],
   },
   transformIgnorePatterns: ['node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)'],
-
-  modulePaths: ['<rootDir>/src/'],
 };
 
 export default config;

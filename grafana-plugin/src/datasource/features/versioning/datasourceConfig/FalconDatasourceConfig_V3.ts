@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-/* eslint-disable @typescript-eslint/prefer-namespace-keyword */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-types */
 import { FalconDatasourceConfig_V2 } from './FalconDatasourceConfig_V2';
 
 const FALCON_DATASOURCE_OPTIONS_VERSION_V3 = 3;
@@ -56,7 +54,7 @@ export type FalconDatasourceConfig_V3 = DEP_V3.DataSourceSettings<
 >;
 
 /* Module without 'declare' keyword cannot have export declarations */
-declare module DEP_V3 {
+declare namespace DEP_V3 {
   interface DataSourceJsonData {
     authType?: string;
     defaultRegion?: string;
@@ -86,8 +84,10 @@ declare module DEP_V3 {
    * Data Source instance edit model.  This is returned from:
    *  /api/datasources
    */
-  interface DataSourceSettings<T extends DataSourceJsonData = DataSourceJsonData, S = {}>
-    extends WithAccessControlMetadata {
+  interface DataSourceSettings<
+    T extends DataSourceJsonData = DataSourceJsonData,
+    S = {},
+  > extends WithAccessControlMetadata {
     id: number;
     uid: string;
     orgId: number;

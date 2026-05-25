@@ -4,19 +4,23 @@ import (
 	"fmt"
 	"itm-datasource-plugin/pkg/datasource/domain"
 	"reflect"
+	"strings"
 	"time"
 
+	"github.com/grafana/grafana-plugin-sdk-go/backend"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/grafana-plugin-sdk-go/live"
 )
 
 type QueryResponse struct {
-	name            string
-	rows            *[]domain.GenericRow
-	channel         *live.Channel
-	requestColumns  []string
-	custom          any
-	perSourceErrors map[string]string
+	name              string
+	rows              *[]domain.GenericRow
+	channel           *live.Channel
+	requestColumns    []string
+	custom            any
+	perSourceErrors   map[string]string
+	isHistoricalQuery bool
+	isTimeSeriesQuery bool
 }
 
 func newQueryResponse(
@@ -26,28 +30,33 @@ func newQueryResponse(
 	requestColumnsIds []string,
 	gatewayDbgData any,
 	perSourceErrors map[string]string,
+	isHistoricalQuery bool,
+	isTimeSeriesQuery bool,
 ) *QueryResponse {
 	return &QueryResponse{
-		name:            name,
-		rows:            rows,
-		channel:         channel,
-		requestColumns:  requestColumnsIds,
-		custom:          map[string]any{gatewayDebugFieldName: gatewayDbgData},
-		perSourceErrors: perSourceErrors,
+		name:              name,
+		rows:              rows,
+		channel:           channel,
+		requestColumns:    requestColumnsIds,
+		custom:            map[string]any{gatewayDebugFieldName: gatewayDbgData},
+		perSourceErrors:   perSourceErrors,
+		isHistoricalQuery: isHistoricalQuery,
+		isTimeSeriesQuery: isTimeSeriesQuery,
 	}
 }
 
-func newQueryResponseFromStructs[T any](name string, data []T, channel *live.Channel, requestColumnsIds []string) (*QueryResponse, error) {
+func newQueryResponseFromStructs[T any](name string, data []T, channel *live.Channel, requestColumnsIds []string, isHistoricalQuery bool) (*QueryResponse, error) {
 	rows, err := newQueryRows(data)
 	if err != nil {
 		return nil, err
 	}
 
 	return &QueryResponse{
-		name:           name,
-		rows:           rows,
-		channel:        channel,
-		requestColumns: requestColumnsIds,
+		name:              name,
+		rows:              rows,
+		channel:           channel,
+		requestColumns:    requestColumnsIds,
+		isHistoricalQuery: isHistoricalQuery,
 	}, nil
 }
 
@@ -64,14 +73,18 @@ func (response *QueryResponse) getFrames() []*data.Frame {
 
 	for idx, row := range rows {
 		for colName, colValue := range row {
-			field, found := fieldMap[colName]
-			if !found {
-				fieldType := data.FieldTypeFor(colValue)
-				field = data.NewFieldFromFieldType(fieldType.NullableType(), len(rows))
-				field.Name = colName
-				fieldMap[colName] = field
+			if colValue != nil {
+				colValue = response.convertHistoricalTimestamp(colName, colValue)
+
+				field, found := fieldMap[colName]
+				if !found {
+					fieldType := data.FieldTypeFor(colValue)
+					field = data.NewFieldFromFieldType(fieldType.NullableType(), len(rows))
+					field.Name = colName
+					fieldMap[colName] = field
+				}
+				field.SetConcrete(idx, colValue)
 			}
-			field.SetConcrete(idx, colValue)
 		}
 	}
 
@@ -95,7 +108,14 @@ func (response *QueryResponse) getFrames() []*data.Frame {
 	}
 	setMeta(frame, response.perSourceErrors, response.custom)
 
-	return []*data.Frame{frame}
+	frames := []*data.Frame{frame}
+
+	// Apply wide format conversion for time-series queries
+	if response.isTimeSeriesQuery {
+		frames = ConvertToWideFormat(frames, true)
+	}
+
+	return frames
 }
 
 func setMeta(frame *data.Frame, errorsMap map[string]string, customValues any) {
@@ -194,4 +214,46 @@ func getPrimitiveAsInterface(v reflect.Value) (any, error) {
 	default:
 		return nil, fmt.Errorf("getPrimitiveAsInterface doesn't support the following kind %s", v.Kind())
 	}
+}
+
+// convertHistoricalTimestamp converts timestamp column values to time.Time.
+// Accepts either an already-decoded time.Time (from proto path) or an
+// RFC3339 string (from JSON path).
+// For time-series queries, conversion applies on the TIME_BUCKET column.
+// For real-time metrics (historical) queries, conversion applies on the WRITETIME column.
+// If parsing fails, the original value is returned and a warning is logged.
+func (response *QueryResponse) convertHistoricalTimestamp(colName string, colValue any) any {
+	upperColName := strings.ToUpper(colName)
+	shouldConvert := (response.isTimeSeriesQuery && upperColName == "TIME_BUCKET") ||
+		(response.isHistoricalQuery && upperColName == "WRITETIME")
+
+	if !shouldConvert {
+		return colValue
+	}
+
+	switch v := colValue.(type) {
+	case time.Time:
+		return v // proto path: already decoded
+	case string:
+		timestamp, err := parseRFC3339Time(v)
+		if err != nil {
+			backend.Logger.Warn("Failed to parse timestamp", "column", colName, "value", v, "error", err)
+			return colValue
+		}
+		return timestamp
+	}
+	return colValue
+}
+
+// parseRFC3339Time parses an RFC3339 string into time.Time.
+// The input must be ISO 8601/RFC3339 with timezone information.
+// It returns an error when the format or date/time components are invalid.
+func parseRFC3339Time(timestamp string) (time.Time, error) {
+	// Parse ISO 8601 / RFC3339 format
+	t, err := time.Parse(time.RFC3339, timestamp)
+	if err != nil {
+		return time.Time{}, fmt.Errorf("failed to parse WRITETIME as RFC3339: %w", err)
+	}
+
+	return t, nil
 }

@@ -26,7 +26,12 @@ export function convertMetricsQueryToCmsSql(
   const whereString = getWhereCondition(params, possibleTableMetadata);
   const groupByString = params.groupBy.length ? ` GROUP BY ${params.groupBy.join(', ')}` : '';
   const orderByString = params.orderBy.length
-    ? ` ORDER BY ${params.orderBy.map((el) => `${el.columnId} ${el.type}`).join(', ')}`
+    ? ` ORDER BY ${params.orderBy
+        .map((el) => {
+          const columnPart = el.aggregationFunction ? `${el.aggregationFunction}(${el.columnId})` : el.columnId;
+          return `${columnPart} ${el.type}`;
+        })
+        .join(', ')}`
     : '';
 
   const result = selectString + fromString + historyString + whereString + groupByString + orderByString + ';';

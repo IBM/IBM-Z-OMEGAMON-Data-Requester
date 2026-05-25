@@ -7,8 +7,12 @@ import {
   FALCON_QUERY_VERSION,
   MetricsQueryParams,
   FalconMetricsQuery,
+  FalconTimeSeriesQuery,
   FalconSituationsQuery,
+  FalconManagedSystemsQuery,
   FalconQueryType,
+  ManagedSystemsQueryParams,
+  TimeSeriesQueryParams,
 } from './FalconQuery';
 
 const defaultCommonQueryParams: Pick<FalconQuery, 'falconVersion' | 'hide' | 'refId'> = {
@@ -29,17 +33,45 @@ export const defaultMetricsQueryParams: MetricsQueryParams = {
   parmas: [],
 };
 
+export const defaultManagedSystemsQueryParams: ManagedSystemsQueryParams = {
+  affinityId: '' as AffinityId,
+};
+
+export const defaultTimeSeriesQueryParams: TimeSeriesQueryParams = {
+  affinityId: '' as AffinityId,
+  tableId: '',
+  labels: [],
+  columns: [],
+  aggregationFunctions: [],
+  agentsAndGroups: [],
+  aggregationIntervalMs: -1,
+  orderBy: [],
+};
+
 const defaultMetricsQuery: FalconMetricsQuery = {
   queryType: 'metrics',
   ...defaultCommonQueryParams,
   falconParams: defaultMetricsQueryParams,
 };
 
+const defaultTimeSeriesQuery: FalconTimeSeriesQuery = {
+  queryType: 'time-series',
+  ...defaultCommonQueryParams,
+  falconParams: defaultTimeSeriesQueryParams,
+};
+
 const defaultSituationsQuery: FalconSituationsQuery = { queryType: 'situations', ...defaultCommonQueryParams };
+const defaultManagedSystemsQuery: FalconManagedSystemsQuery = {
+  queryType: 'managedSystems',
+  ...defaultCommonQueryParams,
+  managedSystemsParams: defaultManagedSystemsQueryParams,
+};
 
 const defaultQueryMap: DiscriminatedUnionMap<FalconQuery, 'queryType'> = {
   metrics: defaultMetricsQuery,
+  'time-series': defaultTimeSeriesQuery,
   situations: defaultSituationsQuery,
+  managedSystems: defaultManagedSystemsQuery,
 };
 
 export function constructDefaultFalconQuery(queryType: FalconQueryType, previousQuery?: DataQuery): FalconQuery {

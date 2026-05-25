@@ -10,7 +10,7 @@ import { DataSourceWithBackend } from '@grafana/runtime';
 import { isEqual, uniq } from 'lodash';
 import { combineWithAnd, errorToString, throwIfNullish, unwrapObservable } from 'public-common';
 import { TableMetadata } from 'public-domain';
-import { from, Observable, switchMap, tap } from 'rxjs';
+import { from, map, Observable, switchMap, tap } from 'rxjs';
 
 import {
   FalconQuery,
@@ -18,15 +18,22 @@ import {
   EMPTY_PARMA,
   MetricsQueryParma,
   FalconMetricsQuery,
+  FalconTimeSeriesQuery,
   MetricsQueryFilter,
-  FalconSituationsQuery,
+  FalconManagedSystemsQuery,
   MetricsQueryFilterClause,
+  FalconSituationsQuery,
+  AGGREGATION_INTERVAL,
 } from 'datasource/domain';
 import { formatMetricsInResponse } from 'datasource/features/formatting/format';
-import { ItmQueryParams, convertQueryToItmFormat } from 'datasource/features/formatting/reverseFormat';
+import { convertQueryToItmFormat, ItmFalconMetricsQuery } from 'datasource/features/formatting/reverseFormat';
 import { MetadataLoader } from 'datasource/features/metadata';
 import { addTakeActionToResponse } from 'datasource/features/takeAction';
-import { validateMetricsQuery, ValidationProblem } from 'datasource/features/validation/validateMetricsQuery';
+import {
+  validateMetricsQuery,
+  validateTimeSeriesQuery,
+  ValidationProblem,
+} from 'datasource/features/validation/validateMetricsQuery';
 // eslint-disable-next-line import/no-cycle
 import {
   applyVariablesInFilters,
@@ -43,8 +50,7 @@ import {
 } from 'datasource/features/versioning/falconQuery';
 import { AdHocVariableFilter } from 'datasource/grafana';
 
-type PreparedFalconMetricsQuery = Omit<FalconMetricsQuery, 'falconParams'> & { falconParams: ItmQueryParams };
-type PreparedDataQuery = PreparedFalconMetricsQuery | FalconSituationsQuery;
+import { handleManagedSystemsQueries } from './managedSystemsQueryHandler';
 
 export class FalconDatasource extends DataSourceWithBackend<FalconQuery, FalconDatasourceJsonData> {
   private static getErrorResponseObservable(error: unknown): Observable<DataQueryResponse> {
@@ -166,10 +172,10 @@ export class FalconDatasource extends DataSourceWithBackend<FalconQuery, FalconD
     adHocVariableFilters: AdHocVariableFilter[],
     scopedVars: ScopedVars,
     isVariableRequest: boolean
-  ): PreparedFalconMetricsQuery {
-    const applyedVariablesQuery = FalconDatasource.applyVariablesInAgentsAndGroups(query, scopedVars);
+  ): ItmFalconMetricsQuery {
+    const appliedVariablesQuery = FalconDatasource.applyVariablesInAgentsAndGroups(query, scopedVars);
 
-    const queryWithPreparedParmas = FalconDatasource.prepareParmas(applyedVariablesQuery, scopedVars);
+    const queryWithPreparedParmas = FalconDatasource.prepareParmas(appliedVariablesQuery, scopedVars);
 
     const queryWithPreparedFilters = FalconDatasource.applyVariablesInFilters(
       queryWithPreparedParmas,
@@ -184,26 +190,26 @@ export class FalconDatasource extends DataSourceWithBackend<FalconQuery, FalconD
       };
     }
 
-    const queryWithApplyedAdhocs = FalconDatasource.applyFiltersFromAdHocs(
+    const queryWithAppliedAdhocs = FalconDatasource.applyFiltersFromAdHocs(
       queryWithPreparedFilters,
       tableMd,
       adHocVariableFilters
     );
 
     return {
-      ...queryWithApplyedAdhocs,
-      falconParams: convertQueryToItmFormat(queryWithApplyedAdhocs.falconParams, tableMd),
+      ...queryWithAppliedAdhocs,
+      falconParams: convertQueryToItmFormat(queryWithAppliedAdhocs.falconParams, tableMd),
     };
   }
 
   /**
-   * Removes empty parmas, applies ad hoc filters, applies variables to filters, reverse formats filter values
+   * For every metrics query removes empty parmas, applies ad hoc filters, applies variables to filters, reverse formats filter values
    */
   private prepareMetricsQueries(
-    request: DataQueryRequest<FalconQuery>,
+    request: DataQueryRequest<FalconMetricsQuery | FalconSituationsQuery>,
     tableMetadatas: TableMetadata[],
     isVariableRequest: boolean
-  ): DataQueryRequest<PreparedDataQuery> {
+  ): DataQueryRequest<ItmFalconMetricsQuery | FalconSituationsQuery> {
     const adHocs = getDatasourceAdHocsFilters(this.uid);
 
     const preparedQueries = request.targets.map((query) => {
@@ -226,7 +232,10 @@ export class FalconDatasource extends DataSourceWithBackend<FalconQuery, FalconD
       return preparedMetricsQuery;
     });
 
-    const preparedRequest: DataQueryRequest<PreparedDataQuery> = { ...request, targets: preparedQueries };
+    const preparedRequest: DataQueryRequest<ItmFalconMetricsQuery | FalconSituationsQuery> = {
+      ...request,
+      targets: preparedQueries,
+    };
 
     return preparedRequest;
   }
@@ -255,16 +264,215 @@ export class FalconDatasource extends DataSourceWithBackend<FalconQuery, FalconD
     }
   };
 
+  private async validateTimeSeriesQueries(queries: FalconTimeSeriesQuery[]): Promise<void> {
+    const allProblems: ValidationProblem[] = [];
+    for (const query of queries) {
+      const problems = await validateTimeSeriesQuery(query.falconParams, this.metadataLoader);
+      allProblems.push(...problems);
+    }
+
+    const validationErrors = allProblems.filter((problem) => problem.severity === 'error');
+    if (validationErrors.length) {
+      const errorsString = validationErrors.map(({ message }) => `"${message}"`).join(', ');
+      throw new Error(`Found problems in query: ${errorsString}`);
+    }
+  }
+
   private async getMetricsQueriesTableMetadatas(request: DataQueryRequest<FalconQuery>): Promise<TableMetadata[]> {
     const queriesTableIds = uniq(
       request.targets
-        .filter((query): query is FalconMetricsQuery => query.queryType === 'metrics')
+        .filter(
+          (query): query is FalconMetricsQuery | FalconTimeSeriesQuery =>
+            query.queryType === 'metrics' || query.queryType === 'time-series'
+        )
         .map((query) => query.falconParams.tableId)
     );
 
     const tableMetadatas = await this.metadataLoader.getTableMetadatas(queriesTableIds);
 
     return tableMetadatas;
+  }
+
+  /**
+   * Prepares time-series query for backend by applying variable interpolation,
+   * ad-hoc filters, resolving aggregation interval, and appending WRITETIME to orderBy.
+   */
+  private static prepareTimeSeriesQuery(
+    query: FalconTimeSeriesQuery,
+    intervalMs: number,
+    tableMd: TableMetadata,
+    adHocVariableFilters: AdHocVariableFilter[],
+    scopedVars: ScopedVars
+  ): FalconTimeSeriesQuery {
+    const { falconParams } = query;
+
+    // Apply variable interpolation in agents (includes OMCICS formatting)
+    const agentsAndGroups = applyVariablesInAgentsAndGroups(
+      falconParams.agentsAndGroups,
+      scopedVars,
+      falconParams.affinityId
+    );
+
+    // Apply variable interpolation in filters
+    // Wrap in MetricsQueryFilters so applyVariablesInFilters can process it, then unwrap
+    const resolvedFilters = applyVariablesInFilters({ nonAggregated: falconParams.filter }, tableMd, scopedVars);
+
+    // Apply ad-hoc filters
+    const filterFromAdHocs = generateFilterFromAdHocs(adHocVariableFilters, tableMd);
+    const nonEmptyFilters = [resolvedFilters.nonAggregated, filterFromAdHocs].filter(
+      (f): f is MetricsQueryFilter => !!f
+    );
+    const combined = combineWithAnd<MetricsQueryFilterClause>(...nonEmptyFilters);
+    const filter = combined === 'no_filter' ? undefined : combined;
+
+    // Resolve aggregation interval:
+    // -1 (AUTOMATIC) → use panel's intervalMs
+    // -2 (CUSTOM_UNSET) → fall back to NONE (0); validation prevents reaching this in practice
+    // otherwise → use stored value as-is
+    const aggregationIntervalMs =
+      falconParams.aggregationIntervalMs === AGGREGATION_INTERVAL.AUTOMATIC
+        ? intervalMs
+        : falconParams.aggregationIntervalMs === AGGREGATION_INTERVAL.CUSTOM_UNSET
+          ? AGGREGATION_INTERVAL.NONE
+          : falconParams.aggregationIntervalMs;
+
+    return {
+      ...query,
+      falconParams: {
+        ...falconParams,
+        agentsAndGroups,
+        filter,
+        aggregationIntervalMs,
+        orderBy: [...falconParams.orderBy],
+      },
+    };
+  }
+
+  /**
+   * Handles time-series queries by validating, preparing, and sending to the backend.
+   * Time-series queries use their own request type; response format is same as metrics.
+   */
+  private async handleTimeSeriesQueries(
+    timeSeriesQueries: FalconTimeSeriesQuery[],
+    request: DataQueryRequest<FalconQuery>,
+    intervalMs: number,
+    panelType?: string
+  ): Promise<Observable<DataQueryResponse>> {
+    if (timeSeriesQueries.length === 0) {
+      return from([{ data: [] }]);
+    }
+
+    // Validate time-series queries
+    await this.validateTimeSeriesQueries(timeSeriesQueries);
+
+    const timeSeriesRequest: DataQueryRequest<FalconTimeSeriesQuery> = {
+      ...request,
+      targets: timeSeriesQueries,
+    };
+
+    const tableMetadatas = await this.getMetricsQueriesTableMetadatas(
+      timeSeriesRequest as DataQueryRequest<FalconQuery>
+    );
+
+    const adHocs = getDatasourceAdHocsFilters(this.uid);
+
+    const preparedQueries = timeSeriesQueries.map((query) => {
+      const tableMd = tableMetadatas.find((tMd) => tMd.id === query.falconParams.tableId);
+      throwIfNullish(tableMd, `Table metadata not found for table id '${query.falconParams.tableId}'`);
+      return FalconDatasource.prepareTimeSeriesQuery(query, intervalMs, tableMd, adHocs, request.scopedVars);
+    });
+
+    const preparedRequest: DataQueryRequest<FalconTimeSeriesQuery> = {
+      ...request,
+      targets: preparedQueries,
+    };
+
+    // Send time-series queries directly to the backend with their own queryType
+    const responseObservable = super.query(preparedRequest as DataQueryRequest<FalconQuery>);
+
+    // Response formatting is the same as metrics
+    const formattedResponseObservable = responseObservable.pipe(
+      tap((response) => {
+        formatMetricsInResponse(
+          response,
+          tableMetadatas,
+          // Cast for formatting - response structure is identical to metrics
+          preparedQueries as unknown as FalconMetricsQuery[],
+          true
+        );
+      })
+    );
+
+    return formattedResponseObservable;
+  }
+
+  private async handleMetricsAndEventsQueries(
+    metricsQueries: FalconMetricsQuery[],
+    eventsQueries: FalconSituationsQuery[],
+    request: DataQueryRequest<FalconQuery>,
+    isVariableRequest: boolean,
+    panelType?: string
+  ): Promise<Observable<DataQueryResponse>> {
+    const metricsAndEventsQueries = [...metricsQueries, ...eventsQueries];
+
+    if (metricsAndEventsQueries.length === 0) {
+      return from([{ data: [] }]);
+    }
+
+    const metricsAndEventsQueryRequest: DataQueryRequest<FalconMetricsQuery | FalconSituationsQuery> = {
+      ...request,
+      targets: metricsAndEventsQueries,
+    };
+
+    await this.validateMetricsQueries(metricsAndEventsQueryRequest);
+
+    const metricsQueriesTableMetadatas = await this.getMetricsQueriesTableMetadatas(metricsAndEventsQueryRequest);
+
+    const itmMetricsAndEventsQueryRequest = this.prepareMetricsQueries(
+      metricsAndEventsQueryRequest,
+      metricsQueriesTableMetadatas,
+      isVariableRequest
+    );
+
+    /** Typecast just to make TS happy */
+    const typecastItmMetricsAndEventsQueryRequest = itmMetricsAndEventsQueryRequest as DataQueryRequest<
+      FalconMetricsQuery | FalconSituationsQuery
+    >;
+
+    /**
+     * FYI: `super.query`:
+     * On internet connection failure or server's 400/500 HTTP status response, etc
+     * does not throw error, but rather still returns observable,
+     * that emits a value (it emits value, not error!)
+     */
+    const responseObservable = super.query(typecastItmMetricsAndEventsQueryRequest);
+
+    // For variable requests, return unformatted response. VariableSupport will handle formatting
+    if (isVariableRequest) {
+      return responseObservable;
+    }
+
+    // For panel requests, format and add take action
+    const formattedResponseObservable = responseObservable.pipe(
+      tap((response) => {
+        // FYI: mutates response
+        formatMetricsInResponse(response, metricsQueriesTableMetadatas, metricsQueries);
+      }),
+      switchMap((response) =>
+        from(
+          addTakeActionToResponse(
+            response,
+            request,
+            this.metadataLoader,
+            metricsQueriesTableMetadatas,
+            this.instanceSettings.jsonData.adminUrl ?? this.instanceSettings.url ?? '',
+            panelType
+          )
+        )
+      )
+    );
+
+    return formattedResponseObservable;
   }
 
   private async queryAndGetFormattedResponseObservable(
@@ -276,52 +484,55 @@ export class FalconDatasource extends DataSourceWithBackend<FalconQuery, FalconD
       FalconDatasource.validateIfQueriesInitialized(request);
       const latestVersionRequest = await getRequestWithLatestVersionFalconQueries(request, this.metadataLoader);
 
-      await this.validateMetricsQueries(latestVersionRequest);
-
-      const metricsQueriesTableMetadatas = await this.getMetricsQueriesTableMetadatas(latestVersionRequest);
-
-      const metricsQueryRequest = this.prepareMetricsQueries(
-        latestVersionRequest,
-        metricsQueriesTableMetadatas,
-        isVariableRequest
+      const managedSystemsQueries = latestVersionRequest.targets.filter(
+        (query) => query.queryType === 'managedSystems'
       );
+      const metricsQueries = latestVersionRequest.targets.filter((query) => query.queryType === 'metrics');
+      const eventsQueries = latestVersionRequest.targets.filter((query) => query.queryType === 'situations');
+      const timeSeriesQueries = latestVersionRequest.targets.filter((query) => query.queryType === 'time-series');
 
-      /**
-       * FYI: typecasting
-       * We modify query object before we send it to datasource backend (to resolve formatting, enums, etc).
-       * Grafana doesn't allow us to define those 2 different types so 'super.query' takes FalconQuery type.
-       * Because of that, we just going to cast it
-       */
-      const queryRequest = metricsQueryRequest as DataQueryRequest<FalconMetricsQuery>;
+      const handleManagedSystemsQueriesWrapper = async (): Promise<Observable<DataQueryResponse>> => {
+        if (managedSystemsQueries.length === 0) {
+          return from([{ data: [] }]);
+        }
 
-      /**
-       * FYI: `super.query`:
-       * On internet connection failure or server's 400/500 HTTP status response, etc
-       * does not throw error, but rather still returns observable,
-       * that emits a value (it emits value, not error!)
-       */
-      const responseObservable = super.query(queryRequest);
+        const managedSystemsRequest: DataQueryRequest<FalconManagedSystemsQuery> = {
+          ...latestVersionRequest,
+          targets: managedSystemsQueries,
+        };
+        return from(handleManagedSystemsQueries(this, managedSystemsRequest));
+      };
 
-      const formattedResponseObservable = await responseObservable.pipe(
-        tap((response) => {
-          // FYI: mutates response
-          formatMetricsInResponse(response, metricsQueriesTableMetadatas);
-        }),
-        switchMap((response) =>
-          from(
-            addTakeActionToResponse(
-              response,
-              request,
-              this.metadataLoader,
-              metricsQueriesTableMetadatas,
-              this.instanceSettings.jsonData.adminUrl ?? this.instanceSettings.url ?? '',
-              panelType
+      const metricsAndEventsResponseObservable = await this.handleMetricsAndEventsQueries(
+        metricsQueries,
+        eventsQueries,
+        latestVersionRequest,
+        isVariableRequest,
+        panelType
+      );
+      const timeSeriesResponseObservable = await this.handleTimeSeriesQueries(
+        timeSeriesQueries,
+        latestVersionRequest,
+        request.intervalMs,
+        panelType
+      );
+      const managedSystemsResponseObservable = await handleManagedSystemsQueriesWrapper();
+
+      return managedSystemsResponseObservable.pipe(
+        switchMap((managedSystemsResponse) =>
+          metricsAndEventsResponseObservable.pipe(
+            switchMap((metricsAndEventsResponse) =>
+              timeSeriesResponseObservable.pipe(
+                map((timeSeriesResponse) => ({
+                  ...metricsAndEventsResponse,
+                  error: metricsAndEventsResponse.error ?? timeSeriesResponse.error ?? managedSystemsResponse.error,
+                  data: [...managedSystemsResponse.data, ...metricsAndEventsResponse.data, ...timeSeriesResponse.data],
+                }))
+              )
             )
           )
         )
       );
-
-      return formattedResponseObservable;
     } catch (err) {
       return FalconDatasource.getErrorResponseObservable(err);
     }
@@ -333,9 +544,9 @@ export class FalconDatasource extends DataSourceWithBackend<FalconQuery, FalconD
      * 1. Grafana's `super.query` returns Observable.
      * 2. Observables are awkward to work with.
      * 3. `metrics` queries each provide single response result.
-     * 4. `situations` queries each provide multiple response results throughout time
-     *    (it uses streaming through websockets).
-     * 5. Need to handle request that contains both `metrics` and `situations` queries at same time.
+     * 4. THE FOLLOWING IS NOT TRUE as of 2025-11, but in future we may again support events streaming through websockets:
+     *    - `situations` queries each provide multiple response results throughout time  (it uses streaming through websockets)
+     * 5. Need to handle request that contains both `metrics`, `situations` (events), `managedSystems` queries at same time.
      */
     return unwrapObservable(
       this.queryAndGetFormattedResponseObservable(request, isVariableRequest, request.panelPluginId)

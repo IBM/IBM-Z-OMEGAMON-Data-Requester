@@ -6,48 +6,13 @@ import (
 	"fmt"
 	"itm-datasource-plugin/pkg/datasource/domain"
 	"itm-datasource-plugin/pkg/datasource/gateway"
-	"time"
+	dec "itm-datasource-plugin/pkg/datasource/gateway/proto_decoders"
 
+	pb "falcon_proto.local/v1"
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 )
 
 var _ DataQueryEndpointHandler = (*MetricsQueryEndpoint)(nil)
-
-type clientQueryParams struct {
-	ApplicationCode string                      `json:"applicationCode"`
-	AffinityId      domain.AffinityId           `json:"affinityId"`
-	TableId         string                      `json:"tableId"`
-	Columns         []domain.MetricsQueryColumn `json:"columns"`
-	AgentsAndGroups []json.RawMessage           `json:"agentsAndGroups"`
-	History         bool                        `json:"history"`
-	Filter          struct {
-		Aggregated    *domain.MetricsQueryFilter `json:"aggregated"`
-		NonAggregated *domain.MetricsQueryFilter `json:"nonAggregated"`
-	} `json:"filter"`
-	OrderBy []domain.OrderBy    `json:"orderBy"`
-	GroupBy []string            `json:"groupBy"`
-	Parmas  []domain.QueryParma `json:"parmas"` // for additional request parameters like SYSTEM.PARMA, etc
-}
-
-func (p *clientQueryParams) toGatewayMetricsParams(timeRange backend.TimeRange) gatewayMetricsParams {
-	return gatewayMetricsParams{
-		clientQueryParams: *p,
-		TimeRange: stringifiedTimeRange{
-			From: timeRange.From.Format(time.RFC3339Nano),
-			To:   timeRange.To.Format(time.RFC3339Nano),
-		},
-	}
-}
-
-type gatewayMetricsParams struct {
-	clientQueryParams
-	TimeRange stringifiedTimeRange `json:"timeRange"`
-}
-
-type stringifiedTimeRange struct {
-	From string `json:"from"`
-	To   string `json:"to"`
-}
 
 type MetricsQueryEndpoint struct {
 	configuration domain.Configuration
@@ -63,7 +28,7 @@ func NewMetricsQueryEndpoint(rootPath string, configuration domain.Configuration
 
 func (e *MetricsQueryEndpoint) HandleQuery(ctx context.Context, query backend.DataQuery, user *backend.User) (*QueryResponse, error) {
 	type ClientQuery struct {
-		Params clientQueryParams `json:"falconParams"`
+		Params domain.ClientMetricsParams `json:"falconParams"`
 	}
 
 	logger := backend.Logger.FromContext(ctx)
@@ -75,16 +40,26 @@ func (e *MetricsQueryEndpoint) HandleQuery(ctx context.Context, query backend.Da
 		logger.Warn("Could not parse Metrics query", "query", query, "error", err)
 		return nil, fmt.Errorf("could not parse Metrics query: %s", err.Error())
 	}
+	// Default to "metrics" if not provided by the client.
+	if parsedQuery.Params.QueryType == "" {
+		parsedQuery.Params.QueryType = "metrics"
+	}
 
-	gatewayParams := parsedQuery.Params.toGatewayMetricsParams(query.TimeRange)
+	gatewayParams := parsedQuery.Params.ToGatewayMetricsParams(query.TimeRange)
 
-	resp, perSourceErrros, err, gatewayDbgMsgs := gateway.PostAggregated[[]domain.GenericRow](ctx, e.configuration, "/metrics", &gatewayParams)
+	var resp pb.MetricsResponse
+	_, err = gateway.PostProto[*pb.MetricsResponse](ctx, e.configuration, "/metrics", &gatewayParams, &resp)
 	if err != nil {
 		logger.Error("Metrics endpoint: Failed to get metrics from endpoint", "error", err)
 		return nil, err
 	}
 
-	logger.Debug("Metrics endpoint. Received metrics", "metrics length", len(resp))
+	rows, perSourceErrors, gatewayErr := dec.MetricsRowsFromProto(&resp)
+	if gatewayErr != "" {
+		return nil, fmt.Errorf("gateway error: %s", gatewayErr)
+	}
+
+	logger.Debug("Metrics endpoint. Received metrics", "metrics length", len(rows))
 
 	columnIds := make([]string, 0)
 	for _, column := range parsedQuery.Params.Columns {
@@ -94,7 +69,16 @@ func (e *MetricsQueryEndpoint) HandleQuery(ctx context.Context, query backend.Da
 			columnIds = append(columnIds, fmt.Sprintf("%s(%s)", *column.AggregationFunction, column.Id))
 		}
 	}
-	queryResponse := newQueryResponse(parsedQuery.Params.TableId, &resp, nil, columnIds, gatewayDbgMsgs, perSourceErrros)
+	queryResponse := newQueryResponse(
+		parsedQuery.Params.TableId,
+		&rows,
+		nil,
+		columnIds,
+		nil,
+		perSourceErrors,
+		parsedQuery.Params.History,
+		false,
+	)
 	logger.Debug("Metrics endpoint. Converted metrics to query response")
 	return queryResponse, nil
 }

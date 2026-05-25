@@ -15,6 +15,7 @@ import { updateTo_V5 } from './FalconDatasourceConfig_V5';
 import { updateTo_V6 } from './FalconDatasourceConfig_V6';
 import { updateTo_V7 } from './FalconDatasourceConfig_V7';
 import { updateTo_V8 } from './FalconDatasourceConfig_V8';
+import { updateTo_V9 } from './FalconDatasourceConfig_V9';
 
 const unvalidatedUpdaters = [
   updateTo_V1,
@@ -25,6 +26,7 @@ const unvalidatedUpdaters = [
   updateTo_V6,
   updateTo_V7,
   updateTo_V8,
+  updateTo_V9,
 ] as const;
 
 const falconDatasourceConfigUpdaters: ValidateUpdaters<

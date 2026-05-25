@@ -41,7 +41,7 @@ const initialQuery: FalconMetricsQuery = {
     parmas: [],
     tableId: 'CICSCAD',
   },
-  falconVersion: 9,
+  falconVersion: 11,
   hide: false,
   queryType: 'metrics',
   refId: 'A',

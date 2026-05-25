@@ -25,8 +25,6 @@ const config: Config = {
   },
   prettierPath: null, // this is required for Jest (below v30) inline snapshots to work
   transformIgnorePatterns: ['node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)'],
-
-  modulePaths: ['<rootDir>/src/'],
 };
 
 export default config;

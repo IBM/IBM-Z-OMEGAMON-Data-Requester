@@ -1,8 +1,4 @@
-import { onChangePreprocessor as o } from "./OnChangePreprocessor.js";
+import { onChangePreprocessor as e } from "./OnChangePreprocessor.js";
 import { generateOptions as t } from "./OptionsGenerator.js";
-import { sharedApply as s } from "./onApply.js";
-export {
-  t as generateOptions,
-  o as onChangePreprocessor,
-  s as sharedApply
-};
+import { sharedApply as n } from "./onApply.js";
+export { t as generateOptions, e as onChangePreprocessor, n as sharedApply };

@@ -1,0 +1,12 @@
+version: v2
+modules:
+  - path: .
+    name: buf.build/omegamon/falcon
+lint:
+  use:
+    - DEFAULT
+  except:
+    - PACKAGE_VERSION_SUFFIX
+breaking:
+  use:
+    - FILE

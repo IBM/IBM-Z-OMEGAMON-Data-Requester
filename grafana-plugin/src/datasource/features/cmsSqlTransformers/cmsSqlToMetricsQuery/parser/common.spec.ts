@@ -124,6 +124,6 @@ describe('parseSeparated', () => {
   test('Throws if fails to parse item after separator', () => {
     const input = [{ kind: 'identifier' }, { kind: 'comma_separator' }, { kind: 'comma_separator' }] as Token[];
 
-    expect(() => parseSeparated(input, 'comma_separator', parseIdentifier)).toThrowError();
+    expect(() => parseSeparated(input, 'comma_separator', parseIdentifier)).toThrow();
   });
 });

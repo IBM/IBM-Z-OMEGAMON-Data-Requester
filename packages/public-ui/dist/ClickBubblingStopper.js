@@ -1,9 +1,14 @@
-import { jsx as i } from "react/jsx-runtime";
-import { stopPropagation as r } from "./functions/stopPropagation.js";
+import { stopPropagation as e } from "./functions/stopPropagation.js";
+import "./functions/index.js";
 import "react";
-function n({ children: o }) {
-  return /* @__PURE__ */ i("div", { className: "fui:flex", onClick: r, children: o });
+import { jsx as t } from "react/jsx-runtime";
+//#region src/ClickBubblingStopper.tsx
+function n({ children: n }) {
+	return /* @__PURE__ */ t("div", {
+		className: "fui:flex",
+		onClick: e,
+		children: n
+	});
 }
-export {
-  n as ClickBubblingStopper
-};
+//#endregion
+export { n as ClickBubblingStopper };

@@ -2,22 +2,31 @@ import { Token } from 'datasource/features/cmsSqlTransformers/cmsSqlToMetricsQue
 
 import { OrderByExpression, OrderByClause } from './AstNode';
 import { extractOneByGenericKind, extract, parseSeparated } from './common';
+import { parseFunctionCall } from './parseExpression';
 import { parseIdentifier } from './parseIdentifier';
 import { ParserError } from './ParserError';
 
 function parseOrderByExpression(tokens: Token[]): [OrderByExpression | null, Token[]] {
-  // Can it actually be a function call?
-  const [column, afterColumn] = parseIdentifier(tokens);
-  if (!column) {
+  const [func, afterFunc] = parseFunctionCall(tokens);
+
+  if (func) {
+    const [direction, afterDirection] = extractOneByGenericKind(afterFunc, 'order_direction');
+    if (direction) {
+      return [{ nodeType: 'order_by_expression', functionCall: func, direction }, afterDirection];
+    }
+    return [{ nodeType: 'order_by_expression', functionCall: func, direction: null }, afterFunc];
+  }
+
+  const [identifier, afterIdentifier] = parseIdentifier(tokens);
+  if (!identifier) {
     return [null, tokens];
   }
 
-  const [direction, afterDirection] = extractOneByGenericKind(afterColumn, 'order_direction');
-
+  const [direction, afterDirection] = extractOneByGenericKind(afterIdentifier, 'order_direction');
   if (direction) {
-    return [{ nodeType: 'order_by_expression', identifier: column, direction }, afterDirection];
+    return [{ nodeType: 'order_by_expression', identifier, direction }, afterDirection];
   }
-  return [{ nodeType: 'order_by_expression', identifier: column, direction: null }, afterColumn];
+  return [{ nodeType: 'order_by_expression', identifier, direction: null }, afterIdentifier];
 }
 
 // TODO: tests

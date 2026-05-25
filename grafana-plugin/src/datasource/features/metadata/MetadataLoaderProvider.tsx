@@ -18,16 +18,7 @@ export function MetadataLoaderProvider({
       <TanStackQueryClientProvider client={metadataLoader.metadataTanStackQueryClient}>
         {children}
         {/* By default, React Query Devtools are only included in bundles when process.env.NODE_ENV === 'development' */}
-        <TanStackQueryDevtools
-          initialIsOpen={false}
-          position="bottom-right"
-          closeButtonProps={{
-            style: {
-              left: 'auto',
-              right: '0',
-            },
-          }}
-        />
+        <TanStackQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
       </TanStackQueryClientProvider>
     </MetadataLoaderContext.Provider>
   );

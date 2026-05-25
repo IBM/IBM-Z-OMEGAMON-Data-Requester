@@ -56,6 +56,15 @@ const config = async (env): Promise<Configuration> => {
     };
   });
 
+  // Node 24 + chokidar 4: fork-ts-checker-webpack-plugin passes `interval: undefined` to chokidar
+  // when CHOKIDAR_USEPOLLING is set, causing a crash. Enable webpack polling to bypass chokidar.
+  if (process.env.CHOKIDAR_USEPOLLING) {
+    baseConfig.watchOptions = {
+      poll: Number(process.env.CHOKIDAR_INTERVAL) || 3000,
+      ignored: /node_modules/,
+    };
+  }
+
   // We have modified it instead of creating a new one
   return baseConfig;
 };

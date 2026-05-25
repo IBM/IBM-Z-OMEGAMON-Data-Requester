@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { TextSelection, Option } from '~/Select';
 
 export function sharedApply(this: Option, input: string, selection: TextSelection) {

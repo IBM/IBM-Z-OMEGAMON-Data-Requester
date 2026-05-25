@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-restricted-imports
 import type { Filter } from '../types';
 
 import { combineWithOr, FilterCombinationResult, combineWithAnd } from './combineFilters';

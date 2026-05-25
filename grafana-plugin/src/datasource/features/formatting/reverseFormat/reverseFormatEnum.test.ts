@@ -25,7 +25,7 @@ describe(reverseFormatEnum.name, () => {
   it('throws error, if column type is number, but matched key cannot be converted to number', () => {
     const val = 'val';
     const enums = { someKeyThatCantBeConvertedToNumber: val } as EnumMap;
-    expect(() => reverseFormatEnum(val, { type: 'number', enums } as ColumnMetadata)).toThrowError();
+    expect(() => reverseFormatEnum(val, { type: 'number', enums } as ColumnMetadata)).toThrow();
   });
 
   it('can match value of type string that hold number to a value as simple number in enum map', () => {

@@ -91,7 +91,8 @@ export type GroupByClause = {
 
 export type OrderByExpression = {
   nodeType: 'order_by_expression';
-  identifier: Identifier;
+  identifier?: Identifier;
+  functionCall?: FunctionCall;
   direction: TokenOfGenericKind<'order_direction'> | null;
 };
 

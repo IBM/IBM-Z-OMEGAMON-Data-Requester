@@ -51,7 +51,7 @@ describe('getVariations', () => {
   });
   it('should throw error when the template that uses wrong variable type is received', () => {
     const intervalVariablesTemplateDetails = new TemplateVariablesDetails('${INTERVAL}', scopedVars);
-    expect(() => intervalVariablesTemplateDetails.getVariations()).toThrowError(
+    expect(() => intervalVariablesTemplateDetails.getVariations()).toThrow(
       'Variable "${INTERVAL}" with type "interval" is not supported in this context'
     );
   });
@@ -59,7 +59,7 @@ describe('getVariations', () => {
     expect(() => {
       const nonExistingVariablesTemplateDetails = new TemplateVariablesDetails('$VarNotFoundInDashboard', scopedVars);
       nonExistingVariablesTemplateDetails.getVariations();
-    }).toThrowError('There is no variable information for "$VarNotFoundInDashboard"');
+    }).toThrow('There is no variable information for "$VarNotFoundInDashboard"');
   });
 });
 

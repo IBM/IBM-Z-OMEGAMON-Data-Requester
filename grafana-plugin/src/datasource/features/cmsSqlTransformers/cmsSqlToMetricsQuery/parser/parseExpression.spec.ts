@@ -207,19 +207,19 @@ test('Unary stacking', () => {
 test('Throws if second operand of binary is missing', () => {
   expect(() => {
     parseArithmeticExpression(tokenize('2 +'));
-  }).toThrowError();
+  }).toThrow();
 
   expect(() => {
     parseArithmeticExpression(tokenize('2 + ORDER BY'));
-  }).toThrowError();
+  }).toThrow();
 });
 
 test('Throws if unary operand is missing', () => {
   expect(() => {
     parseArithmeticExpression(tokenize('2 + -'));
-  }).toThrowError();
+  }).toThrow();
 
   expect(() => {
     parseArithmeticExpression(tokenize('2 + ORDER BY'));
-  }).toThrowError();
+  }).toThrow();
 });

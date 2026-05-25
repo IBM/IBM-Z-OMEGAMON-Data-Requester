@@ -1,8 +1,9 @@
-import { jsx as r } from "react/jsx-runtime";
-import { j as t } from "../../combobox-BXFJAuVG.js";
-function n(o) {
-  return /* @__PURE__ */ r(t, { ...o });
+import { n as e } from "../../combobox-Cj2a0Di7.js";
+import "react";
+import { jsx as t } from "react/jsx-runtime";
+//#region src/Select/components/FUIOption.tsx
+function n(n) {
+	return /* @__PURE__ */ t(e, { ...n });
 }
-export {
-  n as FUIComboboxOption
-};
+//#endregion
+export { n as FUIComboboxOption };

@@ -1,6 +1,6 @@
-function t(o) {
-  o.stopPropagation();
+//#region src/functions/stopPropagation.ts
+function e(e) {
+	e.stopPropagation();
 }
-export {
-  t as stopPropagation
-};
+//#endregion
+export { e as stopPropagation };

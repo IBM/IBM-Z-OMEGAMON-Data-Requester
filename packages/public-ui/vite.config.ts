@@ -7,11 +7,28 @@ import { glob } from 'glob';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import svgr from 'vite-plugin-svgr';
-import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), svgr(), dts({ tsconfigPath: './tsconfig.withoutStoryBook.json' }), tsconfigPaths()],
+  plugins: [react(), tailwindcss(), svgr(), dts({ tsconfigPath: './tsconfig.withoutStoryBook.json' })],
+  // @headlessui/react depends on `use-sync-external-store`, which is CJS-only and calls require('react').
+  // Rolldown (Vite 8's bundler) wraps CJS externals with a `require` proxy that fails at runtime in
+  // Grafana's AMD environment (where `require` is undefined). The aliases below redirect those imports
+  // to pure-ESM shims (in esm-shims/) that use React 18's built-in useSyncExternalStore, eliminating
+  // all `require()` calls from the bundle output.
+  resolve: {
+    tsconfigPaths: true,
+    conditions: ['import', 'module', 'browser', 'default'],
+    alias: {
+      'use-sync-external-store/with-selector': resolve(__dirname, 'esm-shims/use-sync-external-store-with-selector.js'),
+      'use-sync-external-store/shim/with-selector': resolve(
+        __dirname,
+        'esm-shims/use-sync-external-store-with-selector.js'
+      ),
+      'use-sync-external-store/shim/index.js': resolve(__dirname, 'esm-shims/use-sync-external-store-shim.js'),
+      'use-sync-external-store/shim': resolve(__dirname, 'esm-shims/use-sync-external-store-shim.js'),
+    },
+  },
   build: {
     copyPublicDir: false,
     lib: {
@@ -22,7 +39,7 @@ export default defineConfig({
       input: Object.fromEntries(
         glob
           .sync('src/**/*.{ts,tsx}', {
-            ignore: ['src/**/*.d.ts'],
+            ignore: ['src/**/*.d.ts', 'src/**/*.test.{ts,tsx}'],
           })
           .map((file) => [
             // The name of the entry point

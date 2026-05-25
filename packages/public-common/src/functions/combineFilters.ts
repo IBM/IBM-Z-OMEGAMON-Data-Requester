@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-restricted-imports
 import type { Filter } from '../types';
 
 export type FilterCombinationResult<CLAUSE> = Filter<CLAUSE> | 'always_true' | 'always_false' | 'no_filter';

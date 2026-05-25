@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`SELECT AFFINITIES, EXPIRYTIME, GBLTMSTMP FROM O4SRV.INODESTS WHERE AFFINITIES <> '%IBM.CICSplex 00000000050000yA043'; 1`] = `
 {
@@ -716,10 +716,12 @@ exports[`SELECT NODE, ORIGINNODE, PRODUCT, O4ONLINE, AFFINITIES FROM O4SRV.INODE
     "history": false,
     "orderBy": [
       {
+        "aggregationFunction": undefined,
         "columnId": "O4ONLINE",
         "type": "DESC",
       },
       {
+        "aggregationFunction": undefined,
         "columnId": "PRODUCT",
         "type": "ASC",
       },
@@ -913,6 +915,7 @@ exports[`SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT FROM KDP.REALTHDA WHERE ORIG
     "history": false,
     "orderBy": [
       {
+        "aggregationFunction": undefined,
         "columnId": "THDXSTAT",
         "type": "ASC",
       },
@@ -988,6 +991,7 @@ exports[`SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT FROM KDP.REALTHDA WHERE ORIG
     "history": false,
     "orderBy": [
       {
+        "aggregationFunction": undefined,
         "columnId": "THDXSTAT",
         "type": "DESC",
       },
@@ -1063,10 +1067,12 @@ exports[`SELECT ORIGINNODE, MIN(QW0148CR), THDXSTAT FROM KDP.REALTHDA WHERE ORIG
     "history": false,
     "orderBy": [
       {
+        "aggregationFunction": undefined,
         "columnId": "THDXSTAT",
         "type": "DESC",
       },
       {
+        "aggregationFunction": undefined,
         "columnId": "QW0148EL",
         "type": "ASC",
       },

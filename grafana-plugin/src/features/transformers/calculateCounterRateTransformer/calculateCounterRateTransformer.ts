@@ -1,84 +1,15 @@
-import {
-  DataTransformerInfo,
-  DataFrame,
-  FieldType,
-  TransformerRegistryItem,
-  QueryResultMetaNotice,
-} from '@grafana/data';
+import { DataTransformerInfo, DataFrame, FieldType, TransformerRegistryItem } from '@grafana/data';
 import { mergeMap } from 'rxjs';
 
 import { WithOptionalVersion } from 'datasource/features/versioning/common';
 
-import { fieldToSelectableValue, validateTimeStep } from 'features/transformers/common';
+import { fieldToSelectableValue, validateTimeStep, processNotices, addNotice } from 'features/transformers/common';
 import { updateCalculateCounterRateTransformerOptionsToLatestVersion } from 'features/versioning/calculateCounterRateTransformer';
 
 import { CalculateCounterRateTransformerEditor } from './CalculateCounterRateTransformerEditor';
 import { CalculateCounterRateTransformerOptions } from './CalculateCounterRateTransformerOptions';
 
-const PREFIX = 'Calculate counter rate: ';
-
-function processNotices(frames: DataFrame[], sourceColumn: string): DataFrame[] {
-  const noticeArray: QueryResultMetaNotice[] = [];
-  const framesWithPrefixInNotices: DataFrame[] = [];
-  let framesWithSourcefield = 0;
-
-  if (
-    frames.length === 1 &&
-    frames[0]?.meta?.notices &&
-    frames[0]?.meta?.notices[0]?.text &&
-    frames[0]?.meta?.notices[0]?.text.startsWith(PREFIX)
-  ) {
-    throw new Error(PREFIX + 'No frames were transformed.\n' + frames[0].meta.notices[0].text);
-  }
-
-  frames.forEach((frame) => {
-    if (frame.meta?.notices) {
-      frame.meta.notices.forEach((notice) => {
-        if (notice.text.startsWith(PREFIX)) {
-          noticeArray.push(notice);
-          framesWithPrefixInNotices.push(frame);
-        }
-      });
-    }
-
-    const sourceField = frame.fields.find((field) => field.name === sourceColumn);
-    if (sourceField) {
-      framesWithSourcefield++;
-    }
-  });
-
-  if (noticeArray.length === 0) {
-    return frames;
-  }
-
-  const combinedMessage = [...new Set(noticeArray.map((notice) => notice.text))].join('\n');
-
-  if (framesWithSourcefield === noticeArray.length) {
-    throw new Error(PREFIX + 'No frames were transformed.\n' + combinedMessage);
-  }
-
-  const combinedNotice: QueryResultMetaNotice = {
-    severity: 'warning',
-    text: combinedMessage,
-  };
-
-  framesWithPrefixInNotices.forEach((frame) => {
-    if (frame.meta?.notices) {
-      frame.meta.notices = frame.meta.notices.filter((notice) => !notice.text.startsWith(PREFIX));
-      frame.meta.notices.push(combinedNotice);
-    }
-  });
-
-  return frames;
-}
-
-function addNotice(message: string, frame: DataFrame): DataFrame {
-  const notice: QueryResultMetaNotice = { text: PREFIX + message, severity: 'warning' };
-  frame.meta = frame.meta || {};
-  frame.meta.notices = frame.meta.notices || [];
-  frame.meta.notices.push(notice);
-  return frame;
-}
+const PREFIX = 'Calculate counter rate';
 
 export function transformFrames(
   frames: DataFrame[],
@@ -94,12 +25,29 @@ export function transformFrames(
 
     const timeField = frame.fields.find((field) => field.name === timeColumn);
     if (!timeField) {
-      addNotice(`time field '${timeColumn}' not found in frame '${frame.name}'.`, frame);
+      addNotice(`time field '${timeColumn}' not found in frame '${frame.name}'.`, frame, PREFIX);
       return frame;
     }
 
     if (sourceField.values.length === 1) {
-      addNotice(`Data with only one record can not be used for 'Calculate counter rate' transformation.`, frame);
+      addNotice(
+        `Data with only one record can not be used for 'Calculate counter rate' transformation.`,
+        frame,
+        PREFIX
+      );
+      return frame;
+    }
+
+    if (sourceField.values.length === 0) {
+      return frame;
+    }
+
+    if (sourceField.values.length === 1) {
+      addNotice(
+        `Data with only one record can not be used for 'Calculate counter rate' transformation.`,
+        frame,
+        PREFIX
+      );
       return frame;
     }
 
@@ -112,7 +60,8 @@ export function transformFrames(
     if (sourceField.type !== FieldType.number) {
       addNotice(
         `invalid type '${sourceField.type}' for source field '${sourceColumn}' in frame '${frame.name}', expected '${FieldType.number}'.`,
-        frame
+        frame,
+        PREFIX
       );
       return frame;
     }
@@ -120,7 +69,8 @@ export function transformFrames(
     if (!validateTimeStep(timeField)) {
       addNotice(
         `invalid time column '${timeColumn}' for frame '${frame.name}': possible time duplication or time is not ordered.`,
-        frame
+        frame,
+        PREFIX
       );
       return frame;
     }
@@ -179,7 +129,7 @@ function getCalculateCounterRateTransformation(): DataTransformerInfo<CalculateC
             }
 
             const newFrames = transformFrames(frameArray, sourceColumn, timeColumn, counterRateColumnName);
-            return processNotices(newFrames, sourceColumn);
+            return processNotices(newFrames, sourceColumn, PREFIX);
           })
         );
       };
@@ -192,8 +142,10 @@ export function getCalculateCounterRateTransformer(): TransformerRegistryItem<Ca
   return {
     id: transformation.id,
     editor: CalculateCounterRateTransformerEditor,
-    transformation,
+    transformation: () => Promise.resolve(transformation),
     name: transformation.name,
     description: transformation.description,
+    imageDark: '',
+    imageLight: '',
   };
 }

@@ -78,23 +78,23 @@ test('Return ORIGINNODE connected with non-ORIGINNODE filters via AND', () => {
 });
 
 test('Throws if ORIGINNODE filters are connected via AND', () => {
-  expect(() => originnodesFromWhere("ORIGINNODE = 'TEST1' AND ORIGINNODE = 'TEST2'")).toThrowError(
+  expect(() => originnodesFromWhere("ORIGINNODE = 'TEST1' AND ORIGINNODE = 'TEST2'")).toThrow(
     'Unexpected appearance of ORIGINNODE filter'
   );
 });
 
 test('Throws if connected with non-ORIGINNODE filter via OR', () => {
-  expect(() => originnodesFromWhere("ORIGINNODE='TEST' OR ITMSKS=3")).toThrowError(
+  expect(() => originnodesFromWhere("ORIGINNODE='TEST' OR ITMSKS=3")).toThrow(
     'Mixing ORIGINNODE and non-ORIGINNODE filters is not allowed'
   );
 
-  expect(() => originnodesFromWhere("ORIGINNODE='TEST' OR (ITMSKS<>3 AND ITMSKS<>5)")).toThrowError(
+  expect(() => originnodesFromWhere("ORIGINNODE='TEST' OR (ITMSKS<>3 AND ITMSKS<>5)")).toThrow(
     'Mixing ORIGINNODE and non-ORIGINNODE filters is not allowed'
   );
 });
 
 test('Throws if connected with AND on non-root level', () => {
-  expect(() => originnodesFromWhere("(ORIGINNODE = 'TEST1' AND ORIGINNODE = 'TEST2') OR ITMSKS=1")).toThrowError(
+  expect(() => originnodesFromWhere("(ORIGINNODE = 'TEST1' AND ORIGINNODE = 'TEST2') OR ITMSKS=1")).toThrow(
     'Unexpected appearance of ORIGINNODE filter'
   );
 });
@@ -102,7 +102,7 @@ test('Throws if connected with AND on non-root level', () => {
 test('Throws if connected with OR on too deep level', () => {
   expect(() =>
     originnodesFromWhere("((ORIGINNODE = 'TEST1' OR ORIGINNODE = 'TEST2') AND ITMSKS=1) OR ITMSKS<>1")
-  ).toThrowError('Unexpected appearance of ORIGINNODE filter');
+  ).toThrow('Unexpected appearance of ORIGINNODE filter');
 });
 
 test('Throws if ORIGINNODE filters are placed in two separate connectors', () => {
@@ -110,11 +110,11 @@ test('Throws if ORIGINNODE filters are placed in two separate connectors', () =>
     originnodesFromWhere(
       "(ORIGINNODE = 'TEST1' OR ORIGINNODE = 'TEST2') AND (ORIGINNODE = 'TEST3' OR ORIGINNODE = 'TEST4')"
     )
-  ).toThrowError('Unexpected appearance of ORIGINNODE filter');
+  ).toThrow('Unexpected appearance of ORIGINNODE filter');
 });
 
 test('Throws if used wrong comparison operator', () => {
-  expect(() => originnodesFromWhere("ORIGINNODE <> 'TEST'")).toThrowError(
+  expect(() => originnodesFromWhere("ORIGINNODE <> 'TEST'")).toThrow(
     'Only "equal to" operator is allowed in ORIGINNODE filters'
   );
 });

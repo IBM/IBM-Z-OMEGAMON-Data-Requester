@@ -1,6 +1,6 @@
-function i({ children: n, enabled: r, fallback: t = null }) {
-  return r ? n : t;
+//#region src/Conditional/index.tsx
+function e({ children: e, enabled: t, fallback: n = null }) {
+	return t ? e : n;
 }
-export {
-  i as Conditional
-};
+//#endregion
+export { e as Conditional };

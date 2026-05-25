@@ -13,10 +13,21 @@ export interface TableMetadata {
   description?: string; //tableDescription
   columns: ColumnMetadataMap;
   affinityEntity: AffinityEntity;
-  version: number;
 
   sampleType: SampleType;
   isMultiRow: boolean;
+
+  /**
+   * Min version of agent/application that supports table, i.e. version in which table was introduced
+   */
+  versionOfIntroduction: number;
+  /**
+   * Min version of agent/application that supports table with all it's columns, i.e. version in which table was last updated
+   */
+  versionOfLastUpdate: number;
+
+  // Dont ever use this, ITM randomly increments or doesnt increment when adding columns.
+  // version: number;
 }
 
 /** `ATR2_st_unknown` means that sample type is unrecognized */

@@ -3,11 +3,13 @@ import { mergeMap } from 'rxjs';
 
 import { WithOptionalVersion } from 'datasource/features/versioning/common';
 
-import { fieldToSelectableValue } from 'features/transformers/common';
+import { fieldToSelectableValue, processNotices, addNotice, validateTimeStep } from 'features/transformers/common';
 import { updateCalculateDeltaTransformerOptionsToLatestVersion } from 'features/versioning/calculateDeltaTransformer';
 
 import { CalculateDeltaTransformerEditor } from './CalculateDeltaTransformerEditor';
 import { CalculateDeltaTransformerOptions } from './CalculateDeltaTransformerOptions';
+
+const PREFIX = 'Calculate delta';
 
 export function transformFrames(frames: DataFrame[], sourceColumn: string, deltaColumnName?: string): DataFrame[] {
   return frames.map((frame) => {
@@ -20,9 +22,27 @@ export function transformFrames(frames: DataFrame[], sourceColumn: string, delta
     const { label: sourceDisplayName } = fieldToSelectableValue(sourceField);
 
     if (sourceField.type !== FieldType.number) {
-      throw new Error(
-        `Invalid source field type ${sourceField.type} in frame ${frame.name}, expected ${FieldType.number}`
+      addNotice(
+        `invalid type '${sourceField.type}' for source field '${sourceColumn}' in frame '${frame.name}', expected '${FieldType.number}'.`,
+        frame,
+        PREFIX
       );
+      return frame;
+    }
+
+    if (sourceField.values.length === 1) {
+      addNotice(`Data with only one record can not be used for 'Calculate delta' transformation.`, frame, PREFIX);
+      return frame;
+    }
+
+    if (sourceField.values.length === 0) {
+      return frame;
+    }
+
+    const hasValidTimeStep = !!frame.fields.find((field) => validateTimeStep(field));
+    if (!hasValidTimeStep) {
+      addNotice(`no time field with valid time step found in frame '${frame.name}'.`, frame, PREFIX);
+      return frame;
     }
 
     if (sourceField.values.length === 1) {
@@ -77,7 +97,8 @@ function getCalculateDeltaTransformation(): DataTransformerInfo<CalculateDeltaTr
               throw new Error("Source attribute should be chosen for 'Calculate delta' transformation");
             }
 
-            return transformFrames(frameArray, sourceColumn, deltaColumnName);
+            const newFrames = transformFrames(frameArray, sourceColumn, deltaColumnName);
+            return processNotices(newFrames, sourceColumn, PREFIX);
           })
         );
       };
@@ -90,8 +111,10 @@ export function getCalculateDeltaTransformer(): TransformerRegistryItem<Calculat
   return {
     id: transformation.id,
     editor: CalculateDeltaTransformerEditor,
-    transformation,
+    transformation: () => Promise.resolve(transformation),
     name: transformation.name,
     description: transformation.description,
+    imageDark: '',
+    imageLight: '',
   };
 }

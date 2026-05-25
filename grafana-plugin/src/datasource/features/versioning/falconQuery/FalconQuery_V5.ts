@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-/* eslint-disable @typescript-eslint/prefer-namespace-keyword */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { MetadataLoader } from 'datasource/features/metadata';
 
@@ -118,7 +117,7 @@ const ALLOWED_COMPARISON_OPERATORS_V5 = ['=', '<>', '<', '<=', '>', '>=', 'LIKE'
 const ALLOWED_AGGREGATION_FUNCS_V5 = ['AVG', 'COUNT', 'MAX', 'MIN', 'SUM'] as const;
 
 /* Module without 'declare' keyword cannot have export declarations */
-declare module DEP_V5 {
+declare namespace DEP_V5 {
   /**
    * These are the common properties available to all queries in all datasources.
    * Specific implementations will *extend* this interface, adding the required

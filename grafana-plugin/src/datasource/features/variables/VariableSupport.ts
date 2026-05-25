@@ -18,13 +18,13 @@ import { VariableQueryEditorWrapper } from './VariableQueryEditorWrapper';
 
 // @ts-expect-error: https://git.rocketsoftware.com/projects/FAL/repos/falcon/pull-requests/103/overview?commentId=181665
 export class VariableSupport extends CustomVariableSupport<FalconDatasource, FalconQuery> {
+  editor = VariableQueryEditorWrapper;
+
   constructor(private readonly datasource: FalconDatasource) {
     super();
     // Grafana calls query with no context defined
     this.query = this.query.bind(this);
   }
-
-  editor = VariableQueryEditorWrapper;
 
   override query(request: DataQueryRequest<FalconQuery>): Observable<DataQueryResponse> {
     return this.datasource.query(request, true).pipe(
@@ -32,15 +32,13 @@ export class VariableSupport extends CustomVariableSupport<FalconDatasource, Fal
         ...response,
         data: response.data.map((dataElement: DataFrame) => ({
           ...dataElement,
-          fields: dataElement.fields.map((field) => {
-            return {
-              ...field,
-              type: FieldType.string,
-              values: field.values.map((value) => {
-                return value !== '' ? applyGrafanaFormatting(value, field) : emptyStringFiller;
-              }),
-            };
-          }),
+          fields: dataElement.fields.map((field) => ({
+            ...field,
+            type: FieldType.string,
+            values: field.values.map((value) =>
+              value !== '' ? applyGrafanaFormatting(value, field) : emptyStringFiller
+            ),
+          })),
         })),
       }))
     );

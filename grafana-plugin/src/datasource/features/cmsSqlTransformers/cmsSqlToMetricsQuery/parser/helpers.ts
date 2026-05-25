@@ -43,8 +43,12 @@ export function getNodeTokens(node: AstNode | null): Token[] {
       return [...node.keywords, ...getNodesTokens(node.columns)];
     case 'order_by':
       return [...node.keywords, ...getNodesTokens(node.items)];
-    case 'order_by_expression':
-      return node.direction ? [...getNodeTokens(node.identifier), node.direction] : [...getNodeTokens(node.identifier)];
+    case 'order_by_expression': {
+      const expressionTokens = node.functionCall
+        ? getNodeTokens(node.functionCall)
+        : getNodeTokens(node.identifier || null);
+      return node.direction ? [...expressionTokens, node.direction] : [...expressionTokens];
+    }
     case 'select_statement':
       return [
         ...getNodeTokens(node.select),

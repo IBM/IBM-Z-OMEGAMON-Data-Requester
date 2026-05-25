@@ -23,6 +23,9 @@ coverage
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 dist/
+dist.zip
+rocketsoftware-omegamon-app/
+rocketsoftware-omegamon-app.zip
 artifacts/
 work/
 ci/
@@ -32,11 +35,13 @@ e2e-results/
 
 **/provisioning/
 
+# Local environment variables (use .example.env as a template)
+.env
+
 # Editor
 .idea
 
 .eslintcache
 
 # Running mage watch on windows machine with configuration provided in this file will not work
-# https://git.rocketsoftware.com/projects/FAL/repos/falcon/pull-requests/190/overview?commentId=214468
 .bra.toml

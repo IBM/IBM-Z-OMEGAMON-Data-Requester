@@ -1,39 +1,22 @@
-const f = (s, n) => {
-  if (n < 0)
-    return {
-      insideVariable: !1
-    };
-  const r = s.lastIndexOf("${", n), e = s.lastIndexOf("}", n), a = s.indexOf("}", n + 1), i = s.indexOf("${", n + 1);
-  return r === -1 && e === -1 && i === -1 && a === -1 ? {
-    insideVariable: !1
-  } : (
-    // ......${| || ....${....| || ...... ${....|..... || ......${.}..${
-    r >= 0 && r < n && (e === -1 || e < r) && i === -1 && a === -1 || // ........${...|}....
-    r >= 0 && r < e && e === n || // ......${....|...}...
-    r >= 0 && e < 0 && i < 0 && a > n || // ..${...}....${....|...}...
-    r >= 0 && e >= 0 && e > r && e < n && i < 0 && a > n ? {
-      insideVariable: !0,
-      varStart: r,
-      varEnd: a >= 0 ? a : e
-    } : {
-      insideVariable: !1
-    }
-  );
-}, d = /\$\{([^}]*)\}|\$\{([^}]*)$/, g = (s, n) => {
-  if (!n.insideVariable)
-    return "";
-  const r = n.varEnd > 0 ? s.substring(n.varStart, n.varEnd) : s.substring(n.varStart), e = d.exec(r);
-  return e ? [...e].at(-1) ?? "" : "";
+//#region src/Select/VariableUtils.ts
+var e = (e, t) => {
+	if (t < 0) return { insideVariable: !1 };
+	let n = e.lastIndexOf("${", t), r = e.lastIndexOf("}", t), i = e.indexOf("}", t + 1), a = e.indexOf("${", t + 1);
+	return n === -1 && r === -1 && a === -1 && i === -1 ? { insideVariable: !1 } : n >= 0 && n < t && (r === -1 || r < n) && a === -1 && i === -1 || n >= 0 && n < r && r === t || n >= 0 && r < 0 && a < 0 && i > t || n >= 0 && r >= 0 && r > n && r < t && a < 0 && i > t ? {
+		insideVariable: !0,
+		varStart: n,
+		varEnd: i >= 0 ? i : r
+	} : { insideVariable: !1 };
+}, t = /\$\{([^}]*)\}|\$\{([^}]*)$/, n = (e, n) => {
+	if (!n.insideVariable) return "";
+	let r = n.varEnd > 0 ? e.substring(n.varStart, n.varEnd) : e.substring(n.varStart), i = t.exec(r);
+	return i ? [...i].at(-1) ?? "" : "";
 };
-function l(s) {
-  const n = s.search(/\${(.*?)}/);
-  if (n === -1)
-    return [s];
-  const r = s.indexOf("}", n), e = [s.substring(0, n), s.substring(n, r + 1)];
-  return r + 1 < s.length && e.push(...l(s.substring(r + 1))), e;
+function r(e) {
+	let t = e.search(/\${(.*?)}/);
+	if (t === -1) return [e];
+	let n = e.indexOf("}", t), i = [e.substring(0, t), e.substring(t, n + 1)];
+	return n + 1 < e.length && i.push(...r(e.substring(n + 1))), i;
 }
-export {
-  g as extractVarValue,
-  f as isInsideVariable,
-  l as splitByPossibleVariables
-};
+//#endregion
+export { n as extractVarValue, e as isInsideVariable, r as splitByPossibleVariables };

@@ -1,9 +1,10 @@
 import { ComboboxOptions, ComboboxOptionsProps } from '@headlessui/react';
 import * as React from 'react';
 
-import { useComboboxSize } from './useComboboxSize';
-
+// eslint-disable-next-line import/no-cycle
 import { FUIComboboxContext, Option } from '~/Select';
+
+import { useComboboxSize } from './useComboboxSize';
 
 type FUIComboboxOptions = Omit<ComboboxOptionsProps, 'children' | 'as'> & {
   children: (option: Option) => React.ReactNode;

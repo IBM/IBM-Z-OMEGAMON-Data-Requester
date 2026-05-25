@@ -1,0 +1,12 @@
+{
+  "name": "falcon-proto-scripts",
+  "private": true,
+  "scripts": {
+    "install:buf": "dotenv -e ../../.go.env -- go install github.com/bufbuild/buf/cmd/buf@latest && dotenv -e ../../.go.env -- go install google.golang.org/protobuf/cmd/protoc-gen-go@latest",
+    "generate": "\"$(go env GOPATH)/bin/buf\" generate",
+    "generate:check": "\"$(go env GOPATH)/bin/buf\" generate --error-format=text && echo 'Generation successful'"
+  },
+  "devDependencies": {
+    "dotenv-cli": "catalog:"
+  }
+}

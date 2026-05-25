@@ -47,7 +47,7 @@ describe(reverseFormatNumber.name, () => {
     const unconvertableStrings = ['', '   ', 'iCannotBeConvertedToNumber', '420bla', 'bla420', '0xABCDEFG', '0XNN'];
     unconvertableStrings.forEach((val) => {
       it(`"${val}"`, () => {
-        expect(() => reverseFormatNumber(val, undefined)).toThrowError();
+        expect(() => reverseFormatNumber(val, undefined)).toThrow();
       });
     });
   });

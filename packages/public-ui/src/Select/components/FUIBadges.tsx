@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+// eslint-disable-next-line import/no-cycle
 import { FUIComboboxContext, Option } from '~/Select';
 
 type FUIComboboxBadges = {

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`SELECT AFFINITIES, EXPIRYTIME, GBLTMSTMP FROM O4SRV.INODESTS WHERE AFFINITIES <> '%IBM.CICSplex 00000000050000yA043'; 1`] = `
 {

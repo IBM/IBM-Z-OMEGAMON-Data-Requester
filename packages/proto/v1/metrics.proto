@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package falcon.v1;
+
+option go_package = "falcon_proto.local/v1;falconv1";
+
+// Int64Column holds a named column of int64 values (structure-of-arrays).
+// values contains only non-null entries (dense). null_indices lists the row
+// indices (sorted) where the value is null; those rows have no entry in values.
+// len(values) + len(null_indices) == total row count.
+message Int64Column {
+  string         name         = 1;
+  repeated int64 values       = 2;
+  repeated int32 null_indices = 3;
+}
+
+// StringColumn holds a named column of string values (structure-of-arrays).
+// values contains only non-null entries (dense). null_indices lists the row
+// indices (sorted) where the value is null; those rows have no entry in values.
+// len(values) + len(null_indices) == total row count.
+message StringColumn {
+  string          name         = 1;
+  repeated string values       = 2;
+  repeated int32  null_indices = 3;
+}
+
+// TimestampColumn holds a named column of Unix-millisecond timestamps
+// (structure-of-arrays). values contains only non-null entries (dense).
+// null_indices lists the row indices (sorted) where the value is null.
+// len(values) + len(null_indices) == total row count.
+// timezone_offsets_seconds is a parallel array to values: one int32 offset east
+// of UTC (in seconds) per non-null entry (e.g. -18000 for America/New_York
+// EST, 0 for UTC). len(timezone_offsets_seconds) == len(values).
+message TimestampColumn {
+  string         name                     = 1;
+  repeated int64 values                   = 2;
+  repeated int32 timezone_offsets_seconds = 3;
+  repeated int32 null_indices             = 4;
+}
+
+// MetricsResponse uses a structure-of-arrays layout.
+// Each column is stored as a typed array: Int64Column, StringColumn, or
+// TimestampColumn. Timestamp columns carry Unix-millisecond int64 values.
+message MetricsResponse {
+  string                    status              = 1;
+  repeated Int64Column      int64_columns       = 2;
+  repeated StringColumn     string_columns      = 3;
+  repeated TimestampColumn  timestamp_columns   = 4;
+  map<string, string>       per_source_errors   = 5;
+  string                    gateway_error       = 6;
+}

@@ -7,19 +7,18 @@ import (
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/log"
-	"github.com/julienschmidt/httprouter"
 )
 
-func AddMetadataServiceEndpoints(router *httprouter.Router, prefix string, configuration domain.Configuration) {
-	router.GET(prefix+"/tables/id/:tableId", getTableByIdEndpointHandler(configuration))
-	router.GET(prefix+"/applications", getApplicationsEndpointHandler(configuration))
+func AddMetadataServiceEndpoints(mux *http.ServeMux, prefix string, configuration domain.Configuration) {
+	mux.HandleFunc("GET "+prefix+"/tables/id/{tableId}", getTableByIdEndpointHandler(configuration))
+	mux.HandleFunc("GET "+prefix+"/applications", getApplicationsEndpointHandler(configuration))
 }
 
-func getTableByIdEndpointHandler(configuration domain.Configuration) func(rw http.ResponseWriter, req *http.Request, par httprouter.Params) {
-	return func(rw http.ResponseWriter, req *http.Request, par httprouter.Params) {
+func getTableByIdEndpointHandler(configuration domain.Configuration) http.HandlerFunc {
+	return func(rw http.ResponseWriter, req *http.Request) {
 		ctx := req.Context()
 		logger := backend.Logger.FromContext(ctx)
-		id := par.ByName("tableId")
+		id := req.PathValue("tableId")
 		logger.Debug("Metadata endpoint. Start getting table by id", "id", id)
 
 		resp, _, err, gatewayDbgMsgs := gateway.GetAggregated[domain.TableMetadata](ctx, configuration, "/tables/id/"+id, nil)
@@ -29,7 +28,7 @@ func getTableByIdEndpointHandler(configuration domain.Configuration) func(rw htt
 			return
 		}
 
-		logger.Debug("Metadata endpoint. Finish getting table by id", "id", id, "version", resp.Version, "affinity", resp.AffinityEntity)
+		logger.Debug("Metadata endpoint. Finish getting table by id", "id", id, "affinity", resp.AffinityEntity)
 		writeResponse(map[string]any{"table": resp}, err, rw, gatewayDbgMsgs)
 	}
 }
@@ -39,8 +38,8 @@ type applicationsGatewayResponse struct {
 	PerTemsErrors map[string]string            `json:"perTemsErrors"`
 }
 
-func getApplicationsEndpointHandler(configuration domain.Configuration) func(rw http.ResponseWriter, req *http.Request, par httprouter.Params) {
-	return func(rw http.ResponseWriter, req *http.Request, par httprouter.Params) {
+func getApplicationsEndpointHandler(configuration domain.Configuration) http.HandlerFunc {
+	return func(rw http.ResponseWriter, req *http.Request) {
 		ctx := req.Context()
 		logger := backend.Logger.FromContext(ctx)
 		logger.Debug("Metadata endpoint. Start getting applications")

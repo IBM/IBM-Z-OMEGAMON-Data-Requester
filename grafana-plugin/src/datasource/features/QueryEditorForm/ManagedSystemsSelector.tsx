@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 import { GrafanaTheme2, VariableType } from '@grafana/data';
 import { getTemplateSrv } from '@grafana/runtime';
-import { Alert, Field, MultiSelect, useStyles2 } from '@grafana/ui';
+import { Alert, Field, FieldValidationMessage, MultiSelect, useStyles2 } from '@grafana/ui';
 import { AffinityId, Agent } from 'public-domain';
 import React, { useMemo } from 'react';
 
@@ -16,12 +16,14 @@ type ManagedSystemsSelectorProps = {
   affinityId: AffinityId;
   agentsAndGroups: SourceDef[];
   changeMetricsQueryParams: (changes: { agentsAndGroups: SourceDef[] }) => void;
+  validationMessage?: string;
 };
 
 export function ManagedSystemsSelector({
   affinityId,
   agentsAndGroups,
   changeMetricsQueryParams,
+  validationMessage,
 }: ManagedSystemsSelectorProps) {
   const agentsAndGroupsOptionsResult = useAgentsAndGroupsOptions(affinityId);
   const unsupportedAgents = useUnsupportedAgents(affinityId);
@@ -36,6 +38,7 @@ export function ManagedSystemsSelector({
         description="(*groupname or $originnode)"
         className={styles.managedSystemsField}
         data-testid={tid('query-editor.field.managed-systems')}
+        invalid={!!validationMessage}
       >
         <MultiSelect
           isLoading={agentsAndGroupsOptionsResult.isFetching}
@@ -54,6 +57,7 @@ export function ManagedSystemsSelector({
           closeMenuOnSelect={false}
         />
       </Field>
+      {!!validationMessage && <FieldValidationMessage>{validationMessage}</FieldValidationMessage>}
     </>
   );
 }

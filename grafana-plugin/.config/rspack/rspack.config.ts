@@ -16,6 +16,7 @@ import RspackLiveReloadPlugin from './liveReloadPlugin';
 import { BuildModeRspackPlugin } from './BuildModeRspackPlugin';
 import { DIST_DIR, SOURCE_DIR } from './constants';
 import { getCPConfigVersion, getEntries, getPackageJson, getPluginJson, hasReadme, isWSL } from './utils';
+import { externals } from '../bundler/externals';
 
 const { SubresourceIntegrityPlugin } = rspack.experiments;
 const pluginJson = getPluginJson();
@@ -40,45 +41,7 @@ const config = async (env): Promise<Configuration> => {
 
     entry: await getEntries(),
 
-    externals: [
-      // Required for dynamic publicPath resolution
-      { 'amd-module': 'module' },
-      'lodash',
-      'jquery',
-      'moment',
-      'slate',
-      'emotion',
-      '@emotion/react',
-      '@emotion/css',
-      'prismjs',
-      'slate-plain-serializer',
-      '@grafana/slate-react',
-      'react',
-      'react-dom',
-      'react-redux',
-      'redux',
-      'rxjs',
-      'react-router',
-      'd3',
-      'angular',
-      /^@grafana\/ui/i,
-      /^@grafana\/runtime/i,
-      /^@grafana\/data/i,
-
-      // Mark legacy SDK imports as external if their name starts with the "grafana/" prefix
-      //@ts-ignore - rspack types seem to be a bit broken here.
-      ({ request }, callback) => {
-        const prefix = 'grafana/';
-        const hasPrefix = (request) => request.indexOf(prefix) === 0;
-        const stripPrefix = (request) => request.substr(prefix.length);
-
-        if (hasPrefix(request)) {
-          return callback(undefined, stripPrefix(request));
-        }
-
-        callback();
-      },
-    ],
+    externals,
 
     // Support WebAssembly according to latest spec - makes WebAssembly module async
     experiments: {

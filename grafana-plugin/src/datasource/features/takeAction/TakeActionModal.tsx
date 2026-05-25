@@ -22,21 +22,19 @@ const iframeStyle = css`
   display: block;
 `;
 
-export function TakeActionModal({
-  url,
-  onDismiss,
-}: {
-  url: string;
-  height: number;
-  width: number;
-  onDismiss: () => void;
-}) {
+export function TakeActionModal({ url, onDismiss }: { url: string; onDismiss: () => void }) {
   // Since this plugin doesn't have translation, modal title is translated and sent via message 'omegamon:take-action:updateModalTitle'.
   // If you are adding translations to this plugin, remove the initial modal title translation from the iframe side.
   const [modalTitle, setModalTitle] = useState('Take action');
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
+      const iframeOrigin = new URL(url).origin;
+      if (event.origin !== iframeOrigin) {
+        console.warn(`Ignored message from unexpected origin: ${event.origin}`);
+        return;
+      }
+
       const { action, title } = event.data || {};
       if (action === 'omegamon:take-action:close') {
         onDismiss();
@@ -49,7 +47,7 @@ export function TakeActionModal({
 
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
-  }, [onDismiss]);
+  }, [onDismiss, url]);
 
   return (
     <Modal title={modalTitle} isOpen onDismiss={onDismiss} onClickBackdrop={onDismiss} className={modalStyle}>

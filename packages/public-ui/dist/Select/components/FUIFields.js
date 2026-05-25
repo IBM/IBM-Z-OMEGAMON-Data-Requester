@@ -1,7 +1,8 @@
+import "react";
 import { jsx as e } from "react/jsx-runtime";
-function t({ as: o, ...i }) {
-  return /* @__PURE__ */ e(o || "div", { ...i });
+//#region src/Select/components/FUIFields.tsx
+function t({ as: t, ...n }) {
+	return /* @__PURE__ */ e(t || "div", { ...n });
 }
-export {
-  t as FUIComboboxFields
-};
+//#endregion
+export { t as FUIComboboxFields };

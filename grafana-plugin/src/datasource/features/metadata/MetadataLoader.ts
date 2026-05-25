@@ -144,9 +144,9 @@ export class MetadataLoader {
       }
     }, {});
   }
-  async getAction(affinity: string): Promise<ActionDefinition[]> {
+  async getAction(affinity: string, contextKeys?: string[]): Promise<ActionDefinition[]> {
     const { actions } = await this.metadataTanStackQueryClient.fetchQuery({
-      ...this.metadataTanStackQueries.actions.list(affinity as AffinityId),
+      ...this.metadataTanStackQueries.actions.list(affinity as AffinityId, contextKeys),
     });
     return actions;
   }

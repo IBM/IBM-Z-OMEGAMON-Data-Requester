@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-/* eslint-disable @typescript-eslint/prefer-namespace-keyword */
 import { FalconQuery_V7 } from './FalconQuery_V7';
 
 export function updateTo_V8(current: FalconQuery_V7): FalconQuery_V8 {
@@ -110,7 +109,7 @@ const ALLOWED_COMPARISON_OPERATORS_V8 = ['=', '<>', '<', '<=', '>', '>=', 'LIKE'
 const ALLOWED_AGGREGATION_FUNCS_V8 = ['AVG', 'COUNT', 'MAX', 'MIN', 'SUM'] as const;
 
 /* Module without 'declare' keyword cannot have export declarations */
-declare module DEP_V8 {
+declare namespace DEP_V8 {
   /**
    * These are the common properties available to all queries in all datasources.
    * Specific implementations will *extend* this interface, adding the required

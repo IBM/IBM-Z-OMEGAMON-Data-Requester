@@ -4,6 +4,8 @@ import { WithOptionalVersion, updateToLatestVersion, ValidateUpdaters } from 'da
 
 import { updateToV1 } from './FalconQuery1';
 import { updateToV2 } from './FalconQuery2';
+import { updateTo_V10 } from './FalconQuery_V10';
+import { updateTo_V11 } from './FalconQuery_V11';
 import { updateTo_V3 } from './FalconQuery_V3';
 import { updateTo_V4 } from './FalconQuery_V4';
 import { updateTo_V5 } from './FalconQuery_V5';
@@ -22,6 +24,8 @@ const unvalidatedUpdaters = [
   updateTo_V7,
   updateTo_V8,
   updateTo_V9,
+  updateTo_V10,
+  updateTo_V11,
 ] as const;
 
 export const falconQueryUpdaters: ValidateUpdaters<typeof unvalidatedUpdaters, LatestVersionFalconQuery> =

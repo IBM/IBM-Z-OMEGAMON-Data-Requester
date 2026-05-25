@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`applyAllFormatting number formatting handled by applyAllFormatting val="0"   1`] = `"0"`;
 

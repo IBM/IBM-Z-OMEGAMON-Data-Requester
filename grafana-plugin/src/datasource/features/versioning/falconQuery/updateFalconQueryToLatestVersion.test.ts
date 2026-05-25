@@ -25,9 +25,9 @@ const fakeMetadataLoader = {
 } as unknown as MetadataLoader;
 
 describe(updateFalconQueryToLatestVersion.name, () => {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- test file, array is known non-empty
   const latestVersionMetricsQuery = falconQueryMocks[falconQueryMocks.length - 1]!.metrics as FalconMetricsQuery;
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- test file, array is known non-empty
   const latestVersionSituationsQuery = falconQueryMocks[falconQueryMocks.length - 1]!
     .situations as FalconSituationsQuery;
 

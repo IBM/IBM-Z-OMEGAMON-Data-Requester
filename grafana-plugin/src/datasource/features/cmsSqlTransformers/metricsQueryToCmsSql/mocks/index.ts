@@ -211,6 +211,52 @@ const reqularQueryTests: MetricsQueryToCmsSqlTests = {
       expectedOutput: 'SELECT AFFINITIES, EXPIRYTIME FROM O4SRV.INODESTS ORDER BY AFFINITIES DESC, EXPIRYTIME ASC;',
     },
     {
+      name: 'ORDER BY with aggregation functions',
+      queryParams: {
+        affinityId: '%IBM.ITM_INTERNAL' as AffinityId,
+        tableId: 'INODESTS',
+        columns: [
+          {
+            id: 'AFFINITIES',
+          },
+          {
+            id: 'EXPIRYTIME',
+            aggregationFunction: 'AVG',
+          },
+          {
+            id: 'EXPIRYTIME',
+            aggregationFunction: 'MAX',
+          },
+        ],
+        groupBy: ['AFFINITIES'],
+        orderBy: [
+          {
+            columnId: 'EXPIRYTIME',
+            aggregationFunction: 'AVG',
+            type: 'DESC',
+          },
+          {
+            columnId: 'EXPIRYTIME',
+            aggregationFunction: 'MAX',
+            type: 'ASC',
+          },
+          {
+            columnId: 'AFFINITIES',
+            type: 'ASC',
+          },
+        ],
+        agentsAndGroups: [],
+        filter: {},
+        history: false,
+        parmas: [],
+        first: 0,
+      },
+      applications: mockedApplicationMetadatas,
+      metadata: inodestsMetadata,
+      expectedOutput:
+        'SELECT AFFINITIES, AVG(EXPIRYTIME), MAX(EXPIRYTIME) FROM O4SRV.INODESTS GROUP BY AFFINITIES ORDER BY AVG(EXPIRYTIME) DESC, MAX(EXPIRYTIME) ASC, AFFINITIES ASC;',
+    },
+    {
       name: 'Multiple GROUP BY',
       queryParams: {
         affinityId: '%IBM.STATIC017' as AffinityId,

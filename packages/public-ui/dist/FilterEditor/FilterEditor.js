@@ -1,41 +1,28 @@
-import { jsx as o, Fragment as s } from "react/jsx-runtime";
-import { a as m } from "../Touched-B_NvPUG5.js";
-import { useCallback as p } from "react";
-import { FilterInstanceEditor as f } from "./FilterInstanceEditor.js";
-import { useEditorReducer as F } from "./useEditorReducer.js";
-function x({
-  filter: r,
-  changeFilter: d,
-  ClauseEditor: i,
-  NoFiltersMessage: n,
-  ConnectorLabel: u,
-  styles: a
-}) {
-  const [c, t] = F(r, d), l = p(
-    (e) => {
-      t({
-        type: "new_clause_added",
-        newClauseFilter: { clause: m(e) },
-        sourceFilter: null,
-        connector: null
-      });
-    },
-    [t]
-  );
-  return !r && n ? /* @__PURE__ */ o(n, { addNewRootClause: l }) : r ? /* @__PURE__ */ o(
-    f,
-    {
-      filter: r,
-      isRoot: !0,
-      dispatchEdit: t,
-      editorState: c,
-      ClauseEditor: i,
-      ConnectorLabel: u,
-      styles: a,
-      children: (e) => /* @__PURE__ */ o(s, { children: e })
-    }
-  ) : null;
+import { t as e } from "../Touched-0GoKkw98.js";
+import { FilterInstanceEditor as t } from "./FilterInstanceEditor.js";
+import { useEditorReducer as n } from "./useEditorReducer.js";
+import { useCallback as r } from "react";
+import { Fragment as i, jsx as a } from "react/jsx-runtime";
+//#region src/FilterEditor/FilterEditor.tsx
+function o({ filter: o, changeFilter: s, ClauseEditor: c, NoFiltersMessage: l, ConnectorLabel: u, styles: d }) {
+	let [f, p] = n(o, s), m = r((t) => {
+		p({
+			type: "new_clause_added",
+			newClauseFilter: { clause: e(t) },
+			sourceFilter: null,
+			connector: null
+		});
+	}, [p]);
+	return !o && l ? /* @__PURE__ */ a(l, { addNewRootClause: m }) : o ? /* @__PURE__ */ a(t, {
+		filter: o,
+		isRoot: !0,
+		dispatchEdit: p,
+		editorState: f,
+		ClauseEditor: c,
+		ConnectorLabel: u,
+		styles: d,
+		children: (e) => /* @__PURE__ */ a(i, { children: e })
+	}) : null;
 }
-export {
-  x as FilterEditor
-};
+//#endregion
+export { o as FilterEditor };

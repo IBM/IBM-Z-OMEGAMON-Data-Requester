@@ -2,6 +2,6 @@ import '@emotion/react';
 import { GrafanaTheme2 } from '@grafana/data';
 
 declare module '@emotion/react' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   export interface Theme extends GrafanaTheme2 {}
 }

@@ -90,41 +90,41 @@ test('Returns all PARMAs if there are several of them', () => {
 });
 
 test('Throws if connected via OR', () => {
-  expect(() => getParmasFromWhere('SYSTEM.PARMA("NODELIST") OR ITMSKS=1')).toThrowError(
+  expect(() => getParmasFromWhere('SYSTEM.PARMA("NODELIST") OR ITMSKS=1')).toThrow(
     'SYSTEM.PARMA function should be connected via AND'
   );
 });
 
 test('Throws if not on root level', () => {
-  expect(() => getParmasFromWhere('(SYSTEM.PARMA("NODELIST") OR ITMSKS=1) AND ITMNTW<>1')).toThrowError(
+  expect(() => getParmasFromWhere('(SYSTEM.PARMA("NODELIST") OR ITMSKS=1) AND ITMNTW<>1')).toThrow(
     'SYSTEM.PARMA function should only be called on top level of WHERE clause'
   );
 });
 
 test('Throws if parma name is not a string', () => {
-  expect(() => getParmasFromWhere('SYSTEM.PARMA(42, 42, 42)')).toThrowError(
+  expect(() => getParmasFromWhere('SYSTEM.PARMA(42, 42, 42)')).toThrow(
     'SYSTEM.PARMA parameter name should be a string'
   );
 });
 
 test('Throws if parma value is not a string', () => {
-  expect(() => getParmasFromWhere('SYSTEM.PARMA("42", 42, 42)')).toThrowError(
+  expect(() => getParmasFromWhere('SYSTEM.PARMA("42", 42, 42)')).toThrow(
     'SYSTEM.PARMA parameter value should be a string (numbers should be wrapped in quotes)'
   );
 });
 
 test('Throws if parma length is not a number', () => {
-  expect(() => getParmasFromWhere('SYSTEM.PARMA("NODELIST", "42", "42")')).toThrowError(
+  expect(() => getParmasFromWhere('SYSTEM.PARMA("NODELIST", "42", "42")')).toThrow(
     'SYSTEM.PARMA parameter length should be an integer'
   );
 });
 
 test('Throws if no arguments provided', () => {
-  expect(() => getParmasFromWhere('SYSTEM.PARMA()')).toThrowError('SYSTEM.PARMA call requires name of the parameter');
+  expect(() => getParmasFromWhere('SYSTEM.PARMA()')).toThrow('SYSTEM.PARMA call requires name of the parameter');
 });
 
 test('Throws if too many arguments', () => {
-  expect(() => getParmasFromWhere('SYSTEM.PARMA("NODELIST", 42, 42, 42)')).toThrowError(
+  expect(() => getParmasFromWhere('SYSTEM.PARMA("NODELIST", 42, 42, 42)')).toThrow(
     'SYSTEM.PARMA only takes 3 arguments'
   );
 });

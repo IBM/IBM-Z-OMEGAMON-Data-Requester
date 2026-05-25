@@ -1,6 +1,7 @@
 import { ComboboxInput, ComboboxInputProps } from '@headlessui/react';
 import React, { useContext } from 'react';
 
+// eslint-disable-next-line import/no-cycle
 import { FUIComboboxContext, Option } from '~/Select';
 
 export function FUIComboboxInput<T>({ ...props }: ComboboxInputProps<React.ElementType, T>) {

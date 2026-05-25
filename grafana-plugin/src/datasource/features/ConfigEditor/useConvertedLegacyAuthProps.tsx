@@ -1,4 +1,4 @@
-import { AuthMethod, convertLegacyAuthProps } from '@grafana/plugin-ui';
+import { AuthMethodEnum as AuthMethod, convertLegacyAuthProps } from 'datasource/features/components/plugin-ui-inlined';
 
 import { FalconDataSourceOptionsProps } from './FalconDataSourceOptionsProps';
 

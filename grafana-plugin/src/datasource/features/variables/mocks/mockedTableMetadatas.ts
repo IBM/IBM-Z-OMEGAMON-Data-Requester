@@ -10,6 +10,8 @@ export const mockedTableMetadata: TableMetadata = {
   applicationName: 'CICS',
   sampleType: 'pure',
   isMultiRow: true,
+  versionOfLastUpdate: 0,
+  versionOfIntroduction: 0,
   columns: {
     VLUNAME: {
       id: 'VLUNAME',
@@ -180,5 +182,4 @@ export const mockedTableMetadata: TableMetadata = {
     productCode: 'KCP',
     symbol: 'MVS_CICS',
   },
-  version: 4,
 };

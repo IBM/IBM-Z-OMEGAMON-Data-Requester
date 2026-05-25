@@ -5,6 +5,7 @@ import {
   ALLOWED_AGGREGATION_FUNCS,
   MetricsQueryColumn,
   MetricsQueryParams,
+  NON_ITM_HISTORY_TABLES,
 } from 'datasource/domain';
 import { TokenMapping } from 'datasource/features/cmsSqlTransformers/cmsSqlToMetricsQuery/converter';
 
@@ -22,16 +23,23 @@ const allowedAggregationFunctions: { [key in ColumnMetadata['type']]: readonly A
 
 function checkForInapropriateWriteTime(
   history: boolean,
+  tableMetadata: TableMetadata,
   column: MetricsQueryColumn,
   getTokensOf?: TokenMapping['getTokensOf']
 ): ValidationProblem | null {
-  return history === false && writeTimeRegex.test(column.id)
-    ? {
-        severity: 'error',
-        message: inappropriateWritetimeColumnMessage,
-        affectedTokens: getTokensOf?.(column, 'id'),
-      }
-    : null;
+  if (history || !writeTimeRegex.test(column.id)) {
+    return null;
+  }
+
+  if (NON_ITM_HISTORY_TABLES.has(tableMetadata.id)) {
+    return null;
+  }
+
+  return {
+    severity: 'error',
+    message: inappropriateWritetimeColumnMessage,
+    affectedTokens: getTokensOf?.(column, 'id'),
+  };
 }
 
 function checkIfColumnIsInMetadata(
@@ -137,7 +145,7 @@ function validateSelect(
   };
 
   queryObject.columns.forEach((column) => {
-    addIfProblemExists(checkForInapropriateWriteTime(queryObject.history, column, getTokensOf));
+    addIfProblemExists(checkForInapropriateWriteTime(queryObject.history, tableMetadata, column, getTokensOf));
     addIfProblemExists(checkIfColumnIsInMetadata(column, tableMetadata, getTokensOf));
     addIfProblemExists(checkIfColumnTypeIsValid(column, tableMetadata, getTokensOf));
     addIfProblemExists(checkIfNonAggregatedColumnIsInSelectButNotGroupBy(queryObject.groupBy, column, getTokensOf));
@@ -206,7 +214,9 @@ export function validateColumns(
 ): ValidationProblem[] {
   const tableMetadataWithWritetime = {
     ...tableMetadata,
-    columns: { ...tableMetadata.columns, [writetimeColumnMetadata.id]: writetimeColumnMetadata },
+    columns: NON_ITM_HISTORY_TABLES.has(tableMetadata.id)
+      ? { ...tableMetadata.columns }
+      : { ...tableMetadata.columns, [writetimeColumnMetadata.id]: writetimeColumnMetadata },
   };
   if (!queryObject.columns.length) {
     return [

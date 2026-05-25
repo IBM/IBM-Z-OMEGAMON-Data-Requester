@@ -1,21 +1,30 @@
-export type { AffinityEntity, AffinityId } from './AffinityEntity';
+export type { AffinityEntity, AffinityId, AffinityIdToNameAndGroup, Product } from './AffinityEntity';
 export {
   MVS_CICS_AFFINITY_ID,
   SUPPORTED_AFFINITIES_FOR_METRICS,
   SUPPORTED_AFFINITIES_FOR_SITUATIONS,
+  SUPPORTED_AFFINITIES_FOR_ACTIONS,
+  SUPPORTED_AFFINITIES_FOR_HISTORY_CONFIGS,
   ITM_FRAMEWORK_AFFINITY_ID,
   ITM_FRAMEWORK_AFFINITY_ENTITY,
   TEMS_AFFINITY_ENTITY,
   TEMS_AFFINITY_ID,
   ZOS_APPLICATION_IDS,
   NETWORK_APPLICATION_IDS,
+  PRODUCTS,
+  getProductForAffinityId,
+  getProductsForHistoryConfigs,
 } from './AffinityEntity';
 export {
   ITM_FRAMEWORK_APPLICATION_TABLES_FOR_SITUATIONS,
   ITM_FRAMEWORK_APPLICATION_FOR_SITUATIONS,
 } from './ApplicationMetadata';
-export type { ApplicationMetadata, ApplicationTableMetadata } from './ApplicationMetadata';
-export type { ColumnMetadata, EnumMap } from './ColumnMetadata';
+export type {
+  ApplicationMetadata,
+  ApplicationTableMetadata,
+  HistoryCollectionEligibility,
+} from './ApplicationMetadata';
+export type { ColumnMetadata, EnumMap, Unit } from './ColumnMetadata';
 export { findEnumValue } from './ColumnMetadata';
 export { TIME_UNITS } from './ColumnMetadata';
 export {
@@ -33,6 +42,12 @@ export type {
 } from './TableMetadata';
 export { validateTableMetadataFieldList } from './TableMetadata';
 export type { Agent, Originnode, AgentIndex, GroupIndex, AgentsAndGroups, Group } from './AgentsAndGroups';
-export { HUB_GROUP_NAME } from './AgentsAndGroups';
+export {
+  HUB_GROUP_NAME,
+  getSufficientVersionAgentsAndGroups,
+  getInsufficientVersionAgentsAndGroups,
+  getAgentsAndGroupsNames,
+  filterAgentsAndGroupsByAffinityId,
+  isNoMetricsAgentOriginnode,
+} from './AgentsAndGroups';
 export type { ManagedSystems } from './ManagedSystems';
-export * from './Action';

@@ -7,7 +7,6 @@ import (
 	"net/url"
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
-	"github.com/julienschmidt/httprouter"
 
 	"itm-datasource-plugin/pkg/datasource/domain"
 	"itm-datasource-plugin/pkg/datasource/falcon_utils"
@@ -33,15 +32,15 @@ func (r *gatewayAgentsResponse) getData() any {
 	return r.Data
 }
 
-func AddAgentEndpoints(router *httprouter.Router, prefix string, configuration domain.Configuration) {
+func AddAgentEndpoints(mux *http.ServeMux, prefix string, configuration domain.Configuration) {
 	handler := getAgentsEndpointHandler(configuration)
-	router.GET(prefix, handler)
-	router.GET(prefix+"/productCode/:productCode", handler)
-	router.GET(prefix+"/affinityId/:affinityId", handler)
+	mux.HandleFunc("GET "+prefix, handler)
+	mux.HandleFunc("GET "+prefix+"/productCode/{productCode}", handler)
+	mux.HandleFunc("GET "+prefix+"/affinityId/{affinityId}", handler)
 }
 
-func getAgentsEndpointHandler(configuration domain.Configuration) func(rw http.ResponseWriter, req *http.Request, par httprouter.Params) {
-	return func(rw http.ResponseWriter, req *http.Request, par httprouter.Params) {
+func getAgentsEndpointHandler(configuration domain.Configuration) http.HandlerFunc {
+	return func(rw http.ResponseWriter, req *http.Request) {
 		ctx := req.Context()
 		logger := backend.Logger.FromContext(ctx)
 		logger.Debug("Agents endpoint. Start getting agents")
@@ -55,13 +54,13 @@ func getAgentsEndpointHandler(configuration domain.Configuration) func(rw http.R
 			return
 		}
 
-		productCode := par.ByName("productCode")
+		productCode := req.PathValue("productCode")
 		// TO DO OMUI5-1727 Remove unnecessary escape
 		// Our go backend unescapes 2 times
 		// Grafana before 10.4.0 version unescapes 1 time
 		// Grafana after and including 10.4.0 version does not unescape
 		// Frontend sends affinityId escaped 3 times
-		possiblyEscapedId := par.ByName("affinityId")
+		possiblyEscapedId := req.PathValue("affinityId")
 
 		unescapedId, err := url.QueryUnescape(possiblyEscapedId)
 		var id string

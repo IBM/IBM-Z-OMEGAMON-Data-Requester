@@ -1,8 +1,8 @@
 import type { Preview } from '@storybook/react';
+import type { PartialStoryFn, StoryContext } from 'storybook/internal/types';
 
 import React from 'react';
 import { Theme } from '@carbon/react';
-import { PartialStoryFn, StoryContext } from '@storybook/types';
 
 import '~/app.css';
 import '@carbon/styles/css/styles.css';

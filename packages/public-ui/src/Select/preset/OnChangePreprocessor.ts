@@ -1,7 +1,7 @@
-// eslint-disable-next-line no-restricted-imports
-import { isInsideVariable } from '../VariableUtils';
-
+// eslint-disable-next-line import/no-cycle
 import { OnChangePreprocessor, Option, TextSelection } from '~/Select';
+
+import { isInsideVariable } from '../VariableUtils';
 
 export const onChangePreprocessor: OnChangePreprocessor = (
   options: Option[],

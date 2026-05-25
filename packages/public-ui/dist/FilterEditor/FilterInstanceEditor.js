@@ -1,123 +1,91 @@
-import { jsx as e, jsxs as s } from "react/jsx-runtime";
-import { a as D } from "../Touched-B_NvPUG5.js";
-import { memo as v, useCallback as F, Fragment as N } from "react";
-import { ClauseEditorWrapper as _ } from "./ClauseEditorWrapper.js";
-import { lineLeftMargin as d } from "./ConnectionLine/ConnectionLine.js";
-import { InputExtensionConnectionLine as b } from "./ConnectionLine/InputExtensionConnectionLine.js";
-import { InterRowConnectionLine as g } from "./ConnectionLine/InterRowConnectionLine.js";
-import { Spacer as w } from "./ConnectionLine/Spacer.js";
-import { FilterZIndex as p } from "./ConnectionLine/FilterZIndex.js";
-function L({
-  filter: n,
-  children: l,
-  isRoot: t,
-  dispatchEdit: f,
-  editorState: c,
-  ClauseEditor: r,
-  ConnectorLabel: i,
-  styles: a
-}) {
-  return n.clause ? l(
-    /* @__PURE__ */ e(
-      _,
-      {
-        clauseFilter: n,
-        dispatchEdit: f,
-        originalAndEditedClause: c,
-        ClauseEditor: r
-      }
-    )
-  ) : l(
-    /* @__PURE__ */ e(
-      E,
-      {
-        compositeFilter: n,
-        isRoot: t,
-        dispatchEdit: f,
-        editorState: c,
-        ClauseEditor: r,
-        ConnectorLabel: i,
-        styles: a
-      }
-    )
-  );
+import { t as e } from "../Touched-0GoKkw98.js";
+import { ClauseEditorWrapper as t } from "./ClauseEditorWrapper.js";
+import { FilterZIndex as n } from "./ConnectionLine/FilterZIndex.js";
+import "./ConnectionLine/ConnectionLine.js";
+import { InputExtensionConnectionLine as r } from "./ConnectionLine/InputExtensionConnectionLine.js";
+import { InterRowConnectionLine as i } from "./ConnectionLine/InterRowConnectionLine.js";
+import { Spacer as a } from "./ConnectionLine/Spacer.js";
+import "./ConnectionLine/index.js";
+import { Fragment as o, memo as s, useCallback as c } from "react";
+import { jsx as l, jsxs as u } from "react/jsx-runtime";
+//#region src/FilterEditor/FilterInstanceEditor.tsx
+function d({ filter: e, children: n, isRoot: r, dispatchEdit: i, editorState: a, ClauseEditor: o, ConnectorLabel: s, styles: c }) {
+	return e.clause ? n(/* @__PURE__ */ l(t, {
+		clauseFilter: e,
+		dispatchEdit: i,
+		originalAndEditedClause: a,
+		ClauseEditor: o
+	})) : n(/* @__PURE__ */ l(p, {
+		compositeFilter: e,
+		isRoot: r,
+		dispatchEdit: i,
+		editorState: a,
+		ClauseEditor: o,
+		ConnectorLabel: s,
+		styles: c
+	}));
 }
-const y = v(L);
-function E({
-  compositeFilter: n,
-  isRoot: l,
-  dispatchEdit: t,
-  editorState: f,
-  ClauseEditor: c,
-  ConnectorLabel: r,
-  styles: i
-}) {
-  const a = n.and || n.or, m = a.some((o) => o.and || o.or), x = m && !l, h = !m && !l, I = F(
-    (o, u) => {
-      t({
-        type: "new_clause_added",
-        newClauseFilter: { ...o, clause: D(o.clause) },
-        connector: u,
-        sourceFilter: n
-      });
-    },
-    [n, t]
-  );
-  return /* @__PURE__ */ s("div", { className: "fui:relative fui:flex fui:flex-col", children: [
-    x ? /* @__PURE__ */ e(
-      "div",
-      {
-        className: `fui:absolute fui:top-[0] fui:bottom-[0] fui:left-[0] ${i.grayoutPanelClassName}`,
-        style: {
-          width: `calc(${d} * 2)`,
-          zIndex: p.Grayout
-        }
-      }
-    ) : null,
-    h ? /* @__PURE__ */ e(b, { lineDefinition: i.lineDefinition }) : null,
-    /* @__PURE__ */ e(
-      r,
-      {
-        compositeFilter: n,
-        addClause: I,
-        isRoot: l,
-        connectorButtonStyle: {
-          position: "absolute",
-          left: d,
-          top: "50%",
-          transform: "translate(-50%, -50%)",
-          zIndex: p.ConnectorLabel
-        }
-      }
-    ),
-    a.map((o, u) => /* @__PURE__ */ s(N, { children: [
-      u === 0 ? null : /* @__PURE__ */ e(w, { lineDefinition: i.lineDefinition }),
-      /* @__PURE__ */ e(
-        y,
-        {
-          filter: o,
-          isRoot: !1,
-          dispatchEdit: t,
-          editorState: f,
-          ClauseEditor: c,
-          ConnectorLabel: r,
-          styles: i,
-          children: (C) => /* @__PURE__ */ e("div", { className: "fui:flex fui:flex-col fui:items-stretch", children: /* @__PURE__ */ s("div", { className: "fui:flex fui:flex-[1_0_auto] fui:flex-row fui:items-stretch", children: [
-            /* @__PURE__ */ e(
-              g,
-              {
-                currItemIdx: u,
-                totalItemCount: a.length,
-                lineDefinition: i.lineDefinition
-              }
-            ),
-            /* @__PURE__ */ e("div", { className: "fui:flex-[1_0_0]", children: C })
-          ] }) })
-        }
-      )
-    ] }, u))
-  ] });
+var f = s(d);
+function p({ compositeFilter: t, isRoot: s, dispatchEdit: d, editorState: p, ClauseEditor: m, ConnectorLabel: h, styles: g }) {
+	let _ = t.and || t.or, v = _.some((e) => e.and || e.or), y = v && !s, b = !v && !s, x = c((n, r) => {
+		d({
+			type: "new_clause_added",
+			newClauseFilter: {
+				...n,
+				clause: e(n.clause)
+			},
+			connector: r,
+			sourceFilter: t
+		});
+	}, [t, d]);
+	return /* @__PURE__ */ u("div", {
+		className: "fui:relative fui:flex fui:flex-col",
+		children: [
+			y ? /* @__PURE__ */ l("div", {
+				className: `fui:absolute fui:top-[0] fui:bottom-[0] fui:left-[0] ${g.grayoutPanelClassName}`,
+				style: {
+					width: "calc(2em * 2)",
+					zIndex: n.Grayout
+				}
+			}) : null,
+			b ? /* @__PURE__ */ l(r, { lineDefinition: g.lineDefinition }) : null,
+			/* @__PURE__ */ l(h, {
+				compositeFilter: t,
+				addClause: x,
+				isRoot: s,
+				connectorButtonStyle: {
+					position: "absolute",
+					left: "2em",
+					top: "50%",
+					transform: "translate(-50%, -50%)",
+					zIndex: n.ConnectorLabel
+				}
+			}),
+			_.map((e, t) => /* @__PURE__ */ u(o, { children: [t === 0 ? null : /* @__PURE__ */ l(a, { lineDefinition: g.lineDefinition }), /* @__PURE__ */ l(f, {
+				filter: e,
+				isRoot: !1,
+				dispatchEdit: d,
+				editorState: p,
+				ClauseEditor: m,
+				ConnectorLabel: h,
+				styles: g,
+				children: (e) => /* @__PURE__ */ l("div", {
+					className: "fui:flex fui:flex-col fui:items-stretch",
+					children: /* @__PURE__ */ u("div", {
+						className: "fui:flex fui:flex-[1_0_auto] fui:flex-row fui:items-stretch",
+						children: [/* @__PURE__ */ l(i, {
+							currItemIdx: t,
+							totalItemCount: _.length,
+							lineDefinition: g.lineDefinition
+						}), /* @__PURE__ */ l("div", {
+							className: "fui:flex-[1_0_0]",
+							children: e
+						})]
+					})
+				})
+			})] }, t))
+		]
+	});
 }
-export {
-  y as FilterInstanceEditor
-};
+//#endregion
+export { f as FilterInstanceEditor };

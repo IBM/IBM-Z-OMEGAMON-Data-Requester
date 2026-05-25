@@ -1,7 +1,8 @@
-import { jsx as t } from "react/jsx-runtime";
-function i({ as: o = "div", ...r }) {
-  return /* @__PURE__ */ t(o, { ...r });
+import "react";
+import { jsx as e } from "react/jsx-runtime";
+//#region src/Select/components/FUIBadge.tsx
+function t({ as: t = "div", ...n }) {
+	return /* @__PURE__ */ e(t, { ...n });
 }
-export {
-  i as FUIComboboxBadge
-};
+//#endregion
+export { t as FUIComboboxBadge };

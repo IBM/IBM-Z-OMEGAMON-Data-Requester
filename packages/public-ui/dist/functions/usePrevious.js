@@ -1,10 +1,10 @@
-import { useRef as u, useEffect as n } from "react";
-function f(r) {
-  const e = u(void 0);
-  return n(() => {
-    e.current = r;
-  }), e.current;
+import { useEffect as e, useRef as t } from "react";
+//#region src/functions/usePrevious.ts
+function n(n) {
+	let r = t(void 0);
+	return e(() => {
+		r.current = n;
+	}), r.current;
 }
-export {
-  f as usePrevious
-};
+//#endregion
+export { n as usePrevious };

@@ -47,6 +47,7 @@ export interface ColumnMetadata {
   extensions: Record<string, string>; // See example below
   unit?: Unit;
   usage?: Usage;
+  timeSeriesRole?: string;
 }
 
 export const WRITETIME_COLUMN_ID = 'WRITETIME';

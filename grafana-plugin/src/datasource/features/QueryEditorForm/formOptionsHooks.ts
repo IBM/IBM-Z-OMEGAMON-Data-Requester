@@ -1,7 +1,7 @@
 import { SelectableValue } from '@grafana/data';
 import {
   QueryObserverSuccessResult,
-  QueryObserverLoadingResult,
+  QueryObserverPendingResult,
   QueryObserverLoadingErrorResult,
   UseQueryResult,
 } from '@tanstack/react-query';
@@ -18,11 +18,11 @@ export type TableOptionsMap = {
 
 export type FormOptionsSuccessResult<OPTION_TYPE extends SelectableFormOption = SelectableFormOption> = Omit<
   QueryObserverSuccessResult<OPTION_TYPE[]>,
-  'refetch' // Having `refetch` doesn't make sense, as it would return pure metadata, not form options
+  'refetch' | 'promise' // Having `refetch` doesn't make sense, as it would return pure metadata, not form options
 >;
 
 export type FormOptionsResult<OPTION_TYPE extends SelectableFormOption = SelectableFormOption> =
-  | QueryObserverLoadingResult
+  | QueryObserverPendingResult
   | QueryObserverLoadingErrorResult
   | FormOptionsSuccessResult<OPTION_TYPE>;
 
@@ -33,13 +33,13 @@ export function getFormOptionsResult<OPTION_TYPE extends SelectableFormOption>(
   if (useQueryResult.status === 'error') {
     return useQueryResult as QueryObserverLoadingErrorResult;
   }
-  if (useQueryResult.status === 'loading') {
+  if (useQueryResult.status === 'pending') {
     return useQueryResult;
   }
   return {
     ...useQueryResult,
     data: options,
-  };
+  } as FormOptionsSuccessResult<OPTION_TYPE>;
 }
 
 export function useAppsAndTablesOptions(): {

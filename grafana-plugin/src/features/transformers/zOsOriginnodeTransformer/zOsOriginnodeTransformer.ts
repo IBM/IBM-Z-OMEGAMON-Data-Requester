@@ -98,8 +98,10 @@ export function getZOsOriginnodeTransformer(): TransformerRegistryItem<ZOsOrigin
   return {
     id: transformation.id,
     editor: ZOsOriginnodeTransformerEditor,
-    transformation,
+    transformation: () => Promise.resolve(transformation),
     name: transformation.name,
+    imageDark: '',
+    imageLight: '',
     description: transformation.description,
   };
 }

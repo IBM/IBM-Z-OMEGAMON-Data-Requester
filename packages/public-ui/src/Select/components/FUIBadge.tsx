@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+// eslint-disable-next-line import/no-cycle
 import { Option } from '~/Select';
 
 export type FUIBadgeProps = {

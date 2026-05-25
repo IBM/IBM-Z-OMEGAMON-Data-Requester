@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-/* eslint-disable @typescript-eslint/prefer-namespace-keyword */
 import { FalconQuery_V8 } from './FalconQuery_V8';
 
-const NON_ITM_HISTORY_TABLES: Record<string, Set<string>> = {
+const NON_ITM_HISTORY_TABLES_V9: Record<string, Set<string>> = {
   HISTTHRD: new Set(['NTHSTIME', 'NTHETIME']),
   ZCDETL: new Set(['STIME', 'ETIME']),
   ATFSUMS: new Set(['SDATE', 'STIME', 'EDATE', 'ETIME']),
@@ -14,7 +13,7 @@ export function updateTo_V9(current: FalconQuery_V8): FalconQuery_V9 {
     return { ...current, falconVersion: 9 };
   }
 
-  const parmaNames = NON_ITM_HISTORY_TABLES[current.falconParams.tableId];
+  const parmaNames = NON_ITM_HISTORY_TABLES_V9[current.falconParams.tableId];
   if (!parmaNames) {
     return { ...current, falconVersion: 9 };
   }
@@ -39,7 +38,7 @@ export function updateTo_V9(current: FalconQuery_V8): FalconQuery_V9 {
  */
 const FALCON_QUERY_VERSION_V9 = 9;
 
-export type FalconQuery_V9 = FalconMetricsQuery_V9 | FalconSituationsQuery_V9;
+export type FalconQuery_V9 = FalconMetricsQuery_V9 | FalconSituationsQuery_V9 | FalconManagedSystemsQuery_V9;
 
 interface FalconSituationsQuery_V9 extends DEP_V9.DataQuery, DEP_V9.WithVersion<typeof FALCON_QUERY_VERSION_V9> {
   queryType: 'situations';
@@ -48,6 +47,11 @@ interface FalconSituationsQuery_V9 extends DEP_V9.DataQuery, DEP_V9.WithVersion<
 interface FalconMetricsQuery_V9 extends DEP_V9.DataQuery, DEP_V9.WithVersion<typeof FALCON_QUERY_VERSION_V9> {
   queryType: 'metrics';
   falconParams: MetricsQueryParams_V9;
+}
+
+interface FalconManagedSystemsQuery_V9 extends DEP_V9.DataQuery, DEP_V9.WithVersion<typeof FALCON_QUERY_VERSION_V9> {
+  queryType: 'managedSystems';
+  managedSystemsParams: ManagedSystemsQueryParams_V9;
 }
 
 type MetricsQueryParams_V9 = {
@@ -61,6 +65,10 @@ type MetricsQueryParams_V9 = {
   groupBy: string[];
   parmas: MetricsQueryParma_V9[]; // for SYSTEM.PARMA
   first?: number;
+};
+
+type ManagedSystemsQueryParams_V9 = {
+  affinityId: DEP_V9.AffinityId;
 };
 
 /** Structures that define agent or set of agents to get the data from. */
@@ -91,6 +99,7 @@ type MetricsQueryColumn_V9 = {
 
 type MetricsQueryOrderByItem_V9 = {
   columnId: string;
+  aggregationFunction?: DEP_V9.AggregationFuncName;
   type: 'ASC' | 'DESC';
 };
 
@@ -126,7 +135,7 @@ const ALLOWED_COMPARISON_OPERATORS_V9 = ['=', '<>', '<', '<=', '>', '>=', 'LIKE'
 const ALLOWED_AGGREGATION_FUNCS = ['AVG', 'COUNT', 'MAX', 'MIN', 'SUM'] as const;
 
 /* Module without 'declare' keyword cannot have export declarations */
-declare module DEP_V9 {
+declare namespace DEP_V9 {
   /**
    * These are the common properties available to all queries in all datasources.
    * Specific implementations will *extend* this interface, adding the required

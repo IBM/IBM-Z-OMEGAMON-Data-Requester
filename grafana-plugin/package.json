@@ -1,32 +1,34 @@
 {
   "name": "omegamon-data-requester",
+  "version": "2.2.0",
   "private": true,
-  "version": "2.1.0",
   "description": "IBM Z OMEGAMON Data Requester",
   "scripts": {
     "build": "webpack -c ./webpack.config.ts --env production",
     "verifyAndBuild": "pnpm prettier && pnpm lint && pnpm typecheck && pnpm test:ci && pnpm build",
-    "verifyAndBuild:go": "mage -v falcon:test && mage -v",
-    "dev:go-host-os": "mage -v falcon:backend",
+    "verifyAndBuild:go": "dotenv -e ../../.go.env -- mage -v falcon:test && mage -v",
+    "dev:go-host-os": "dotenv -e ../../.go.env -- mage -v falcon:backend",
     "dev:go-docker-linux": "mage -v falcon:dockerlinux",
     "dev:plugin-frontend": "webpack -w -c ./webpack.config.ts --env development",
-    "dev:grafana-server": "docker compose up --build",
-    "test:go": "mage -v falcon:test",
+    "dev:compose": "dotenv -e ../../.go.env -- docker compose up --build --abort-on-container-exit",
+    "dev:compose-debug": "dotenv -e ../../.go.env -- docker compose -f docker-compose.yaml -f docker-compose.debug.yaml up --build --abort-on-container-exit",
+    "test:go": "dotenv -e ../../.go.env -- mage -v falcon:test",
     "test": "jest --watch --onlyChanged",
     "test:silent": "jest --watch --onlyChanged --silent",
     "test:ci": "jest --passWithNoTests --maxWorkers 4 --silent",
     "typecheck": "tsc --noEmit",
     "prettier": "prettier --check ./",
     "prettier:fix": "prettier --write ./",
-    "lint": "eslint --cache --max-warnings=0 --report-unused-disable-directives --ignore-path ./.gitignore --ext .js,.jsx,.ts,.tsx .",
+    "lint": "eslint --cache --max-warnings=0 .",
     "lint:fix": "pnpm run lint --fix",
-    "sign": "npx --yes @grafana/sign-plugin@latest"
+    "sign": "npx --yes @grafana/sign-plugin@latest",
+    "validate": "node scripts/validate.mjs"
   },
   "author": "Rocket software",
   "license": "Apache-2.0",
   "devDependencies": {
     "@babel/core": "catalog:",
-    "@grafana/eslint-config": "catalog:",
+    "archiver": "^7.0.1",
     "@grafana/tsconfig": "catalog:",
     "@swc/core": "catalog:",
     "@swc/helpers": "catalog:",
@@ -42,20 +44,11 @@
     "@types/react": "catalog:react18",
     "@types/react-dom": "catalog:react18",
     "@types/react-router-dom": "catalog:",
-    "@types/testing-library__jest-dom": "catalog:",
-    "@typescript-eslint/eslint-plugin": "catalog:",
-    "@typescript-eslint/parser": "catalog:",
     "copy-webpack-plugin": "catalog:",
     "css-loader": "catalog:",
+    "devtools-configs": "workspace:*",
+    "dotenv-cli": "catalog:",
     "eslint": "catalog:",
-    "eslint-config-prettier": "catalog:",
-    "eslint-import-resolver-typescript": "catalog:",
-    "eslint-plugin-deprecation": "catalog:",
-    "eslint-plugin-import": "catalog:",
-    "eslint-plugin-jsdoc": "catalog:",
-    "eslint-plugin-prettier": "catalog:",
-    "eslint-plugin-react": "catalog:",
-    "eslint-plugin-react-hooks": "catalog:",
     "eslint-webpack-plugin": "catalog:",
     "fork-ts-checker-webpack-plugin": "catalog:",
     "glob": "catalog:",
@@ -77,11 +70,21 @@
     "webpack-cli": "catalog:",
     "webpack-livereload-plugin": "catalog:",
     "webpack-subresource-integrity": "catalog:",
-    "webpack-virtual-modules": "catalog:",
-    "devtools-configs": "workspace:*"
+    "webpack-virtual-modules": "catalog:"
   },
   "resolutions": {
     "rxjs": "catalog:"
+  },
+  "pnpm": {
+    "overrides": {
+      "protobufjs": "^8.4.0",
+      "@remix-run/router": "^1.23.2",
+      "react-router-dom-v5-compat": "^6.30.3",
+      "qs": "^6.15.2",
+      "fast-uri": "^3.1.0",
+      "minimatch@<4": "^3.1.3",
+      "picomatch@<3": "^2.3.2"
+    }
   },
   "engines": {
     "node": ">=16"
@@ -91,19 +94,18 @@
     "@emotion/react": "catalog:",
     "@emotion/styled": "catalog:",
     "@grafana/data": "catalog:",
-    "@grafana/plugin-ui": "catalog:",
     "@grafana/runtime": "catalog:",
     "@grafana/schema": "catalog:",
     "@grafana/ui": "catalog:",
-    "@tanstack/react-query": "^4.24.4",
+    "@tanstack/react-query": "catalog:",
+    "lodash": "catalog:",
     "public-common": "workspace:*",
     "public-domain": "workspace:*",
     "public-ui": "workspace:*",
-    "lodash": "catalog:",
     "react": "catalog:react18",
     "react-dom": "catalog:react18",
     "rxjs": "catalog:",
     "tslib": "catalog:"
   },
-  "packageManager": "pnpm@9.15.4"
+  "packageManager": "pnpm@10.32.1"
 }

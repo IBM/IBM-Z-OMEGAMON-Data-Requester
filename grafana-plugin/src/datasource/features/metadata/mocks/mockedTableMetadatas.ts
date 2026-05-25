@@ -11,6 +11,8 @@ export const mockedTableMetadatas: TableMetadata[] = [
     applicationName: 'CICS',
     sampleType: 'pure',
     isMultiRow: true,
+    versionOfLastUpdate: 0,
+    versionOfIntroduction: 0,
     columns: {
       ORIGINNODE: {
         id: 'ORIGINNODE',
@@ -47,7 +49,6 @@ export const mockedTableMetadatas: TableMetadata[] = [
       productCode: 'KCP',
       symbol: 'MVS_CICS',
     },
-    version: 4,
   },
   {
     id: 'KCPTML',
@@ -57,6 +58,8 @@ export const mockedTableMetadatas: TableMetadata[] = [
     applicationName: 'CICS',
     sampleType: 'pure',
     isMultiRow: true,
+    versionOfLastUpdate: 0,
+    versionOfIntroduction: 0,
     columns: {
       ORIGINNODE: {
         id: 'ORIGINNODE',
@@ -93,13 +96,14 @@ export const mockedTableMetadatas: TableMetadata[] = [
       productCode: 'KCP',
       symbol: 'IBM_CICSplex',
     },
-    version: 2,
   },
   {
     applicationCode: 'O4SRV',
     applicationName: '',
     sampleType: 'pure',
     isMultiRow: true,
+    versionOfLastUpdate: 0,
+    versionOfIntroduction: 0,
     columns: {
       AFFINITIES: {
         attributeName: 'Affinities',
@@ -527,7 +531,6 @@ export const mockedTableMetadatas: TableMetadata[] = [
       productCode: 'KMQ',
       symbol: 'MQ_QSG',
     },
-    version: 0,
     description:
       'The Managed Systems attributes are used to check vital heartbeat information from the Tivoli Enterprise Monitoring Server and monitoring agents.',
     id: 'INODESTS',
@@ -544,6 +547,8 @@ export const mockedTableMetadatas: TableMetadata[] = [
     description: 'DB2 Subsystems',
     sampleType: 'pure',
     isMultiRow: true,
+    versionOfLastUpdate: 0,
+    versionOfIntroduction: 0,
     columns: {
       EESG2003: {
         id: 'EESG2003',
@@ -1439,7 +1444,6 @@ export const mockedTableMetadatas: TableMetadata[] = [
       productCode: 'KDP',
       symbol: 'MVS_DB2',
     },
-    version: 1,
   },
   {
     productCode: 'DP',
@@ -1451,6 +1455,8 @@ export const mockedTableMetadatas: TableMetadata[] = [
       'Use DB2 Connect Server Package attributes to create situations that to will alert you when the package network time is too high.',
     sampleType: 'pure',
     isMultiRow: true,
+    versionOfLastUpdate: 0,
+    versionOfIntroduction: 0,
     columns: {
       ORIGINNODE: {
         id: 'ORIGINNODE',
@@ -2010,7 +2016,6 @@ export const mockedTableMetadatas: TableMetadata[] = [
       productCode: 'KDP',
       symbol: 'MVS_DB2',
     },
-    version: 1,
   },
   {
     productCode: 'DP',
@@ -2022,6 +2027,8 @@ export const mockedTableMetadatas: TableMetadata[] = [
       'Use DB2 Connect Server Tasklist attributes to create situations that identify any process using too much CPU time or memory.',
     sampleType: 'pure',
     isMultiRow: true,
+    versionOfLastUpdate: 0,
+    versionOfIntroduction: 0,
     columns: {
       ORIGINNODE: {
         id: 'ORIGINNODE',
@@ -2611,7 +2618,6 @@ export const mockedTableMetadatas: TableMetadata[] = [
       productCode: 'KDP',
       symbol: 'MVS_DB2',
     },
-    version: 1,
   },
   {
     productCode: 'KDP',
@@ -2622,6 +2628,8 @@ export const mockedTableMetadatas: TableMetadata[] = [
     description: 'DB2 Subsystems',
     sampleType: 'pure',
     isMultiRow: true,
+    versionOfLastUpdate: 0,
+    versionOfIntroduction: 0,
     columns: {
       AUTHID: {
         id: 'AUTHID',
@@ -3431,7 +3439,6 @@ export const mockedTableMetadatas: TableMetadata[] = [
       productCode: 'KDP',
       symbol: 'MVS_DB2',
     },
-    version: 1,
   },
   {
     productCode: 'DP',
@@ -3442,6 +3449,8 @@ export const mockedTableMetadatas: TableMetadata[] = [
     description: 'Use the DB2 Message attributes to identify problems with your DB2 system.',
     sampleType: 'pure',
     isMultiRow: true,
+    versionOfLastUpdate: 0,
+    versionOfIntroduction: 0,
     columns: {
       ORIGINNODE: {
         id: 'ORIGINNODE',
@@ -3634,7 +3643,6 @@ export const mockedTableMetadatas: TableMetadata[] = [
       productCode: 'KDP',
       symbol: 'MVS_DB2',
     },
-    version: 1,
   },
   {
     productCode: 'DP',
@@ -3645,6 +3653,8 @@ export const mockedTableMetadatas: TableMetadata[] = [
     description: 'Use the Storage Consumption attributes to assess storage consumption issues for your DB2 version.',
     sampleType: 'pure',
     isMultiRow: true,
+    versionOfLastUpdate: 0,
+    versionOfIntroduction: 0,
     columns: {
       ORIGINNODE: {
         id: 'ORIGINNODE',
@@ -5165,7 +5175,6 @@ export const mockedTableMetadatas: TableMetadata[] = [
       productCode: 'KDP',
       symbol: 'MVS_DB2',
     },
-    version: 3,
   },
   {
     productCode: 'DP',
@@ -5177,6 +5186,8 @@ export const mockedTableMetadatas: TableMetadata[] = [
       'Use the Data Sharing Filter attributes to create situations that monitor a specific DB2 system or data sharing group.',
     sampleType: 'pure',
     isMultiRow: true,
+    versionOfLastUpdate: 0,
+    versionOfIntroduction: 0,
     columns: {
       ORIGINNODE: {
         id: 'ORIGINNODE',
@@ -5372,7 +5383,6 @@ export const mockedTableMetadatas: TableMetadata[] = [
       productCode: 'KDP',
       symbol: 'MVS_DB2',
     },
-    version: 1,
   },
   {
     productCode: 'DP',
@@ -5382,6 +5392,8 @@ export const mockedTableMetadatas: TableMetadata[] = [
     name: 'DP Application Vector Table',
     sampleType: 'pure',
     isMultiRow: true,
+    versionOfLastUpdate: 0,
+    versionOfIntroduction: 0,
     columns: {
       ORIGINNODE: {
         id: 'ORIGINNODE',
@@ -6192,7 +6204,6 @@ export const mockedTableMetadatas: TableMetadata[] = [
       productCode: 'KDP',
       symbol: 'MVS_DB2',
     },
-    version: 1,
   },
   {
     productCode: 'DP',
@@ -6202,6 +6213,8 @@ export const mockedTableMetadatas: TableMetadata[] = [
     name: 'DP Collector Control Block',
     sampleType: 'pure',
     isMultiRow: true,
+    versionOfLastUpdate: 0,
+    versionOfIntroduction: 0,
     columns: {
       ORIGINNODE: {
         id: 'ORIGINNODE',
@@ -6632,7 +6645,6 @@ export const mockedTableMetadatas: TableMetadata[] = [
       productCode: 'KDP',
       symbol: 'MVS_DB2',
     },
-    version: 1,
   },
   {
     productCode: 'DP',
@@ -6644,6 +6656,8 @@ export const mockedTableMetadatas: TableMetadata[] = [
       'Use the DB2 CICS Exceptions attributes to create situations to monitor thread activity originating from connected CICS subsystems.',
     sampleType: 'pure',
     isMultiRow: true,
+    versionOfLastUpdate: 0,
+    versionOfIntroduction: 0,
     columns: {
       ORIGINNODE: {
         id: 'ORIGINNODE',
@@ -6905,13 +6919,14 @@ export const mockedTableMetadatas: TableMetadata[] = [
       productCode: 'KDP',
       symbol: 'MVS_DB2',
     },
-    version: 1,
   },
   {
     applicationCode: 'KDP',
     applicationName: '',
     sampleType: 'pure',
     isMultiRow: true,
+    versionOfLastUpdate: 0,
+    versionOfIntroduction: 0,
     columns: {
       CICSMVSID: {
         attributeName: 'CICS MVS ID',
@@ -8851,7 +8866,6 @@ export const mockedTableMetadatas: TableMetadata[] = [
       productCode: 'KDP',
       symbol: 'MVS_DB2',
     },
-    version: 3,
   },
 ];
 

@@ -1,7 +1,7 @@
 import { Field, DataQueryResponse, DataFrame, FieldType, DataQueryRequest } from '@grafana/data';
 import { TableCellDisplayMode } from '@grafana/schema';
 import { throwIfNullish } from 'public-common';
-import { ActionDefinition, AffinityId, filterActions, TableMetadata } from 'public-domain';
+import { TableMetadata } from 'public-domain';
 
 import { FalconMetricsQuery, FalconQuery } from 'datasource/domain';
 import { MetadataLoader } from 'datasource/features/metadata';
@@ -11,11 +11,6 @@ import pluginJson from '../../plugin.json';
 
 import { addTakeActionToField } from './addTakeActionToField';
 import { getOriginnodePromise } from './getOriginnodePromise';
-
-async function getActions(affinityId: AffinityId, ml: MetadataLoader, tm: TableMetadata): Promise<ActionDefinition[]> {
-  const actions = await ml.getAction(affinityId);
-  return filterActions(actions, tm.name, tm.columns);
-}
 
 /**
  * CAUTION - bad code practice ahead!
@@ -37,7 +32,7 @@ export async function addTakeActionToResponse(
       return frameToMutate;
     }
     const query = request.targets[idx] as FalconMetricsQuery;
-    const singleOriginNodeFromTarget = await getOriginnodePromise(query.falconParams, ml);
+    const singleOriginnodeFromTarget = await getOriginnodePromise(query.falconParams, ml, request.scopedVars);
 
     const tableMd = tableMds.find((tMd) => tMd.id === frameToMutate.name);
 
@@ -45,7 +40,10 @@ export async function addTakeActionToResponse(
     throwIfNullish(tableMd, `Not found table metadata for table id '${frameToMutate.name}'`);
 
     const { affinityId } = query.falconParams;
-    const targetActions = await getActions(affinityId, ml, tableMd);
+
+    const framesFields = frameToMutate.fields.map((f) => f.name);
+    const contextKeys = framesFields.map((field) => (tableMd.id ? `${tableMd.id}.${field}` : field));
+    const targetActions = await ml.getAction(affinityId, contextKeys);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const linkIcon = `${(window as any).__grafana_public_path__}plugins/${pluginJson.id}/static/link.svg`;
@@ -65,15 +63,7 @@ export async function addTakeActionToResponse(
         },
         values: frameToMutate.fields[0]?.values.map((_) => linkIcon) || [],
       };
-      addTakeActionToField(
-        linkField,
-        targetActions,
-        frameToMutate,
-        adminPublicUrl,
-        tableMd,
-        singleOriginNodeFromTarget,
-        request.scopedVars
-      );
+      addTakeActionToField(linkField, framesFields, adminPublicUrl, tableMd, singleOriginnodeFromTarget);
       frameToMutate.fields.unshift(linkField);
       return frameToMutate;
     }

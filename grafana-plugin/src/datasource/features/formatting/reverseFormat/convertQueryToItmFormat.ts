@@ -6,16 +6,31 @@ import {
   MetricsQueryFilter,
   BaseQueryFilter,
   BaseQueryFilters,
+  FalconMetricsQuery,
 } from 'datasource/domain';
 
 import { reverseFormatAndApplyEnums } from './reverseFormat';
 
-type ItmQueryFilterClause = Omit<MetricsQueryFilterClause, 'userDefinedValue'> & { userDefinedValue: string | number };
-type ItmQueryFilter = BaseQueryFilter<ItmQueryFilterClause>;
+type ItmMetricsQueryFilterClause = Omit<MetricsQueryFilterClause, 'userDefinedValue'> & {
+  userDefinedValue: string | number;
+};
+type ItmMetricsQueryFilter = BaseQueryFilter<ItmMetricsQueryFilterClause>;
 
-export type ItmQueryParams = Omit<MetricsQueryParams, 'filter'> & { filter: BaseQueryFilters<ItmQueryFilter> };
+/**
+ * Same as MetricsQueryParams, but with `userDefinedValue`s in filters converted back to raw format
+ */
+export type ItmMetricsQueryParams = Omit<MetricsQueryParams, 'filter'> & {
+  filter: BaseQueryFilters<ItmMetricsQueryFilter>;
+};
 
-export function convertQueryToItmFormat(query: MetricsQueryParams, tableMd: TableMetadata): ItmQueryParams {
+/**
+ * Same as FalconMetricsQuery, but with `userDefinedValue`s in filters converted back to raw format
+ */
+export type ItmFalconMetricsQuery = Omit<FalconMetricsQuery, 'falconParams'> & {
+  falconParams: ItmMetricsQueryParams;
+};
+
+export function convertQueryToItmFormat(query: MetricsQueryParams, tableMd: TableMetadata): ItmMetricsQueryParams {
   const { aggregated, nonAggregated } = query.filter;
   return {
     ...query,
@@ -26,7 +41,7 @@ export function convertQueryToItmFormat(query: MetricsQueryParams, tableMd: Tabl
   };
 }
 
-function convertFilterToItmFormat(filter: MetricsQueryFilter, tableMd: TableMetadata): ItmQueryFilter {
+function convertFilterToItmFormat(filter: MetricsQueryFilter, tableMd: TableMetadata): ItmMetricsQueryFilter {
   if (filter.and) {
     return {
       and: filter.and.map((subFilter) => convertFilterToItmFormat(subFilter, tableMd)),

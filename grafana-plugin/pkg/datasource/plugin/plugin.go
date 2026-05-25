@@ -3,13 +3,13 @@ package plugin
 import (
 	"context"
 	"encoding/json"
+	"net/http"
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/httpclient"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/instancemgmt"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/log"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/resource/httpadapter"
-	"github.com/julienschmidt/httprouter"
 
 	"itm-datasource-plugin/pkg/datasource/domain"
 	"itm-datasource-plugin/pkg/datasource/endpoints"
@@ -41,6 +41,7 @@ var (
 const (
 	QueryType_Metrics    = "metrics"
 	QueryType_Situations = "situations"
+	QueryType_TimeSeries = "time-series"
 )
 
 type JsonDataSettings struct {
@@ -94,10 +95,10 @@ func NewFalconDatasource(ctx context.Context, settings backend.DataSourceInstanc
 		return nil, err
 	}
 
-	resourceRouter := httprouter.New()
-	endpoints.AddMetadataServiceEndpoints(resourceRouter, "/metadata", configuration)
-	endpoints.AddAgentEndpoints(resourceRouter, "/agents", configuration)
-	endpoints.AddActionEndpoints(resourceRouter, "/actions", configuration)
+	resourceMux := http.NewServeMux()
+	endpoints.AddMetadataServiceEndpoints(resourceMux, "/metadata", configuration)
+	endpoints.AddAgentEndpoints(resourceMux, "/agents", configuration)
+	endpoints.AddActionEndpoints(resourceMux, "/actions", configuration)
 
 	dataQueryResolver := endpoints.NewDataQueryResolver(configuration)
 	dataQueryResolver.AddQueryEndpoint(endpoints.NewSituationStreamEndpoint(
@@ -106,10 +107,11 @@ func NewFalconDatasource(ctx context.Context, settings backend.DataSourceInstanc
 		configuration,
 	))
 	dataQueryResolver.AddQueryEndpoint(endpoints.NewMetricsQueryEndpoint(QueryType_Metrics, configuration))
+	dataQueryResolver.AddQueryEndpoint(endpoints.NewTimeSeriesQueryEndpoint(QueryType_TimeSeries, configuration))
 
 	datasource := &FalconDatasource{
 		configuration:     configuration,
-		resourceHandler:   httpadapter.New(resourceRouter),
+		resourceHandler:   httpadapter.New(resourceMux),
 		dataQueryResolver: dataQueryResolver,
 	}
 	backend.Logger.Info("OMEGAMON datasource instance successfully spawned", "UID", settings.UID)

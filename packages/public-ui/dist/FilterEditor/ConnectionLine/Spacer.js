@@ -1,8 +1,13 @@
-import { jsx as r } from "react/jsx-runtime";
-import { Liner as o } from "./Liner.js";
-function t({ lineDefinition: e }) {
-  return /* @__PURE__ */ r(o, { showBorder: !0, lineDefinition: e, children: /* @__PURE__ */ r("div", { className: "fui:h-[1em]" }) });
+import { Liner as e } from "./Liner.js";
+import "react";
+import { jsx as t } from "react/jsx-runtime";
+//#region src/FilterEditor/ConnectionLine/Spacer.tsx
+function n({ lineDefinition: n }) {
+	return /* @__PURE__ */ t(e, {
+		showBorder: !0,
+		lineDefinition: n,
+		children: /* @__PURE__ */ t("div", { className: "fui:h-[1em]" })
+	});
 }
-export {
-  t as Spacer
-};
+//#endregion
+export { n as Spacer };

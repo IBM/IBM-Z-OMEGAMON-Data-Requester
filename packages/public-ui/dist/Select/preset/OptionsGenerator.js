@@ -1,24 +1,19 @@
-import { isInsideVariable as f, extractVarValue as v } from "../VariableUtils.js";
-const b = (o, e, r, w, C) => {
-  const u = f(r, w || 0);
-  if (u.insideVariable) {
-    const a = v(r, u).toLowerCase();
-    return o.filter(
-      (l) => l.value.startsWith("${") && l.value.toLowerCase().includes(a)
-    );
-  }
-  const s = o.filter((a) => {
-    var l;
-    return (((l = a.label) == null ? void 0 : l.toLowerCase().includes(r.toLowerCase())) || a.value.toLowerCase().includes(r.toLowerCase())) && !(e != null && e.includes(a));
-  });
-  return r.length > 0 && C && !(e != null && e.some((a) => a.value === r)) && s.push({
-    id: r,
-    value: r,
-    label: r,
-    isNewCustom: !0,
-    apply: (a, l) => a
-  }), s;
+import { extractVarValue as e, isInsideVariable as t } from "../VariableUtils.js";
+//#region src/Select/preset/OptionsGenerator.ts
+var n = (n, r, i, a, o) => {
+	let s = t(i, a || 0);
+	if (s.insideVariable) {
+		let t = e(i, s).toLowerCase();
+		return n.filter((e) => e.value.startsWith("${") && e.value.toLowerCase().includes(t));
+	}
+	let c = n.filter((e) => (e.label?.toLowerCase().includes(i.toLowerCase()) || e.value.toLowerCase().includes(i.toLowerCase())) && !r?.includes(e));
+	return i.length > 0 && o && !r?.some((e) => e.value === i) && c.push({
+		id: i,
+		value: i,
+		label: i,
+		isNewCustom: !0,
+		apply: (e, t) => e
+	}), c;
 };
-export {
-  b as generateOptions
-};
+//#endregion
+export { n as generateOptions };

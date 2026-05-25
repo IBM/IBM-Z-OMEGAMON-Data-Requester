@@ -12,3 +12,5 @@ export type { FalconQuery_V6 } from './FalconQuery_V6';
 export type { FalconQuery_V7 } from './FalconQuery_V7';
 export type { FalconQuery_V8 } from './FalconQuery_V8';
 export type { FalconQuery_V9 } from './FalconQuery_V9';
+export type { FalconQuery_V10 } from './FalconQuery_V10';
+export type { FalconQuery_V11 } from './FalconQuery_V11';

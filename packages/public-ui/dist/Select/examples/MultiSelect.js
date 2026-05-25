@@ -1,41 +1,43 @@
-import { jsxs as e, jsx as r } from "react/jsx-runtime";
-import { AsCombobox as a, AsFields as b, AsBadge as l, AsInput as d, AsButton as p, AsOptions as f, AsOption as n } from "./data.js";
-import { FUIComboboxBadge as u } from "../components/FUIBadge.js";
-import { FUIComboboxBadges as C } from "../components/FUIBadges.js";
-import { FUIMultipleCombobox as x } from "../components/FUICombobox.js";
-import "../components/FUIContext.js";
-import { FUIComboboxFields as F } from "../components/FUIFields.js";
-import { FUIComboboxInput as I } from "../components/FUIInput.js";
-import { FUIComboboxOption as c } from "../components/FUIOption.js";
-import { FUIComboboxOptions as U } from "../components/FUIOptions.js";
-import { FUIComboboxButton as h } from "../components/FUIButton.js";
-import { onChangePreprocessor as A } from "../preset/OnChangePreprocessor.js";
-import { generateOptions as g } from "../preset/OptionsGenerator.js";
-function y({
-  options: m,
-  allowCustomValues: s,
-  value: t
-}) {
-  return /* @__PURE__ */ e(
-    x,
-    {
-      value: t,
-      generateOptions: g,
-      preprocessOnChangeValues: A,
-      options: m,
-      allowCustomValues: s,
-      as: a,
-      children: [
-        /* @__PURE__ */ e(F, { as: b, children: [
-          /* @__PURE__ */ r(C, { children: (o, i) => /* @__PURE__ */ r(u, { option: o, onRemove: i, as: l }, o.id) }),
-          /* @__PURE__ */ r(I, { as: d })
-        ] }),
-        /* @__PURE__ */ r(h, { as: p }),
-        /* @__PURE__ */ r(U, { as: f, children: (o) => /* @__PURE__ */ r(c, { value: o, disabled: o.disabled, as: n, children: o.isNewCustom ? `Create "${o.label || o.value}"` : o.label || o.value }, o.id) })
-      ]
-    }
-  );
+import { FUIComboboxBadge as e } from "../components/FUIBadge.js";
+import { i as t, o as n, r, t as i } from "../../Select-BYAFeCtv.js";
+import { FUIComboboxFields as a } from "../components/FUIFields.js";
+import { FUIComboboxOption as o } from "../components/FUIOption.js";
+import { FUIComboboxButton as s } from "../components/FUIButton.js";
+import { onChangePreprocessor as c } from "../preset/OnChangePreprocessor.js";
+import { generateOptions as l } from "../preset/OptionsGenerator.js";
+import { a as u, i as d, n as f, o as p, r as m, s as h, t as g } from "../../data-SzAgacYd.js";
+import "react";
+import { jsx as _, jsxs as v } from "react/jsx-runtime";
+//#region src/Select/examples/MultiSelect.tsx
+function y({ options: y, allowCustomValues: b, value: x }) {
+	return /* @__PURE__ */ v(t, {
+		value: x,
+		generateOptions: l,
+		preprocessOnChangeValues: c,
+		options: y,
+		allowCustomValues: b,
+		as: m,
+		children: [
+			/* @__PURE__ */ v(a, {
+				as: d,
+				children: [/* @__PURE__ */ _(n, { children: (t, n) => /* @__PURE__ */ _(e, {
+					option: t,
+					onRemove: n,
+					as: g
+				}, t.id) }), /* @__PURE__ */ _(r, { as: u })]
+			}),
+			/* @__PURE__ */ _(s, { as: f }),
+			/* @__PURE__ */ _(i, {
+				as: h,
+				children: (e) => /* @__PURE__ */ _(o, {
+					value: e,
+					disabled: e.disabled,
+					as: p,
+					children: e.isNewCustom ? `Create "${e.label || e.value}"` : e.label || e.value
+				}, e.id)
+			})
+		]
+	});
 }
-export {
-  y as default
-};
+//#endregion
+export { y as default };

@@ -186,5 +186,45 @@ describe('FalconQuery update from v8 to v9', () => {
         } as MetricsQueryParams,
       });
     });
+
+    test('ZCDETL table with JVM history parmas', () => {
+      expect(
+        updateTo_V9({
+          refId: '1',
+          queryType: 'metrics',
+          falconVersion: 8,
+          falconParams: {
+            tableId: 'ZCDETL',
+            parmas: [
+              {
+                name: 'STIME',
+                value: '1250314091805654',
+                length: 16,
+              },
+              {
+                name: 'random',
+                value: 'random',
+                length: 6,
+              },
+            ],
+          } as MetricsQueryParams,
+        })
+      ).toStrictEqual({
+        refId: '1',
+        queryType: 'metrics',
+        falconVersion: 9,
+        falconParams: {
+          tableId: 'ZCDETL',
+          history: true,
+          parmas: [
+            {
+              name: 'random',
+              value: 'random',
+              length: 6,
+            },
+          ],
+        } as MetricsQueryParams,
+      });
+    });
   });
 });

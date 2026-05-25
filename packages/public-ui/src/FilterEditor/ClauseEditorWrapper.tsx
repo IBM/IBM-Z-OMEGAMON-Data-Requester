@@ -46,6 +46,7 @@ export function ClauseEditorWrapper<CLAUSE>({
   }, [dispatchEdit, clauseFilter]);
 
   const isClauseEditMode = clauseFilter === originalAndEditedClause.originalClauseFilter;
+  const isNewClauseInSession = isClauseEditMode && originalAndEditedClause.editOrigin === 'new';
 
   const clause = isClauseEditMode ? originalAndEditedClause.editedClause : clauseFilter.clause;
 
@@ -85,6 +86,7 @@ export function ClauseEditorWrapper<CLAUSE>({
       enterClauseEditMode={enterClauseEditMode}
       cancelClauseEdit={cancelClauseEdit}
       submitClauseEdit={saveClauseEdit}
+      isNewClauseInSession={isNewClauseInSession}
       editClausePartially={editClausePartially}
       editClauseFully={editClauseFully}
     />

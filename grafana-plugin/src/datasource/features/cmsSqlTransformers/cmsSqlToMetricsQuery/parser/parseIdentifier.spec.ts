@@ -69,7 +69,7 @@ test('Returns qualified identifier when input is keyword', () => {
 test('Qualified identifier with genericKind not of keywordGenericKindArray leads to exception', () => {
   const input: FakeTokenList = [{ kind: 'identifier' }, { kind: 'dot_separator' }, { kind: 'add_arithmetic_operator' }];
 
-  expect(() => parseIdentifier(input as Token[])).toThrowError();
+  expect(() => parseIdentifier(input as Token[])).toThrow();
 });
 
 test('Incomplete qualified identifier leads to exception', () => {
@@ -79,7 +79,7 @@ test('Incomplete qualified identifier leads to exception', () => {
     // { kind: 'identifier' }, <-- This token here is expected to be
   ];
 
-  expect(() => parseIdentifier(input as Token[])).toThrowError();
+  expect(() => parseIdentifier(input as Token[])).toThrow();
 });
 
 test('Returns unqualified identifier if input is incomplete qualified identifier and ignoreIncomplete = true', () => {

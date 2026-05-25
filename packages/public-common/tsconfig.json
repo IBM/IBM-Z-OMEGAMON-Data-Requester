@@ -3,8 +3,8 @@
   "exclude": ["node_modules"],
   "compilerOptions": {
     "rootDir": "./",
-    "baseUrl": "./src",
     "typeRoots": ["./node_modules/@types"],
+    "types": ["jest"],
 
     "strict": true,
     "noUncheckedIndexedAccess": true,

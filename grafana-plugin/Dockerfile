@@ -1,4 +1,4 @@
-FROM wal-artifactory.rocketsoftware.com:6595/golang:1.25.1 AS backend
+FROM wal-artifactory.rocketsoftware.com:6595/golang:1.26.3 AS backend
 
 RUN cd /usr/local &&\
     git clone https://github.com/magefile/mage &&\
@@ -14,18 +14,22 @@ COPY ./apps/grafana-plugin/src/datasource/plugin.json ./src/datasource/
 COPY ./apps/grafana-plugin/src/plugin.json ./src/
 COPY ./apps/grafana-plugin/Magefile.go ./
 COPY ./apps/grafana-plugin/pkg ./pkg
+COPY ./packages/proto/gen /workspace/packages/proto/gen
 
 ENV GOCACHE=/go/pkg/mod
 ENV MAGEFILE_CACHE=/root/.cache/go-build
 
+ARG GOPROXY
+ARG GOSUMDB
+
 RUN --mount=type=cache,target=/root/.cache/go-build --mount=type=cache,target=/go/pkg/mod mage -v && mage -v falcon:test
 
 
-FROM wal-artifactory.rocketsoftware.com:6595/node:18 AS frontend
+FROM wal-artifactory.rocketsoftware.com:6595/node:24.15.0 AS frontend
 
 RUN corepack enable
 
-RUN npm i -g --force pnpm@9.15.4
+RUN npm i -g --force --registry=https://wal-artifactory.rocketsoftware.com:443/artifactory/api/npm/remote-npm-release-wal/ pnpm@10.32.1
 
 # FYI:
 # Dependency installation is done prior to copying all code to take advantage Docker's layer caching.
@@ -66,7 +70,7 @@ ARG FALCON_BUILD_NUMBER
 RUN pnpm grafana-plugin:verifyAndBuildTs
 
 
-FROM wal-artifactory.rocketsoftware.com:6595/alpine:3.22.1 AS merger
+FROM wal-artifactory.rocketsoftware.com:6595/alpine:3.23.4 AS merger
 
 RUN apk update && apk add --no-cache rsync
 

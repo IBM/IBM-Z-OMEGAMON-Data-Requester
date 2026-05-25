@@ -15,7 +15,8 @@ function useAgentsAndGroupsByAffinityId(affinityId: AffinityId | undefined): Use
   const metadataTanStackQueries = useMetadataTanStackQueries();
   const queryResult = useQuery({
     enabled: !!affinityId,
-    ...(affinityId ? metadataTanStackQueries.agentsAndGroups.list(affinityId) : null),
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- guarded by `enabled`
+    ...metadataTanStackQueries.agentsAndGroups.list(affinityId!),
   });
   return queryResult;
 }

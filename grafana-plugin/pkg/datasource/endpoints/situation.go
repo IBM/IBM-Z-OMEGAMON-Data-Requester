@@ -16,11 +16,6 @@ type SituationStreamEndpoint struct {
 	rootPath        string
 }
 
-// type SituationEndpointObserver struct {
-// 	sender *DataSender
-// 	cancel context.CancelFunc
-// }
-
 func NewSituationStreamEndpoint(
 	rootPath string,
 	channelProvider StreamChannelProvider,
@@ -76,22 +71,8 @@ func (e *SituationStreamEndpoint) HandleQuery(ctx context.Context, query backend
 		return nil, err
 	}
 
-	// OMUI5-553 Return streaming
-	// channel := e.channelProvider.GetChannel(e.GetRootPath())
-	// return newQueryResponseFromStructs(queryResponseName, situations, channel, situationsColumns)
-	return newQueryResponse(queryResponseName, rows, nil, situationsColumns, gatewayDbgMsgs, perSourceErrors), nil
+	return newQueryResponse(queryResponseName, rows, nil, situationsColumns, gatewayDbgMsgs, perSourceErrors, false, false), nil
 }
-
-// OMUI5-553 Return streaming
-// func (e *SituationStreamEndpoint) StreamData(ctx context.Context, req *backend.RunStreamRequest, sender *DataSender, cancelCtx context.CancelFunc) {
-// 	situationObserver := &SituationEndpointObserver{
-// 		sender: sender,
-// 		cancel: cancelCtx,
-// 	}
-// 	e.situationService.Subscribe(situationObserver)
-// 	<-ctx.Done()
-// 	e.situationService.Unsubscribe(situationObserver)
-// }
 
 func (e *SituationStreamEndpoint) GetRootPath() string {
 	return e.rootPath
@@ -100,17 +81,3 @@ func (e *SituationStreamEndpoint) GetRootPath() string {
 func (e *SituationStreamEndpoint) IsAllowed(ctx context.Context, req *backend.SubscribeStreamRequest) (bool, error) {
 	return true, nil
 }
-
-// OMUI5-553 Return streaming
-// func (o *SituationEndpointObserver) Update(situations []domain.SituationEvent, err error) {
-// 	if err != nil {
-// 		log.DefaultLogger.Warn("Error occurred while listening for situations updates: ", err)
-// 		if err := o.sender.Send(nil, err); err != nil {
-// 			o.cancel()
-// 		}
-// 	}
-
-// 	if err := o.sender.Send(newQueryResponseFromStructs(queryResponseName, situations, nil, situationsColumns)); err != nil {
-// 		o.cancel()
-// 	}
-// }

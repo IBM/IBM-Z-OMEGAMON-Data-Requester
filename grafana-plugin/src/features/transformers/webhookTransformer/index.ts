@@ -76,8 +76,10 @@ export function getWebhookTransformer(): TransformerRegistryItem<WebhookTransfor
   return {
     id: transformer.id,
     editor: WebhookTransformerEditor,
-    transformation: transformer,
+    transformation: () => Promise.resolve(transformer),
     name: transformer.name,
+    imageDark: '',
+    imageLight: '',
     description: transformer.description,
   };
 }

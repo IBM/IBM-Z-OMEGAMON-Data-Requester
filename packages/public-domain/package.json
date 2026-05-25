@@ -1,7 +1,5 @@
 {
   "name": "public-domain",
-  "private": true,
-  "version": "0.1.0",
   "description": "",
   "scripts": {
     "verify": "pnpm prettier && pnpm lint && pnpm typecheck && pnpm test:ci",
@@ -11,7 +9,7 @@
     "typecheck": "tsc --noEmit",
     "prettier": "prettier --check ./",
     "prettier:fix": "prettier --write ./",
-    "lint": "eslint --cache --max-warnings=0 --report-unused-disable-directives --ignore-path ./.gitignore --ext .js,.jsx,.ts,.tsx .",
+    "lint": "eslint --cache --max-warnings=0 .",
     "lint:fix": "pnpm run lint --fix"
   },
   "author": "Rocket software",
@@ -26,15 +24,7 @@
     "@types/glob": "catalog:",
     "@types/jest": "catalog:",
     "@types/node": "catalog:",
-    "@typescript-eslint/eslint-plugin": "catalog:",
-    "@typescript-eslint/parser": "catalog:",
     "eslint": "catalog:",
-    "eslint-config-prettier": "catalog:",
-    "eslint-import-resolver-typescript": "catalog:",
-    "eslint-plugin-deprecation": "catalog:",
-    "eslint-plugin-import": "catalog:",
-    "eslint-plugin-jsdoc": "catalog:",
-    "eslint-plugin-prettier": "catalog:",
     "jest": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:",
@@ -47,5 +37,5 @@
   "engines": {
     "node": ">=16"
   },
-  "packageManager": "pnpm@9.15.4"
+  "packageManager": "pnpm@10.32.1"
 }

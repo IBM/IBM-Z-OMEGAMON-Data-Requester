@@ -1,7 +1,7 @@
-// eslint-disable-next-line no-restricted-imports
-import { isInsideVariable, extractVarValue } from '../VariableUtils';
-
+// eslint-disable-next-line import/no-cycle
 import { OptionsGenerator, Option } from '~/Select';
+
+import { isInsideVariable, extractVarValue } from '../VariableUtils';
 
 export const generateOptions: OptionsGenerator = (
   options: Option[],

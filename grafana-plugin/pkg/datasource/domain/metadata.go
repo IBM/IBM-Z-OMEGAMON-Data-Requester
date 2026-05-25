@@ -16,9 +16,10 @@ type ApplicationMetadata struct {
 }
 
 type ApplicationTableMetadata struct {
-	Id      string `json:"id"`
-	Name    string `json:"name"`
-	Version int    `json:"version"`
+	Id   string `json:"id"`
+	Name string `json:"name"`
+	// Dont ever use this, ITM randomly increments or doesnt increment when adding columns.
+	// Version int    `json:"version"`
 }
 
 func GetApplicationAffinityIDs(applications []ApplicationMetadata) []AffinityId {
@@ -38,7 +39,12 @@ type TableMetadata struct {
 	Description     string                    `json:"description"`
 	Columns         map[string]ColumnMetadata `json:"columns"`
 	AffinityEntity  AffinityEntity            `json:"affinityEntity"`
-	Version         int64                     `json:"version"`
+	// Min version of agent/application that supports table, i.e. version in which table was introduced.
+	VersionOfIntroduction int64 `json:"versionOfIntroduction"`
+	// Min version of agent/application that supports table with all it's columns, i.e. version in which table was last updated.
+	VersionOfLastUpdate int64 `json:"versionOfLastUpdate"`
+	// Dont ever use this, ITM randomly increments or doesnt increment when adding columns.
+	// Version         int64                     `json:"version"`
 }
 
 func (tm *TableMetadata) GetColumn(id string) (*ColumnMetadata, error) {
@@ -68,6 +74,7 @@ type ColumnMetadata struct {
 	Precision            int64             `json:"precision"`
 	Printf               string            `json:"printf"`
 	Unit                 string            `json:"unit"`
+	TimeSeriesRole       string            `json:"timeSeriesRole"`
 }
 
 func GetUnqualifiedColumnId(columnId string) string {
@@ -101,6 +108,7 @@ var AllowedApplicationAffinityIds map[AffinityId]struct{} = map[AffinityId]struc
 	"%IBM.STATIC115":   {},
 	"%IBM.STATIC014":   {},
 	"%IBM.JVM_Monitor": {},
+	"%IBM.JVM_Plex":    {},
 	"%IBM.STATIC022":   {},
 	"%IBM.STATIC163":   {},
 	"%IBM.STATIC154":   {},
@@ -114,4 +122,5 @@ var AllowedApplicationAffinityIds map[AffinityId]struct{} = map[AffinityId]struc
 	"%IBM.STATIC139":   {},
 	"%IBM.KQQ":         {},
 	"%IBM.STATIC101":   {},
+	"%IBM.STATIC002":   {},
 }

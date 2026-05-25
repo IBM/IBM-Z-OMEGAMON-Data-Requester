@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { AsButton, AsCombobox, AsInput, AsOption, AsOptions, FUISelectProps } from './data';
-
 import {
   FUIComboboxInput,
   FUIComboboxOptions,
@@ -11,6 +9,8 @@ import {
   FUIComboboxButton,
   onChangePreprocessor,
 } from '~/Select';
+
+import { AsButton, AsCombobox, AsInput, AsOption, AsOptions, FUISelectProps } from './data';
 
 export default function SingleSelect({ options, allowCustomValues, value }: FUISelectProps) {
   return (

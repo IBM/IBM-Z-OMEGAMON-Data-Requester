@@ -540,6 +540,7 @@ E.g.:
 | MVS CICSTG                  | \*MVS_CICSTG                     | %IBM.STATIC115   |
 | IMS Subsystems              | \*MVS_IMSPLEX                    | %IBM.STATIC014   |
 | JVM                         | \*JVM_Monitor                    | %IBM.JVM_Monitor |
+| JVM                         | \*JVM_Plex                       | %IBM.JVM_Plex    |
 | MQ Queue Manager            | \*MVS_MQM                        | %IBM.STATIC022   |
 | MQ Queue Sharing Group      | \*MQ_QSG                         | %IBM.STATIC163   |
 | Integration Bus Broker Node | \*MQSI_BROKER_V7                 | %IBM.STATIC154   |
@@ -553,3 +554,4 @@ E.g.:
 | Storage Subsystem           | \*OMEGAMONXE_SMS                 | %IBM.STATIC139   |
 | CQM                         | \*IBM_KQQ                        | %IBM.KQQ         |
 | ZVM and Linux               | \*OMXE_VM                        | %IBM.STATIC101   |
+| NetView                     | \*ZNETVIEW                       | %IBM.STATIC002   |

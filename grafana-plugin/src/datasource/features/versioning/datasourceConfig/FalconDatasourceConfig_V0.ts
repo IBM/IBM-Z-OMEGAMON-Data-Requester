@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-namespace */
-/* eslint-disable @typescript-eslint/prefer-namespace-keyword */
 
 export interface FalconDatasourceJsonData_V0 extends DEP_V0.DataSourceJsonData {
   version: string;
@@ -23,7 +21,7 @@ export type FalconDatasourceConfig_V0 = DEP_V0.DataSourceSettings<
 >;
 
 /* Module without 'declare' keyword cannot have export declarations */
-declare module DEP_V0 {
+declare namespace DEP_V0 {
   interface DataSourceJsonData {
     authType?: string;
     defaultRegion?: string;
@@ -54,8 +52,10 @@ declare module DEP_V0 {
    *  /api/datasources
    */
 
-  interface DataSourceSettings<T extends DataSourceJsonData = DataSourceJsonData, S = {}>
-    extends WithAccessControlMetadata {
+  interface DataSourceSettings<
+    T extends DataSourceJsonData = DataSourceJsonData,
+    S = {},
+  > extends WithAccessControlMetadata {
     id: number;
     uid: string;
     orgId: number;

@@ -15,8 +15,11 @@ export type ApplicationMetadata = {
   tables: ApplicationTableMetadata[];
 };
 
-export type ApplicationTableMetadata = Pick<TableMetadata, 'id' | 'name' | 'version' | 'sampleType' | 'isMultiRow'> & {
+export type HistoryCollectionEligibility = 'yes' | 'no' | 'TEMS';
+
+export type ApplicationTableMetadata = Pick<TableMetadata, 'id' | 'name' | 'sampleType' | 'isMultiRow'> & {
   restriction?: 'unknown' | 'restricted';
+  historyCollectionEligibility?: HistoryCollectionEligibility;
 };
 
 // For situations -----------------------------------------------------------------------------------------------
@@ -27,35 +30,30 @@ export const ITM_FRAMEWORK_APPLICATION_TABLES_FOR_SITUATIONS = [
   {
     id: 'KRAAUDIT',
     name: 'ITM Audit',
-    version: 0,
     sampleType: 'pure',
     isMultiRow: true,
   },
   {
     id: 'KRAHIST',
     name: 'ITM Historical Collection',
-    version: 0,
     sampleType: 'deltaor',
     isMultiRow: true,
   },
   {
     id: 'LOCALTIME',
     name: 'Local Time',
-    version: 0,
     sampleType: 'deltaor',
     isMultiRow: false,
   },
   {
     id: 'KRAMESG',
     name: 'Universal Messages',
-    version: 0,
     sampleType: 'pure',
     isMultiRow: true,
   },
   {
     id: 'UTCTIME',
     name: 'Universal Time',
-    version: 0,
     sampleType: 'deltaor',
     isMultiRow: false,
   },

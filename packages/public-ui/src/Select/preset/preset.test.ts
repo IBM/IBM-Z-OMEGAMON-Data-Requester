@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-imports */
 import { Option } from '../types';
 
 import { sharedApply } from './onApply';

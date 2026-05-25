@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-restricted-imports
 import { ColumnMetadata } from '../../types';
 
 export const validItmTimestamps = [

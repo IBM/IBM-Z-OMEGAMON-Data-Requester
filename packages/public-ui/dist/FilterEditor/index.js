@@ -1,4 +1,2 @@
-import { FilterEditor as t } from "./FilterEditor.js";
-export {
-  t as FilterEditor
-};
+import { FilterEditor as e } from "./FilterEditor.js";
+export { e as FilterEditor };

@@ -1,5 +1,2 @@
-import { u as p } from "../useReplaceClauseWith-DewscVL1.js";
-import "react";
-export {
-  p as useReplaceClauseWith
-};
+import { t as e } from "../useReplaceClauseWith-Czh9O6QD.js";
+export { e as useReplaceClauseWith };

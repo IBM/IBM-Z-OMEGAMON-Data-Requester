@@ -1,13 +1,14 @@
-import { isInsideVariable as i } from "../VariableUtils.js";
-const s = (t, a, n) => {
-  const e = [...t].pop(), r = i(a, n.startIdx);
-  return r.insideVariable && e ? {
-    input: e.apply(a, { startIdx: r.varStart, endIdx: r.varEnd })
-  } : {
-    options: t,
-    input: ""
-  };
+import { isInsideVariable as e } from "../VariableUtils.js";
+//#region src/Select/preset/OnChangePreprocessor.ts
+var t = (t, n, r) => {
+	let i = [...t].pop(), a = e(n, r.startIdx);
+	return a.insideVariable && i ? { input: i.apply(n, {
+		startIdx: a.varStart,
+		endIdx: a.varEnd
+	}) } : {
+		options: t,
+		input: ""
+	};
 };
-export {
-  s as onChangePreprocessor
-};
+//#endregion
+export { t as onChangePreprocessor };
