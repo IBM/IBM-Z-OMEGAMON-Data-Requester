@@ -18,14 +18,14 @@ type QueryTypeOption = {
 };
 
 const queryTypeOptionsForVariableQueryEditor: QueryTypeOption[] = [
-  { label: 'Real time metrics', value: 'metrics', icon: 'clock-nine' },
-  { label: 'Time series', value: 'time-series', icon: 'chart-line' },
+  { label: 'Real-time metrics', value: 'metrics', icon: 'clock-nine' },
+  { label: 'Time-series', value: 'time-series', icon: 'chart-line' },
   { label: 'Managed Systems', value: 'managedSystems' },
 ];
 
 const queryTypeOptions: QueryTypeOption[] = [
-  { label: 'Real time metrics', value: 'metrics', icon: 'clock-nine' },
-  { label: 'Time series', value: 'time-series', icon: 'chart-line' },
+  { label: 'Real-time metrics', value: 'metrics', icon: 'clock-nine' },
+  { label: 'Time-series', value: 'time-series', icon: 'chart-line' },
   { label: 'Situation Events', value: 'situations', icon: 'sitemap' },
   { label: 'Managed Systems', value: 'managedSystems' },
 ];

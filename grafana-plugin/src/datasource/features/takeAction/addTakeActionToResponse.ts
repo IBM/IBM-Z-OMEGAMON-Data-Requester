@@ -34,10 +34,11 @@ export async function addTakeActionToResponse(
     const query = request.targets[idx] as FalconMetricsQuery;
     const singleOriginnodeFromTarget = await getOriginnodePromise(query.falconParams, ml, request.scopedVars);
 
-    const tableMd = tableMds.find((tMd) => tMd.id === frameToMutate.name);
+    const frameName = frameToMutate.name ?? '';
+    const tableMd = tableMds.find((tMd) => frameName === tMd.id || frameName.startsWith(tMd.id + ' - '));
 
     const isTableView = panelType === 'table' || panelType === 'timeseries';
-    throwIfNullish(tableMd, `Not found table metadata for table id '${frameToMutate.name}'`);
+    throwIfNullish(tableMd, `Not found table metadata for table id '${frameName}'`);
 
     const { affinityId } = query.falconParams;
 

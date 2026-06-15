@@ -17,6 +17,7 @@ import type {
   FalconQuery_V9,
   FalconQuery_V10,
   FalconQuery_V11,
+  FalconQuery_V12,
 } from 'datasource/features/versioning/falconQuery';
 
 const commonQueryProperties: Pick<FalconQuery0, 'refId' | 'datasource' | 'hide'> = {
@@ -334,6 +335,16 @@ const falconSituationsQuery11: FalconQuery_V11 = {
   falconVersion: 11,
 } as unknown as FalconQuery_V11;
 
+const falconMetricsQuery12: FalconQuery_V12 = {
+  ...falconMetricsQuery9,
+  falconVersion: 12,
+} as unknown as FalconQuery_V12;
+
+const falconSituationsQuery12: FalconQuery_V12 = {
+  ...falconSituationsQuery9,
+  falconVersion: 12,
+} as unknown as FalconQuery_V12;
+
 type FalconQueryMocks = Array<{ metrics: object; situations: object }>;
 
 export const falconQueryMocks: FalconQueryMocks = [
@@ -349,4 +360,5 @@ export const falconQueryMocks: FalconQueryMocks = [
   { metrics: falconMetricsQuery9, situations: falconSituationsQuery9 },
   { metrics: falconMetricsQuery10, situations: falconSituationsQuery10 },
   { metrics: falconMetricsQuery11, situations: falconSituationsQuery11 },
+  { metrics: falconMetricsQuery12, situations: falconSituationsQuery12 },
 ];

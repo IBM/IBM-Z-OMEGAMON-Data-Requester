@@ -1,5 +1,6 @@
 export type { AffinityEntity, AffinityId, AffinityIdToNameAndGroup, Product } from './AffinityEntity';
 export {
+  ZVM_AFFINITY_ID,
   MVS_CICS_AFFINITY_ID,
   SUPPORTED_AFFINITIES_FOR_METRICS,
   SUPPORTED_AFFINITIES_FOR_SITUATIONS,
@@ -9,9 +10,8 @@ export {
   ITM_FRAMEWORK_AFFINITY_ENTITY,
   TEMS_AFFINITY_ENTITY,
   TEMS_AFFINITY_ID,
-  ZOS_APPLICATION_IDS,
-  NETWORK_APPLICATION_IDS,
   PRODUCTS,
+  PRODUCT_KEYS_WITH_UNSUPPORTED_AGENTS,
   getProductForAffinityId,
   getProductsForHistoryConfigs,
 } from './AffinityEntity';

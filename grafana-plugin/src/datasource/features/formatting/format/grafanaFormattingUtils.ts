@@ -74,7 +74,12 @@ function getFieldDisplayName(
       .map(([key, value]) => `${labelColumnMetadata[key] || key}="${value}"`)
       .join(', ');
     if (labelValue) {
-      return columnMd?.name ? `${columnMd?.name} {${labelValue}}` : `{${labelValue}}`;
+      const formattedLabelDisplayName = columnMd?.name ? `${columnMd?.name} {${labelValue}}` : `{${labelValue}}`;
+      const aggregationFunction = extractAggFuncFromFieldName(field.name);
+      if (aggregationFunction) {
+        return `[${aggregationFunction}] ${formattedLabelDisplayName}`;
+      }
+      return formattedLabelDisplayName;
     }
   }
   return getDisplayName(field.name, columnMd.name);

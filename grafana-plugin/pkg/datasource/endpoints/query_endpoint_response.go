@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"itm-datasource-plugin/pkg/datasource/domain"
 	"reflect"
+	"slices"
 	"strings"
 	"time"
 
@@ -60,6 +61,8 @@ func newQueryResponseFromStructs[T any](name string, data []T, channel *live.Cha
 	}, nil
 }
 
+const originnodeColumn = "originnode"
+
 func (response *QueryResponse) getFrames() []*data.Frame {
 	rows := *response.rows
 
@@ -69,27 +72,88 @@ func (response *QueryResponse) getFrames() []*data.Frame {
 		return []*data.Frame{frame}
 	}
 
+	// For time-series queries with originnode, split into per-agent frames to avoid
+	// null-filled gaps caused by different agent data collection intervals.
+	if response.isTimeSeriesQuery && slices.Contains(response.requestColumns, originnodeColumn) {
+		return response.getPerAgentTimeSeriesFrames(rows)
+	}
+
+	frame := response.buildFrame(response.name, rows, response.requestColumns, "")
+	if response.channel != nil {
+		frame.SetMeta(&data.FrameMeta{Channel: response.channel.String()})
+	}
+	setMeta(frame, response.perSourceErrors, response.custom)
+
+	frames := []*data.Frame{frame}
+	if response.isTimeSeriesQuery {
+		frames = ConvertToWideFormat(frames, true)
+	}
+
+	return frames
+}
+
+// getPerAgentTimeSeriesFrames groups rows by originnode and builds a separate frame per agent.
+// The originnode column is excluded from frame fields and added as a Label on value fields
+// after wide format conversion, so each agent gets a dense time series without cross-agent null gaps.
+func (response *QueryResponse) getPerAgentTimeSeriesFrames(rows []domain.GenericRow) []*data.Frame {
+	agentRows, agentOrder := groupRowsByOriginnode(rows)
+
+	columns := filterOut(response.requestColumns, originnodeColumn)
+
+	if response.channel != nil {
+		backend.Logger.Warn("Streaming channel is not supported for per-agent time-series frames, ignoring channel")
+	}
+
+	frames := make([]*data.Frame, 0, len(agentOrder))
+	for i, agent := range agentOrder {
+		frameName := response.name + " - " + agent
+		frame := response.buildFrame(frameName, agentRows[agent], columns, originnodeColumn)
+
+		// Attach metadata only to the first frame to avoid duplicating potentially large debug data.
+		if i == 0 {
+			setMeta(frame, response.perSourceErrors, response.custom)
+		}
+
+		frames = append(frames, frame)
+	}
+
+	if response.isTimeSeriesQuery {
+		frames = ConvertToWideFormat(frames, true)
+	}
+
+	for i, frame := range frames {
+		addFieldLabel(frame, originnodeColumn, agentOrder[i])
+	}
+
+	return frames
+}
+
+// buildFrame constructs a data.Frame from rows, ordered by columns.
+// If excludeColumn is non-empty, that column is skipped during field construction.
+func (response *QueryResponse) buildFrame(name string, rows []domain.GenericRow, columns []string, excludeColumn string) *data.Frame {
 	fieldMap := make(map[string]*data.Field)
 
 	for idx, row := range rows {
 		for colName, colValue := range row {
-			if colValue != nil {
-				colValue = response.convertHistoricalTimestamp(colName, colValue)
-
-				field, found := fieldMap[colName]
-				if !found {
-					fieldType := data.FieldTypeFor(colValue)
-					field = data.NewFieldFromFieldType(fieldType.NullableType(), len(rows))
-					field.Name = colName
-					fieldMap[colName] = field
-				}
-				field.SetConcrete(idx, colValue)
+			if colValue == nil || colName == excludeColumn {
+				continue
 			}
+
+			colValue = response.convertHistoricalTimestamp(colName, colValue)
+
+			field, found := fieldMap[colName]
+			if !found {
+				fieldType := data.FieldTypeFor(colValue)
+				field = data.NewFieldFromFieldType(fieldType.NullableType(), len(rows))
+				field.Name = colName
+				fieldMap[colName] = field
+			}
+			field.SetConcrete(idx, colValue)
 		}
 	}
 
 	fields := make([]*data.Field, 0, len(fieldMap))
-	for _, columnId := range response.requestColumns {
+	for _, columnId := range columns {
 		field, ok := fieldMap[columnId]
 		if ok {
 			fields = append(fields, field)
@@ -102,20 +166,50 @@ func (response *QueryResponse) getFrames() []*data.Frame {
 		}
 	}
 
-	frame := data.NewFrame(response.name, fields...)
-	if response.channel != nil {
-		frame.SetMeta(&data.FrameMeta{Channel: response.channel.String()})
+	return data.NewFrame(name, fields...)
+}
+
+// groupRowsByOriginnode partitions rows into groups keyed by originnode value,
+// preserving the order of first appearance.
+func groupRowsByOriginnode(rows []domain.GenericRow) (map[string][]domain.GenericRow, []string) {
+	groups := make(map[string][]domain.GenericRow)
+	order := make([]string, 0)
+
+	for _, row := range rows {
+		agent, _ := row[originnodeColumn].(string)
+		if _, seen := groups[agent]; !seen {
+			order = append(order, agent)
+		}
+		groups[agent] = append(groups[agent], row)
 	}
-	setMeta(frame, response.perSourceErrors, response.custom)
 
-	frames := []*data.Frame{frame}
+	return groups, order
+}
 
-	// Apply wide format conversion for time-series queries
-	if response.isTimeSeriesQuery {
-		frames = ConvertToWideFormat(frames, true)
+// addFieldLabel adds a label key-value pair to all non-time fields in the frame.
+func addFieldLabel(frame *data.Frame, key, value string) {
+	for _, field := range frame.Fields {
+		ft := field.Type()
+		if ft == data.FieldTypeTime || ft == data.FieldTypeNullableTime {
+			continue
+		}
+		if field.Labels == nil {
+			field.Labels = data.Labels{key: value}
+		} else {
+			field.Labels[key] = value
+		}
 	}
+}
 
-	return frames
+// filterOut returns a copy of columns with the specified column removed.
+func filterOut(columns []string, exclude string) []string {
+	result := make([]string, 0, len(columns))
+	for _, col := range columns {
+		if col != exclude {
+			result = append(result, col)
+		}
+	}
+	return result
 }
 
 func setMeta(frame *data.Frame, errorsMap map[string]string, customValues any) {

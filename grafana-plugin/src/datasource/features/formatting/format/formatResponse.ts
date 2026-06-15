@@ -87,7 +87,7 @@ export function formatMetricsInResponse(
     const frameName = frameToMutate.name;
     throwIfNullish(frameName, `Expected frame name to be defined for response frame at index '${idx}'`);
 
-    const tableMd = tableMds.find((tMd) => tMd.id === frameName);
+    const tableMd = tableMds.find((tMd) => frameName === tMd.id || frameName.startsWith(tMd.id + ' - '));
     throwIfNullish(tableMd, `Not found table metadata for table id '${frameName}'`);
 
     frameToMutate.fields.forEach((fieldToMutate) => {

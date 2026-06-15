@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { css } from '@emotion/css';
 import { SelectableValue } from '@grafana/data';
 import { Select, Input, FieldValidationMessage } from '@grafana/ui';
 import React, { useMemo } from 'react';
@@ -7,21 +7,15 @@ import { tid } from 'datasource/components';
 import { ALLOWED_COMPARISON_OPERATORS, MetricsQueryFilterClause } from 'datasource/domain';
 import { useCurrentTableMetadata } from 'datasource/features/metadata';
 
-const Grid = styled.div`
-  label: Grid;
-  display: grid;
-  grid-template-columns: [columnId] 12em [function] 12em [operator] 5.2em [value] auto;
-  justify-items: stretch;
-`;
+const gridClass = css({
+  display: 'grid',
+  gridTemplateColumns: '[columnId] 12em [function] 12em [operator] 5.2em [value] auto',
+  justifyItems: 'stretch',
+});
 
-const ColumnSelectWrapper = styled.div`
-  padding-right: 1em;
-`;
+const columnSelectWrapperClass = css({ paddingRight: '1em' });
 
-const FieldValidationMessageContainer = styled.div`
-  position: absolute;
-  z-index: 1000;
-`;
+const fieldValidationMessageContainerClass = css({ position: 'absolute', zIndex: 1000 });
 
 type MainEditorPanelProps = {
   clause: MetricsQueryFilterClause;
@@ -69,8 +63,8 @@ export function MainEditorPanel({ clause, editClausePartially, valueValidationMe
   };
 
   return (
-    <Grid>
-      <ColumnSelectWrapper>
+    <div className={gridClass}>
+      <div className={columnSelectWrapperClass}>
         <Select
           value={clause.columnId}
           options={columnsOptions}
@@ -78,7 +72,7 @@ export function MainEditorPanel({ clause, editClausePartially, valueValidationMe
           isSearchable
           data-testid={tid('clause-editor.edit-mode.column-select')}
         />
-      </ColumnSelectWrapper>
+      </div>
       <Select
         onChange={() => {
           return;
@@ -101,13 +95,13 @@ export function MainEditorPanel({ clause, editClausePartially, valueValidationMe
         />
 
         {!!valueValidationMessage && (
-          <FieldValidationMessageContainer>
+          <div className={fieldValidationMessageContainerClass}>
             <div style={{ position: 'relative' }} data-testid={tid('clause-editor.edit-mode.validation-message')}>
               <FieldValidationMessage>{valueValidationMessage}</FieldValidationMessage>
             </div>
-          </FieldValidationMessageContainer>
+          </div>
         )}
       </div>
-    </Grid>
+    </div>
   );
 }

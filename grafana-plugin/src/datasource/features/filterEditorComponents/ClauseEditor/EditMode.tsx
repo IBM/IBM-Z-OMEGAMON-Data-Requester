@@ -1,4 +1,6 @@
-import styled from '@emotion/styled';
+import { css } from '@emotion/css';
+import { GrafanaTheme2 } from '@grafana/data';
+import { useStyles2 } from '@grafana/ui';
 import { stopPropagation } from 'public-ui';
 import React, { useEffect } from 'react';
 
@@ -12,9 +14,11 @@ import { getValueValidationMessage } from './getValueValidationMessage';
 import { MainEditorPanel } from './MainEditorPanel';
 import { RemoveClauseButton } from './RemoveClauseButton';
 
-const WarningBorder = styled.div`
-  border-left: 2px solid ${({ theme }) => theme.colors.error.main};
-`;
+function getStyles(theme: GrafanaTheme2) {
+  return {
+    warningBorder: css({ borderLeft: `2px solid ${theme.colors.error.main}` }),
+  };
+}
 
 type EditModeProps = {
   clause: MetricsQueryFilterClause;
@@ -35,6 +39,7 @@ export function EditMode({
   submitClauseEdit,
   editClausePartially,
 }: EditModeProps) {
+  const styles = useStyles2(getStyles);
   const tableMetadata = useCurrentTableMetadata();
   const columnId = clause.columnId;
   const columnMetadata = tableMetadata?.columns[columnId];
@@ -44,10 +49,17 @@ export function EditMode({
     const handleClickOutside = (event: globalThis.MouseEvent) => {
       const target = event.target as HTMLElement | null;
 
-      // Grafana's select is built on top of react-select which renders list of
-      // items in body element. This means that clicks on select will register as
-      // clicks on body element.
-      if (target?.nodeName === 'BODY') {
+      // Grafana's Select renders dropdown menus in a portal outside the component tree.
+      // Clicks on portaled menus must be ignored to keep the editor open.
+      // - Grafana 12: portal is inside div.grafana-app (target is that div itself)
+      // - Grafana 13+: portal is inside #grafana-portal-container
+      // - Legacy: portal target was document.body
+      if (
+        !target ||
+        target.nodeName === 'BODY' ||
+        target.closest('#grafana-portal-container') ||
+        target.classList.contains('grafana-app')
+      ) {
         return;
       }
 
@@ -64,7 +76,7 @@ export function EditMode({
   return (
     <>
       <ClauseEditorContainer isIncorrectClause={!!valueValidationMessage} onClick={stopPropagation}>
-        {!!valueValidationMessage && <WarningBorder />}
+        {!!valueValidationMessage && <div className={styles.warningBorder} />}
         <ClausePanelContainer>
           <ClauseContainer>
             <MainEditorPanel

@@ -17,7 +17,12 @@
     "version": "%VERSION%",
     "updated": "%TODAY%",
     "keywords": ["OMEGAMON", "Data Requester", "IBM"],
-    "screenshots": [{ "name": "DB2 Statistic Overview", "path": "img/DB2_Statistics_Overview.png" }],
+    "screenshots": [
+      {
+        "name": "DB2 Statistic Overview",
+        "path": "img/DB2_Statistics_Overview.png"
+      }
+    ],
     "links": [
       {
         "name": "documentation",
@@ -34,7 +39,7 @@
     }
   ],
   "dependencies": {
-    "grafanaDependency": ">=12.1.0",
+    "grafanaDependency": ">=12.3.0",
     "plugins": []
   }
 }

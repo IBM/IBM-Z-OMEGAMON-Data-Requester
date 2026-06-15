@@ -16,8 +16,9 @@ type ApplicationMetadata struct {
 }
 
 type ApplicationTableMetadata struct {
-	Id   string `json:"id"`
-	Name string `json:"name"`
+	Id                           string `json:"id"`
+	Name                         string `json:"name"`
+	HistoryCollectionEligibility string `json:"historyCollectionEligibility"`
 	// Dont ever use this, ITM randomly increments or doesnt increment when adding columns.
 	// Version int    `json:"version"`
 }

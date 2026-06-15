@@ -1,5 +1,4 @@
 import { css } from '@emotion/css';
-import styled from '@emotion/styled';
 import { Alert, Button, LinkButton, Modal } from '@grafana/ui';
 import React, { useCallback, useEffect, useState } from 'react';
 
@@ -16,13 +15,13 @@ const modalStyle = css`
   width: 80wh;
 `;
 
-const ButtonPanel = styled.div`
-  margin-top: 2em;
-  display: flex;
-  flex-direction: row;
-  gap: 1.5em;
-  justify-content: end;
-`;
+const buttonPanelClass = css({
+  marginTop: '2em',
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '1.5em',
+  justifyContent: 'end',
+});
 
 export function TakeActionPopupWarning({ url, onDismiss }: PopupHandlerProps) {
   const [status, setStatus] = useState<'waiting' | 'failed' | 'success'>('waiting');
@@ -94,7 +93,7 @@ export function TakeActionPopupWarning({ url, onDismiss }: PopupHandlerProps) {
       <Alert title="It looks like Take Action popup was blocked by the browser" severity="warning">
         Please, check the browser settings and try again or open Take Action page in a new tab.
       </Alert>
-      <ButtonPanel>
+      <div className={buttonPanelClass}>
         <Button onClick={retry}>Retry</Button>
         {/* `rel="noopener noreferrer" ` shouldn't be used for popup window since we need it to send "I'm alive"
          * message to the original window (which is us, aka opener)
@@ -105,7 +104,7 @@ export function TakeActionPopupWarning({ url, onDismiss }: PopupHandlerProps) {
         <Button variant="secondary" onClick={onDismiss}>
           Close
         </Button>
-      </ButtonPanel>
+      </div>
     </Modal>
   );
 }

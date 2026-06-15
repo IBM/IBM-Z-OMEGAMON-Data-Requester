@@ -142,7 +142,10 @@ export function getCalculateCounterRateTransformer(): TransformerRegistryItem<Ca
   return {
     id: transformation.id,
     editor: CalculateCounterRateTransformerEditor,
-    transformation: () => Promise.resolve(transformation),
+    // TODO Remove cast once @grafana/data nightly (13.1.0-pre) types are replaced by stable 13.x and the Grafana runtime supports the async transformer API
+    transformation: transformation as unknown as () => Promise<
+      DataTransformerInfo<CalculateCounterRateTransformerOptions>
+    >,
     name: transformation.name,
     description: transformation.description,
     imageDark: '',

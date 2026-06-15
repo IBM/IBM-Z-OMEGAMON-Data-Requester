@@ -11,6 +11,8 @@ export type AffinityEntity = {
 
 export const MVS_CICS_AFFINITY_ID = '%IBM.STATIC011';
 const JVM_PLEX_AFFINITY_ID = '%IBM.JVM_Plex' as AffinityId;
+const NETVIEW_AFFINITY_ID = '%IBM.STATIC002' as AffinityId;
+export const ZVM_AFFINITY_ID = '%IBM.STATIC101' as AffinityId;
 
 export type AffinityIdToNameAndGroup = {
   [affinityId: string]: { name: string; defaultAllGroup: string };
@@ -38,12 +40,9 @@ const COMMONLY_SUPPORTED_AFFINITIES: AffinityIdToNameAndGroup = {
   '%IBM.STATIC006': { name: 'zOS SYSPLEX', defaultAllGroup: '*MVS_SYSPLEX' },
   '%IBM.STATIC007': { name: 'zOS SYSTEM', defaultAllGroup: '*MVS_SYSTEM' },
   '%IBM.STATIC139': { name: 'Storage Subsystem', defaultAllGroup: '*OMEGAMONXE_SMS' },
-  '%IBM.STATIC101': { name: 'ZVM and Linux', defaultAllGroup: '*OMXE_VM' },
-  '%IBM.STATIC002': { name: 'NetView', defaultAllGroup: '*ZNETVIEW' },
+  [ZVM_AFFINITY_ID]: { name: 'ZVM and Linux', defaultAllGroup: '*OMXE_VM' },
+  [NETVIEW_AFFINITY_ID]: { name: 'NetView', defaultAllGroup: '*ZNETVIEW' },
 };
-
-export const NETWORK_APPLICATION_IDS = ['%IBM.STATIC150', '%IBM.STATIC149', '%IBM.STATIC148'];
-export const ZOS_APPLICATION_IDS = ['%IBM.STATIC006', '%IBM.STATIC007'];
 
 // For metrics --------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------
@@ -97,19 +96,30 @@ export const SUPPORTED_AFFINITIES_FOR_ACTIONS = SUPPORTED_AFFINITIES_FOR_SITUATI
 // For history configs ------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------
 
-// JVM_Plex does not have any supported tables in history configs
+// JVM_Plex, NetView and ZVM does not have any supported tables in history configs
 export const SUPPORTED_AFFINITIES_FOR_HISTORY_CONFIGS: AffinityIdToNameAndGroup = Object.fromEntries(
-  Object.entries(COMMONLY_SUPPORTED_AFFINITIES).filter(([key]) => key !== JVM_PLEX_AFFINITY_ID)
+  Object.entries(COMMONLY_SUPPORTED_AFFINITIES).filter(
+    ([key]) => key !== JVM_PLEX_AFFINITY_ID && key !== NETVIEW_AFFINITY_ID && key !== ZVM_AFFINITY_ID
+  )
 );
 
 // Products ----------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------
+
+const ZVM_PRODUCT_KEY = 'zvm';
+const NETVIEW_PRODUCT_KEY = 'netview';
 
 export type Product = {
   key: string;
   displayName: string;
   affinityIds: AffinityId[];
 };
+
+const NETWORKS_PRODUCT_KEY = 'networks';
+const ZOS_PRODUCT_KEY = 'zos';
+
+/** These products may have some unsupported agents */
+export const PRODUCT_KEYS_WITH_UNSUPPORTED_AGENTS = [NETWORKS_PRODUCT_KEY, ZOS_PRODUCT_KEY] as const;
 
 export const PRODUCTS: Product[] = [
   {
@@ -124,7 +134,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     key: 'db2',
-    displayName: 'IBM Z OMEGAMON AI for DB2',
+    displayName: 'IBM Z OMEGAMON AI for Db2',
     affinityIds: ['%IBM.STATIC017'] as AffinityId[],
   },
   {
@@ -163,14 +173,14 @@ export const PRODUCTS: Product[] = [
     affinityIds: ['%IBM.STATIC006', '%IBM.STATIC007'] as AffinityId[],
   },
   {
-    key: 'zvm',
+    key: ZVM_PRODUCT_KEY,
     displayName: 'OMEGAMON XE on z/VM and Linux',
-    affinityIds: ['%IBM.STATIC101'] as AffinityId[],
+    affinityIds: [ZVM_AFFINITY_ID] as AffinityId[],
   },
   {
-    key: 'netview',
+    key: NETVIEW_PRODUCT_KEY,
     displayName: 'NetView',
-    affinityIds: ['%IBM.STATIC002'] as AffinityId[],
+    affinityIds: [NETVIEW_AFFINITY_ID] as AffinityId[],
   },
 ];
 
@@ -178,9 +188,9 @@ export function getProductForAffinityId(id: AffinityId): Product | undefined {
   return PRODUCTS.find((g) => g.affinityIds.includes(id));
 }
 
-/** For history configs: exclude JVM_Plex from the JVM group */
+/** For history configs: exclude JVM_Plex from the JVM group, and zVM and NetView products entirely */
 export function getProductsForHistoryConfigs(): Product[] {
-  return PRODUCTS.map((g) =>
+  return PRODUCTS.filter((g) => g.key !== ZVM_PRODUCT_KEY && g.key !== NETVIEW_PRODUCT_KEY).map((g) =>
     g.key === 'jvm' ? { ...g, affinityIds: g.affinityIds.filter((id) => id !== JVM_PLEX_AFFINITY_ID) } : g
   );
 }

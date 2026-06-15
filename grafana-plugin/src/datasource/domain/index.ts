@@ -7,7 +7,6 @@ export {
   FALCON_QUERY_VERSION,
   NON_ITM_HISTORY_TABLES,
   TIME_BUCKET_AGGREGATION_OPTIONS,
-  TIME_SERIES_AGGREGATION_FUNCS,
 } from './FalconQuery';
 export type {
   FalconQuery,
@@ -23,12 +22,12 @@ export type {
   MetricsQueryFilterOf,
   MetricsQueryFilterClause,
   MetricsQueryOrderByItem,
+  TimeSeriesOrderByItem,
   MetricsQueryParams,
   MetricsQueryParma,
   ManagedSystemsQueryParams,
   TimeSeriesQueryParams,
   TimeBucketAggregation,
-  TimeSeriesAggregationFuncName,
   SourceDef,
   AgentOrGroupName,
   AtLparDef,
@@ -43,10 +42,14 @@ export {
   defaultTimeSeriesQueryParams,
 } from './constructDefaultFalconQuery';
 
-export type { AggregationFuncName } from './AggregationFunction';
+export type { AggregationFuncName, AllAggFuncName, TimeSeriesAggregationFuncName } from './AggregationFunction';
 export {
   ALLOWED_AGGREGATION_FUNCS,
+  ALL_AGG_FUNCS,
+  TIME_SERIES_AGGREGATION_FUNCS,
   extractAggFuncFromFieldName,
   fieldNameContainsAggFunc,
   extractColumnIdFromFieldName,
 } from './AggregationFunction';
+
+export { resolveAutomaticIntervalMinutes } from './timeSeriesInterval';

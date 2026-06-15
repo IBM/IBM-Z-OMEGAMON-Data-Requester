@@ -13,6 +13,9 @@ describe(extractAggFuncFromFieldName.name, () => {
   test('Field name with known aggregation function', () => {
     expect(extractAggFuncFromFieldName('AVG(fgh)')).toEqual('AVG');
   });
+  test('Field name with time-series-only aggregation function', () => {
+    expect(extractAggFuncFromFieldName('LAST(fgh)')).toEqual('LAST');
+  });
   test('Field name with unknown aggregation function', () => {
     expect(() => extractAggFuncFromFieldName('abc(fgh)')).toThrow(Error);
   });

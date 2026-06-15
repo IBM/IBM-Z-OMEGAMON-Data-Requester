@@ -1,4 +1,4 @@
-FROM wal-artifactory.rocketsoftware.com:6595/golang:1.26.3 AS backend
+FROM wal-artifactory.rocketsoftware.com:6595/golang:1.26.4 AS backend
 
 RUN cd /usr/local &&\
     git clone https://github.com/magefile/mage &&\
@@ -70,7 +70,7 @@ ARG FALCON_BUILD_NUMBER
 RUN pnpm grafana-plugin:verifyAndBuildTs
 
 
-FROM wal-artifactory.rocketsoftware.com:6595/alpine:3.23.4 AS merger
+FROM wal-artifactory.rocketsoftware.com:6595/alpine:3.24 AS merger
 
 RUN apk update && apk add --no-cache rsync
 

@@ -48,7 +48,7 @@ const createMetricsQuery = (refId: string, history: boolean): FalconMetricsQuery
     queryType: 'metrics',
     refId,
     hide: false,
-    falconVersion: 11,
+    falconVersion: 12,
     falconParams: {
       affinityId: 'AFF' as never,
       agentsAndGroups: [],

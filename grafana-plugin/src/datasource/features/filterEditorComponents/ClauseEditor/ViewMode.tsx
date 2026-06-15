@@ -1,5 +1,6 @@
-import styled from '@emotion/styled';
-import { Tooltip, Icon } from '@grafana/ui';
+import { css } from '@emotion/css';
+import { GrafanaTheme2 } from '@grafana/data';
+import { Tooltip, Icon, useStyles2 } from '@grafana/ui';
 import React, { useCallback } from 'react';
 
 import { tid } from 'datasource/components';
@@ -12,13 +13,17 @@ import { getValueValidationMessage } from './getValueValidationMessage';
 import { ReadOnlyClausePanel } from './ReadOnlyClausePanel';
 import { RemoveClauseButton } from './RemoveClauseButton';
 
-const WarningContainer = styled.div`
-  background-color: ${({ theme }) => theme.colors.error.main};
-  color: ${({ theme }) => theme.colors.warning.text};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+function getStyles(theme: GrafanaTheme2) {
+  return {
+    warningContainer: css({
+      backgroundColor: theme.colors.error.main,
+      color: theme.colors.warning.text,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }),
+  };
+}
 
 type ViewModeProps = {
   clause: MetricsQueryFilterClause;
@@ -35,6 +40,7 @@ export function ViewMode({
   removeClause,
   enterClauseEditMode,
 }: ViewModeProps) {
+  const styles = useStyles2(getStyles);
   const tableMetadata = useCurrentTableMetadata();
   const columnMetadata = tableMetadata?.columns[clause.columnId];
   const valueValidationMessage = getValueValidationMessage(clause.userDefinedValue, columnMetadata);
@@ -63,9 +69,12 @@ export function ViewMode({
             show={undefined}
             data-testid={tid('clause-editor.view-mode.validation-message')}
           >
-            <WarningContainer data-testid={tid('clause-editor.view-mode.validation-message.container')}>
+            <div
+              className={styles.warningContainer}
+              data-testid={tid('clause-editor.view-mode.validation-message.container')}
+            >
               <Icon name="exclamation-circle" style={{ color: 'black', width: '2em' }} />
-            </WarningContainer>
+            </div>
           </Tooltip>
         )}
         <ClausePanelContainer>

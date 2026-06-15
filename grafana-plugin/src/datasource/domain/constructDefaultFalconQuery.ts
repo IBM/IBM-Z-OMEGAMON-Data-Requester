@@ -44,7 +44,7 @@ export const defaultTimeSeriesQueryParams: TimeSeriesQueryParams = {
   columns: [],
   aggregationFunctions: [],
   agentsAndGroups: [],
-  aggregationIntervalMs: -1,
+  aggregationIntervalMinutes: -1,
   orderBy: [],
 };
 

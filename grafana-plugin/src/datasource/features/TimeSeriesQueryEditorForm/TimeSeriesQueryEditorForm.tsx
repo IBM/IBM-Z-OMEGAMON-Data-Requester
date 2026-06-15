@@ -23,6 +23,9 @@ import { TimeSeriesLabelsSelector } from './TimeSeriesLabelsSelector';
 import { TimeSeriesMetricsSelector } from './TimeSeriesMetricsSelector';
 import { TimeSeriesOrderBySelector } from './TimeSeriesOrderBySelector';
 
+const AGGREGATION_FUNCTION_OPTIONS: Array<SelectableValue<TimeSeriesAggregationFuncName>> =
+  TIME_SERIES_AGGREGATION_FUNCS.map((func) => ({ label: func, value: func }));
+
 const getStyles = (theme: GrafanaTheme2) => {
   const fieldRowMaxWidth = `${theme.breakpoints.values.md}${theme.breakpoints.unit}`;
   const narrowGapInFieldRow = theme.spacing(2);
@@ -36,17 +39,15 @@ const getStyles = (theme: GrafanaTheme2) => {
       flexBasis: basisWidthOfWideFieldInFieldRow,
       flexGrow: 1,
     }),
-    limitAndRankingFieldRow: css({
+    limitAndRankByFieldRow: css({
       columnGap: narrowGapInFieldRow,
+      marginTop: theme.spacing(2),
     }),
     limitField: css({
-      flexBasis: '15%',
+      flexBasis: '14%',
       flexShrink: 0,
     }),
-    rankingMetricField: css({
-      flexGrow: 1,
-    }),
-    warningMessage: css({
+    validationMessage: css({
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
     }),
@@ -92,8 +93,26 @@ export function TimeSeriesQueryEditorForm({
     return params.labels.length > 0 && params.labels.length >= stringColumns.length;
   }, [tableMetadata, params.labels]);
 
+  const historyEligibleApplications = useMemo(
+    () =>
+      applicationOptionsResult.data?.filter((app) =>
+        tableOptionsResult[app.value]?.data?.some(
+          (table) => table.historyCollectionEligibility && table.historyCollectionEligibility !== 'no'
+        )
+      ),
+    [applicationOptionsResult.data, tableOptionsResult]
+  );
+
+  const historyEligibleTables = useMemo(
+    () =>
+      tableOptionsResult[params.affinityId]?.data?.filter(
+        (table) => table.historyCollectionEligibility && table.historyCollectionEligibility !== 'no'
+      ),
+    [tableOptionsResult, params.affinityId]
+  );
+
   const noLabelsSelected = params.labels.length === 0;
-  const isNoBucketAggregation = params.aggregationIntervalMs === 0;
+  const isNoBucketAggregation = params.aggregationIntervalMinutes === 0;
 
   // Warn when no labels and no bucket aggregation are selected
   const showNoLabelsNoBucketWarning = noLabelsSelected && isNoBucketAggregation;
@@ -117,29 +136,11 @@ export function TimeSeriesQueryEditorForm({
     }
   }, [disableAggregationFunction, params.aggregationFunctions.length, changeTimeSeriesQueryParams]);
 
-  // The Ranking metric selector is disabled when:
-  // - no attribute group is selected (no table metadata to derive columns from), OR
-  // - no aggregation functions are selected AND the aggregation function field is not
-  //   intentionally disabled (i.e. we are NOT in the all-labels + no-bucket raw mode).
-  // Exception: in the all-labels + no-bucket raw mode, aggregation functions are
-  // auto-cleared but the ranking metric must remain enabled to allow plain column ordering.
-  const isOrderBySelectorDisabled =
-    !params.tableId || (params.aggregationFunctions.length === 0 && !disableAggregationFunction);
-  useEffect(() => {
-    if (isOrderBySelectorDisabled && params.orderBy.length > 0) {
-      changeTimeSeriesQueryParams({ orderBy: [] });
-    }
-  }, [isOrderBySelectorDisabled, params.orderBy.length, changeTimeSeriesQueryParams]);
-
-  /** Aggregation function options for the dropdown */
-  const aggregationFunctionOptions: Array<SelectableValue<TimeSeriesAggregationFuncName>> = useMemo(
-    () =>
-      TIME_SERIES_AGGREGATION_FUNCS.map((func) => ({
-        label: func,
-        value: func,
-      })),
-    []
-  );
+  const isRankBySet = params.orderBy.length > 0;
+  const [isLimitFocused, setIsLimitFocused] = useState(false);
+  const [isRankByFocused, setIsRankByFocused] = useState(false);
+  const showLimitError = !isLimitFocused && params.limit !== undefined && !isRankBySet;
+  const showRankByError = !isRankByFocused && isRankBySet && params.limit === undefined;
 
   return (
     <CurrentTableMetadataProvider tableMetadata={tableMetadata}>
@@ -153,7 +154,7 @@ export function TimeSeriesQueryEditorForm({
           >
             <Select
               isLoading={applicationOptionsResult.isFetching}
-              options={applicationOptionsResult.data}
+              options={historyEligibleApplications}
               value={params.affinityId}
               onChange={(applicationOption: SelectableValue<AffinityId> | null) => {
                 changeTimeSeriesQueryParams({
@@ -164,7 +165,8 @@ export function TimeSeriesQueryEditorForm({
                   labels: [],
                   orderBy: [],
                   aggregationFunctions: [],
-                  aggregationIntervalMs: AGGREGATION_INTERVAL.AUTOMATIC,
+                  aggregationIntervalMinutes: AGGREGATION_INTERVAL.AUTOMATIC,
+                  limit: undefined,
                   filter: undefined,
                 });
               }}
@@ -179,7 +181,7 @@ export function TimeSeriesQueryEditorForm({
           >
             <Select
               isLoading={tableOptionsResult[params.affinityId]?.isFetching || false}
-              options={tableOptionsResult[params.affinityId]?.data}
+              options={historyEligibleTables}
               value={params.tableId || null}
               onChange={(tableOption) => {
                 changeTimeSeriesQueryParams({
@@ -188,6 +190,8 @@ export function TimeSeriesQueryEditorForm({
                   labels: [],
                   orderBy: [],
                   aggregationFunctions: [],
+                  aggregationIntervalMinutes: AGGREGATION_INTERVAL.AUTOMATIC,
+                  limit: undefined,
                   filter: undefined,
                 });
               }}
@@ -219,19 +223,20 @@ export function TimeSeriesQueryEditorForm({
 
         {/* Time bucket aggregation */}
         <TimeBucketAggregationSection
-          aggregationIntervalMs={params.aggregationIntervalMs}
+          aggregationIntervalMinutes={params.aggregationIntervalMinutes}
           changeTimeSeriesQueryParams={changeTimeSeriesQueryParams}
+          disabled={!params.tableId}
         />
 
         {/* Validation warnings */}
-        {showNoLabelsNoBucketWarning && (
-          <Alert severity="warning" title="" className={styles.warningMessage}>
+        {showNoLabelsNoBucketWarning && params.tableId && (
+          <Alert severity="warning" title="" className={styles.validationMessage}>
             Invalid selection: No bucket aggregations requires some label selection. Alternatively, select different
             Time bucket aggregation, if labels are not required
           </Alert>
         )}
-        {showAllLabelsNoBucketWarning && !showNoLabelsNoBucketWarning && (
-          <Alert severity="warning" title="" className={styles.warningMessage}>
+        {showAllLabelsNoBucketWarning && !showNoLabelsNoBucketWarning && params.tableId && (
+          <Alert severity="warning" title="" className={styles.validationMessage}>
             When all labels are selected with No bucket aggregation other aggregation functions are automatically
             disabled.
           </Alert>
@@ -247,7 +252,7 @@ export function TimeSeriesQueryEditorForm({
         {/* Aggregation function dropdown */}
         <Field label="Aggregation function" data-testid={tid('query-editor.time-series.field.aggregation-function')}>
           <MultiSelect
-            options={aggregationFunctionOptions}
+            options={AGGREGATION_FUNCTION_OPTIONS}
             value={params.aggregationFunctions}
             onChange={(rawOptions) => {
               const selected = rawOptions.map((o) => o.value).filter((v): v is TimeSeriesAggregationFuncName => !!v);
@@ -279,9 +284,15 @@ export function TimeSeriesQueryEditorForm({
           />
         </CollapseWithInfoIcon>
 
-        {/* Limit and Ranking metric - same row */}
-        <InlineFieldRow className={styles.limitAndRankingFieldRow}>
-          <Field label="Limit" className={styles.limitField} data-testid={tid('query-editor.time-series.field.limit')}>
+        {/* Limit and Rank by - same row */}
+        <InlineFieldRow className={styles.limitAndRankByFieldRow}>
+          <Field
+            label="Limit"
+            className={styles.limitField}
+            invalid={showRankByError}
+            error={showRankByError ? 'Limit is required' : undefined}
+            data-testid={tid('query-editor.time-series.field.limit')}
+          >
             <Input
               type="number"
               min={1}
@@ -291,18 +302,22 @@ export function TimeSeriesQueryEditorForm({
                 const parsed = parseInt(raw, 10);
                 changeTimeSeriesQueryParams({ limit: raw === '' || isNaN(parsed) || parsed < 1 ? undefined : parsed });
               }}
+              onKeyDown={(e) => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault()}
+              onFocus={() => setIsLimitFocused(true)}
+              onBlur={() => setIsLimitFocused(false)}
               disabled={!params.tableId}
               placeholder="Enter"
             />
           </Field>
 
-          {/* Order By */}
+          {/* Rank by */}
           <TimeSeriesOrderBySelector
+            key={params.tableId}
             tableId={params.tableId}
             orderBy={params.orderBy}
-            aggregationFunctions={params.aggregationFunctions}
-            disabled={isOrderBySelectorDisabled}
-            className={styles.rankingMetricField}
+            disabled={!params.tableId}
+            limitRequiresRankBy={showLimitError}
+            onRankByFocusChange={(isFocused) => setIsRankByFocused(isFocused)}
             changeTimeSeriesQueryParams={changeTimeSeriesQueryParams}
           />
         </InlineFieldRow>

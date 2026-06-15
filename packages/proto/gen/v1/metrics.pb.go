@@ -149,6 +149,70 @@ func (x *StringColumn) GetNullIndices() []int32 {
 	return nil
 }
 
+// Float64Column holds a named column of float64 values (structure-of-arrays).
+// values contains only non-null entries (dense). null_indices lists the row
+// indices (sorted) where the value is null; those rows have no entry in values.
+// len(values) + len(null_indices) == total row count.
+type Float64Column struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Values        []float64              `protobuf:"fixed64,2,rep,packed,name=values,proto3" json:"values,omitempty"`
+	NullIndices   []int32                `protobuf:"varint,3,rep,packed,name=null_indices,json=nullIndices,proto3" json:"null_indices,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Float64Column) Reset() {
+	*x = Float64Column{}
+	mi := &file_v1_metrics_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Float64Column) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Float64Column) ProtoMessage() {}
+
+func (x *Float64Column) ProtoReflect() protoreflect.Message {
+	mi := &file_v1_metrics_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Float64Column.ProtoReflect.Descriptor instead.
+func (*Float64Column) Descriptor() ([]byte, []int) {
+	return file_v1_metrics_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Float64Column) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Float64Column) GetValues() []float64 {
+	if x != nil {
+		return x.Values
+	}
+	return nil
+}
+
+func (x *Float64Column) GetNullIndices() []int32 {
+	if x != nil {
+		return x.NullIndices
+	}
+	return nil
+}
+
 // TimestampColumn holds a named column of Unix-millisecond timestamps
 // (structure-of-arrays). values contains only non-null entries (dense).
 // null_indices lists the row indices (sorted) where the value is null.
@@ -168,7 +232,7 @@ type TimestampColumn struct {
 
 func (x *TimestampColumn) Reset() {
 	*x = TimestampColumn{}
-	mi := &file_v1_metrics_proto_msgTypes[2]
+	mi := &file_v1_metrics_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -180,7 +244,7 @@ func (x *TimestampColumn) String() string {
 func (*TimestampColumn) ProtoMessage() {}
 
 func (x *TimestampColumn) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_metrics_proto_msgTypes[2]
+	mi := &file_v1_metrics_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -193,7 +257,7 @@ func (x *TimestampColumn) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TimestampColumn.ProtoReflect.Descriptor instead.
 func (*TimestampColumn) Descriptor() ([]byte, []int) {
-	return file_v1_metrics_proto_rawDescGZIP(), []int{2}
+	return file_v1_metrics_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *TimestampColumn) GetName() string {
@@ -225,23 +289,25 @@ func (x *TimestampColumn) GetNullIndices() []int32 {
 }
 
 // MetricsResponse uses a structure-of-arrays layout.
-// Each column is stored as a typed array: Int64Column, StringColumn, or
-// TimestampColumn. Timestamp columns carry Unix-millisecond int64 values.
+// Each column is stored as a typed array: Int64Column, Float64Column,
+// StringColumn, or TimestampColumn. Timestamp columns carry Unix-millisecond
+// int64 values.
 type MetricsResponse struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
 	Status           string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	Int64Columns     []*Int64Column         `protobuf:"bytes,2,rep,name=int64_columns,json=int64Columns,proto3" json:"int64_columns,omitempty"`
-	StringColumns    []*StringColumn        `protobuf:"bytes,3,rep,name=string_columns,json=stringColumns,proto3" json:"string_columns,omitempty"`
-	TimestampColumns []*TimestampColumn     `protobuf:"bytes,4,rep,name=timestamp_columns,json=timestampColumns,proto3" json:"timestamp_columns,omitempty"`
-	PerSourceErrors  map[string]string      `protobuf:"bytes,5,rep,name=per_source_errors,json=perSourceErrors,proto3" json:"per_source_errors,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	GatewayError     string                 `protobuf:"bytes,6,opt,name=gateway_error,json=gatewayError,proto3" json:"gateway_error,omitempty"`
+	Float64Columns   []*Float64Column       `protobuf:"bytes,3,rep,name=float64_columns,json=float64Columns,proto3" json:"float64_columns,omitempty"`
+	StringColumns    []*StringColumn        `protobuf:"bytes,4,rep,name=string_columns,json=stringColumns,proto3" json:"string_columns,omitempty"`
+	TimestampColumns []*TimestampColumn     `protobuf:"bytes,5,rep,name=timestamp_columns,json=timestampColumns,proto3" json:"timestamp_columns,omitempty"`
+	PerSourceErrors  map[string]string      `protobuf:"bytes,6,rep,name=per_source_errors,json=perSourceErrors,proto3" json:"per_source_errors,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	GatewayError     string                 `protobuf:"bytes,7,opt,name=gateway_error,json=gatewayError,proto3" json:"gateway_error,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
 
 func (x *MetricsResponse) Reset() {
 	*x = MetricsResponse{}
-	mi := &file_v1_metrics_proto_msgTypes[3]
+	mi := &file_v1_metrics_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -253,7 +319,7 @@ func (x *MetricsResponse) String() string {
 func (*MetricsResponse) ProtoMessage() {}
 
 func (x *MetricsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_metrics_proto_msgTypes[3]
+	mi := &file_v1_metrics_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -266,7 +332,7 @@ func (x *MetricsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MetricsResponse.ProtoReflect.Descriptor instead.
 func (*MetricsResponse) Descriptor() ([]byte, []int) {
-	return file_v1_metrics_proto_rawDescGZIP(), []int{3}
+	return file_v1_metrics_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *MetricsResponse) GetStatus() string {
@@ -279,6 +345,13 @@ func (x *MetricsResponse) GetStatus() string {
 func (x *MetricsResponse) GetInt64Columns() []*Int64Column {
 	if x != nil {
 		return x.Int64Columns
+	}
+	return nil
+}
+
+func (x *MetricsResponse) GetFloat64Columns() []*Float64Column {
+	if x != nil {
+		return x.Float64Columns
 	}
 	return nil
 }
@@ -323,19 +396,24 @@ const file_v1_metrics_proto_rawDesc = "" +
 	"\fStringColumn\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n" +
 	"\x06values\x18\x02 \x03(\tR\x06values\x12!\n" +
+	"\fnull_indices\x18\x03 \x03(\x05R\vnullIndices\"^\n" +
+	"\rFloat64Column\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n" +
+	"\x06values\x18\x02 \x03(\x01R\x06values\x12!\n" +
 	"\fnull_indices\x18\x03 \x03(\x05R\vnullIndices\"\x9a\x01\n" +
 	"\x0fTimestampColumn\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n" +
 	"\x06values\x18\x02 \x03(\x03R\x06values\x128\n" +
 	"\x18timezone_offsets_seconds\x18\x03 \x03(\x05R\x16timezoneOffsetsSeconds\x12!\n" +
-	"\fnull_indices\x18\x04 \x03(\x05R\vnullIndices\"\xb5\x03\n" +
+	"\fnull_indices\x18\x04 \x03(\x05R\vnullIndices\"\xf8\x03\n" +
 	"\x0fMetricsResponse\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\tR\x06status\x12;\n" +
-	"\rint64_columns\x18\x02 \x03(\v2\x16.falcon.v1.Int64ColumnR\fint64Columns\x12>\n" +
-	"\x0estring_columns\x18\x03 \x03(\v2\x17.falcon.v1.StringColumnR\rstringColumns\x12G\n" +
-	"\x11timestamp_columns\x18\x04 \x03(\v2\x1a.falcon.v1.TimestampColumnR\x10timestampColumns\x12[\n" +
-	"\x11per_source_errors\x18\x05 \x03(\v2/.falcon.v1.MetricsResponse.PerSourceErrorsEntryR\x0fperSourceErrors\x12#\n" +
-	"\rgateway_error\x18\x06 \x01(\tR\fgatewayError\x1aB\n" +
+	"\rint64_columns\x18\x02 \x03(\v2\x16.falcon.v1.Int64ColumnR\fint64Columns\x12A\n" +
+	"\x0ffloat64_columns\x18\x03 \x03(\v2\x18.falcon.v1.Float64ColumnR\x0efloat64Columns\x12>\n" +
+	"\x0estring_columns\x18\x04 \x03(\v2\x17.falcon.v1.StringColumnR\rstringColumns\x12G\n" +
+	"\x11timestamp_columns\x18\x05 \x03(\v2\x1a.falcon.v1.TimestampColumnR\x10timestampColumns\x12[\n" +
+	"\x11per_source_errors\x18\x06 \x03(\v2/.falcon.v1.MetricsResponse.PerSourceErrorsEntryR\x0fperSourceErrors\x12#\n" +
+	"\rgateway_error\x18\a \x01(\tR\fgatewayError\x1aB\n" +
 	"\x14PerSourceErrorsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B Z\x1efalcon_proto.local/v1;falconv1b\x06proto3"
@@ -352,24 +430,26 @@ func file_v1_metrics_proto_rawDescGZIP() []byte {
 	return file_v1_metrics_proto_rawDescData
 }
 
-var file_v1_metrics_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_v1_metrics_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_v1_metrics_proto_goTypes = []any{
 	(*Int64Column)(nil),     // 0: falcon.v1.Int64Column
 	(*StringColumn)(nil),    // 1: falcon.v1.StringColumn
-	(*TimestampColumn)(nil), // 2: falcon.v1.TimestampColumn
-	(*MetricsResponse)(nil), // 3: falcon.v1.MetricsResponse
-	nil,                     // 4: falcon.v1.MetricsResponse.PerSourceErrorsEntry
+	(*Float64Column)(nil),   // 2: falcon.v1.Float64Column
+	(*TimestampColumn)(nil), // 3: falcon.v1.TimestampColumn
+	(*MetricsResponse)(nil), // 4: falcon.v1.MetricsResponse
+	nil,                     // 5: falcon.v1.MetricsResponse.PerSourceErrorsEntry
 }
 var file_v1_metrics_proto_depIdxs = []int32{
 	0, // 0: falcon.v1.MetricsResponse.int64_columns:type_name -> falcon.v1.Int64Column
-	1, // 1: falcon.v1.MetricsResponse.string_columns:type_name -> falcon.v1.StringColumn
-	2, // 2: falcon.v1.MetricsResponse.timestamp_columns:type_name -> falcon.v1.TimestampColumn
-	4, // 3: falcon.v1.MetricsResponse.per_source_errors:type_name -> falcon.v1.MetricsResponse.PerSourceErrorsEntry
-	4, // [4:4] is the sub-list for method output_type
-	4, // [4:4] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	2, // 1: falcon.v1.MetricsResponse.float64_columns:type_name -> falcon.v1.Float64Column
+	1, // 2: falcon.v1.MetricsResponse.string_columns:type_name -> falcon.v1.StringColumn
+	3, // 3: falcon.v1.MetricsResponse.timestamp_columns:type_name -> falcon.v1.TimestampColumn
+	5, // 4: falcon.v1.MetricsResponse.per_source_errors:type_name -> falcon.v1.MetricsResponse.PerSourceErrorsEntry
+	5, // [5:5] is the sub-list for method output_type
+	5, // [5:5] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_v1_metrics_proto_init() }
@@ -383,7 +463,7 @@ func file_v1_metrics_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_v1_metrics_proto_rawDesc), len(file_v1_metrics_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

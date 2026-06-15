@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import { InlineField, Input } from '@grafana/ui';
+import { css } from '@emotion/css';
+import { InlineField, Input, useStyles2 } from '@grafana/ui';
 import React, { ChangeEvent, useCallback } from 'react';
 
 import { tid } from 'datasource/components';
@@ -7,14 +7,16 @@ import { ConfigSection } from 'datasource/features/components/plugin-ui-inlined'
 
 import type { FalconDataSourceOptionsProps } from './FalconDataSourceOptionsProps';
 
-const AdditionalSettingsEditorContainer = styled.div`
-  /* Grafana uses "578" as a max-width size for all experimental ConfigEditor components containers 
-  e.g. https://github.com/grafana/grafana-experimental/blob/main/src/ConfigEditor/Auth/Auth.tsx (line 37) */
-  max-width: 578px;
-  margin-top: 2em;
-`;
+function getStyles() {
+  return {
+    /* Grafana uses "578" as a max-width size for all experimental ConfigEditor components containers
+    e.g. https://github.com/grafana/grafana-experimental/blob/main/src/ConfigEditor/Auth/Auth.tsx (line 37) */
+    container: css({ maxWidth: 578, marginTop: '2em' }),
+  };
+}
 
 export function AdditionalSettingsEditor({ options, onOptionsChange }: FalconDataSourceOptionsProps) {
+  const styles = useStyles2(getStyles);
   const onMetadataCacheTimeChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>): void => {
       const jsonData = {
@@ -48,7 +50,7 @@ export function AdditionalSettingsEditor({ options, onOptionsChange }: FalconDat
 
   return (
     <ConfigSection title="Additional settings" isCollapsible={true} isInitiallyOpen>
-      <AdditionalSettingsEditorContainer>
+      <div className={styles.container}>
         <InlineField
           label="Metadata cache timeout"
           tooltip="in seconds"
@@ -98,7 +100,7 @@ export function AdditionalSettingsEditor({ options, onOptionsChange }: FalconDat
             onChange={onUrlChange}
           />
         </InlineField>
-      </AdditionalSettingsEditorContainer>
+      </div>
     </ConfigSection>
   );
 }

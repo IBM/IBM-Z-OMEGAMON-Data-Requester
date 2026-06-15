@@ -24,6 +24,7 @@ import {
   MetricsQueryFilterClause,
   FalconSituationsQuery,
   AGGREGATION_INTERVAL,
+  resolveAutomaticIntervalMinutes,
 } from 'datasource/domain';
 import { formatMetricsInResponse } from 'datasource/features/formatting/format';
 import { convertQueryToItmFormat, ItmFalconMetricsQuery } from 'datasource/features/formatting/reverseFormat';
@@ -326,15 +327,15 @@ export class FalconDatasource extends DataSourceWithBackend<FalconQuery, FalconD
     const filter = combined === 'no_filter' ? undefined : combined;
 
     // Resolve aggregation interval:
-    // -1 (AUTOMATIC) → use panel's intervalMs
+    // -1 (AUTOMATIC) → use panel's intervalMs, adjusted for pre-aggregated tables and minimum, then convert to minutes
     // -2 (CUSTOM_UNSET) → fall back to NONE (0); validation prevents reaching this in practice
-    // otherwise → use stored value as-is
-    const aggregationIntervalMs =
-      falconParams.aggregationIntervalMs === AGGREGATION_INTERVAL.AUTOMATIC
-        ? intervalMs
-        : falconParams.aggregationIntervalMs === AGGREGATION_INTERVAL.CUSTOM_UNSET
+    // otherwise → use stored value as-is (already in minutes)
+    const aggregationIntervalMinutes =
+      falconParams.aggregationIntervalMinutes === AGGREGATION_INTERVAL.AUTOMATIC
+        ? resolveAutomaticIntervalMinutes(intervalMs)
+        : falconParams.aggregationIntervalMinutes === AGGREGATION_INTERVAL.CUSTOM_UNSET
           ? AGGREGATION_INTERVAL.NONE
-          : falconParams.aggregationIntervalMs;
+          : falconParams.aggregationIntervalMinutes;
 
     return {
       ...query,
@@ -342,7 +343,7 @@ export class FalconDatasource extends DataSourceWithBackend<FalconQuery, FalconD
         ...falconParams,
         agentsAndGroups,
         filter,
-        aggregationIntervalMs,
+        aggregationIntervalMinutes,
         orderBy: [...falconParams.orderBy],
       },
     };
@@ -553,14 +554,17 @@ export class FalconDatasource extends DataSourceWithBackend<FalconQuery, FalconD
     );
   }
 
-  override async getTagKeys(): Promise<MetricFindValue[]> {
+  override getTagKeys(): Promise<MetricFindValue[]>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  override getTagKeys(options: any): Promise<MetricFindValue[]>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  override async getTagKeys(_options?: any): Promise<MetricFindValue[]> {
     const tableIds = getTableIdsFromAdHocs(this.uid);
     const columnNames = await this.metadataLoader.getColumnNamesFromTableIds(tableIds);
     // getTagKeys is called once per variable/datasource so I'm OK with sort function here
     return columnNames.sort().map((columnName) => ({ text: columnName }));
   }
 
-  // Grafana's function is overriden and any comes from it
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   override async getTagValues(options: any): Promise<MetricFindValue[]> {
     const tableIds = getTableIdsFromAdHocs(this.uid);

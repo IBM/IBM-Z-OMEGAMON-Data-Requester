@@ -111,7 +111,8 @@ export function getCalculateDeltaTransformer(): TransformerRegistryItem<Calculat
   return {
     id: transformation.id,
     editor: CalculateDeltaTransformerEditor,
-    transformation: () => Promise.resolve(transformation),
+    // TODO Remove cast once @grafana/data nightly (13.1.0-pre) types are replaced by stable 13.x and the Grafana runtime supports the async transformer API
+    transformation: transformation as unknown as () => Promise<DataTransformerInfo<CalculateDeltaTransformerOptions>>,
     name: transformation.name,
     description: transformation.description,
     imageDark: '',

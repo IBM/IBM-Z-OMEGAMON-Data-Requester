@@ -1,24 +1,14 @@
 import { css } from '@emotion/css';
 import { GrafanaTheme2 } from '@grafana/data';
-import { Field, FieldValidationMessage, Input, RadioButtonGroup, useStyles2 } from '@grafana/ui';
-import React, { useCallback } from 'react';
+import { Field, FieldValidationMessage, InlineFieldRow, Input, RadioButtonGroup, useStyles2 } from '@grafana/ui';
+import React, { useCallback, useState } from 'react';
 
 import { tid } from 'datasource/components';
 import { AGGREGATION_INTERVAL, TimeBucketAggregation, TimeSeriesQueryParams } from 'datasource/domain';
 
 const getStyles = (theme: GrafanaTheme2) => ({
-  container: css({
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  }),
-  title: css({
-    fontSize: theme.typography.body.fontSize,
-    fontWeight: theme.typography.fontWeightMedium,
-    marginBottom: theme.spacing(1),
-  }),
-  customInput: css({
-    maxWidth: '200px',
-    marginTop: theme.spacing(1),
+  aggregationFieldRow: css({
+    columnGap: theme.spacing(2),
   }),
 });
 
@@ -37,11 +27,12 @@ const timeBucketOptions: TimeBucketAggregationOption[] = [
 ];
 
 interface TimeBucketAggregationSectionProps {
-  aggregationIntervalMs: number;
+  aggregationIntervalMinutes: number;
   changeTimeSeriesQueryParams: (changedParams: Partial<TimeSeriesQueryParams>) => void;
+  disabled?: boolean;
 }
 
-/** Maps a numeric aggregationIntervalMs value to the corresponding radio button option */
+/** Maps a numeric aggregationIntervalMinutes value to the corresponding radio button option */
 function toSelectedOption(value: number): TimeBucketAggregation {
   switch (value) {
     case AGGREGATION_INTERVAL.NONE:
@@ -57,8 +48,8 @@ function toSelectedOption(value: number): TimeBucketAggregation {
   }
 }
 
-/** Maps a radio button option to its numeric aggregationIntervalMs value */
-function toIntervalMs(option: TimeBucketAggregation): number {
+/** Maps a radio button option to its numeric aggregationIntervalMinutes value */
+function toIntervalMinutes(option: TimeBucketAggregation): number {
   switch (option) {
     case 'none':
       return AGGREGATION_INTERVAL.NONE;
@@ -79,54 +70,73 @@ function toIntervalMs(option: TimeBucketAggregation): number {
  * "Automatic" is selected by default for new queries.
  */
 export function TimeBucketAggregationSection({
-  aggregationIntervalMs,
+  aggregationIntervalMinutes,
   changeTimeSeriesQueryParams,
+  disabled = false,
 }: TimeBucketAggregationSectionProps) {
   const styles = useStyles2(getStyles);
 
-  const selectedOption = toSelectedOption(aggregationIntervalMs);
+  const selectedOption = toSelectedOption(aggregationIntervalMinutes);
+
+  const [isTouched, setIsTouched] = useState(true);
+
   const isCustom = selectedOption === 'custom';
 
   const handleAggregationChange = useCallback(
     (value: TimeBucketAggregation) => {
-      changeTimeSeriesQueryParams({ aggregationIntervalMs: toIntervalMs(value) });
+      setIsTouched(false);
+      changeTimeSeriesQueryParams({ aggregationIntervalMinutes: toIntervalMinutes(value) });
     },
     [changeTimeSeriesQueryParams]
   );
 
   const handleCustomIntervalChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = parseInt(e.target.value, 10);
+      const minutes = parseInt(e.target.value, 10);
       changeTimeSeriesQueryParams({
-        aggregationIntervalMs: isNaN(value) || value <= 0 ? AGGREGATION_INTERVAL.CUSTOM_UNSET : value,
+        aggregationIntervalMinutes: isNaN(minutes) || minutes <= 0 ? AGGREGATION_INTERVAL.CUSTOM_UNSET : minutes,
       });
     },
     [changeTimeSeriesQueryParams]
   );
 
-  const customInputValue = aggregationIntervalMs > 0 ? aggregationIntervalMs : '';
-  const isCustomInvalid = isCustom && aggregationIntervalMs <= 0;
+  const customInputValue = aggregationIntervalMinutes > 0 ? aggregationIntervalMinutes : '';
+  const isCustomInvalid = isCustom && isTouched && aggregationIntervalMinutes <= 0;
 
   return (
-    <div className={styles.container} data-testid={tid('query-editor.time-series.time-bucket-aggregation')}>
-      <div className={styles.title}>Time bucket aggregation</div>
-      <RadioButtonGroup options={timeBucketOptions} value={selectedOption} onChange={handleAggregationChange} />
-      {isCustom && (
-        <Field label="Custom interval (ms)" className={styles.customInput} invalid={isCustomInvalid}>
-          <Input
-            type="number"
-            min={1}
-            placeholder="Enter interval in milliseconds"
-            value={customInputValue}
-            onChange={handleCustomIntervalChange}
-            invalid={isCustomInvalid}
-            data-testid={tid('query-editor.time-series.custom-aggregation-interval')}
+    <div data-testid={tid('query-editor.time-series.time-bucket-aggregation')}>
+      <InlineFieldRow className={styles.aggregationFieldRow}>
+        <Field
+          label="Time bucket aggregation"
+          data-testid={tid('query-editor.time-series.time-bucket-aggregation-custom')}
+        >
+          <RadioButtonGroup
+            options={timeBucketOptions}
+            value={selectedOption}
+            onChange={handleAggregationChange}
+            disabled={disabled}
           />
         </Field>
-      )}
-      {isCustomInvalid && (
-        <FieldValidationMessage>Please enter a valid interval greater than 0 ms</FieldValidationMessage>
-      )}
+        {isCustom && (
+          <Field label="Custom interval (min)" invalid={isCustomInvalid}>
+            <div>
+              <Input
+                type="number"
+                min={1}
+                autoFocus={isCustom}
+                placeholder="Enter interval in minutes"
+                value={customInputValue}
+                onChange={handleCustomIntervalChange}
+                onKeyDown={(e) => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault()}
+                onBlur={() => setIsTouched(true)}
+                invalid={isCustomInvalid}
+                data-testid={tid('query-editor.time-series.custom-aggregation-interval')}
+              />
+              {isCustomInvalid && <FieldValidationMessage>Interval is required</FieldValidationMessage>}
+            </div>
+          </Field>
+        )}
+      </InlineFieldRow>
     </div>
   );
 }

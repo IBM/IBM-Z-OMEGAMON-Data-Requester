@@ -24,6 +24,16 @@ message StringColumn {
   repeated int32  null_indices = 3;
 }
 
+// Float64Column holds a named column of float64 values (structure-of-arrays).
+// values contains only non-null entries (dense). null_indices lists the row
+// indices (sorted) where the value is null; those rows have no entry in values.
+// len(values) + len(null_indices) == total row count.
+message Float64Column {
+  string          name         = 1;
+  repeated double values       = 2;
+  repeated int32  null_indices = 3;
+}
+
 // TimestampColumn holds a named column of Unix-millisecond timestamps
 // (structure-of-arrays). values contains only non-null entries (dense).
 // null_indices lists the row indices (sorted) where the value is null.
@@ -39,13 +49,15 @@ message TimestampColumn {
 }
 
 // MetricsResponse uses a structure-of-arrays layout.
-// Each column is stored as a typed array: Int64Column, StringColumn, or
-// TimestampColumn. Timestamp columns carry Unix-millisecond int64 values.
+// Each column is stored as a typed array: Int64Column, Float64Column,
+// StringColumn, or TimestampColumn. Timestamp columns carry Unix-millisecond
+// int64 values.
 message MetricsResponse {
   string                    status              = 1;
   repeated Int64Column      int64_columns       = 2;
-  repeated StringColumn     string_columns      = 3;
-  repeated TimestampColumn  timestamp_columns   = 4;
-  map<string, string>       per_source_errors   = 5;
-  string                    gateway_error       = 6;
+  repeated Float64Column    float64_columns     = 3;
+  repeated StringColumn     string_columns      = 4;
+  repeated TimestampColumn  timestamp_columns   = 5;
+  map<string, string>       per_source_errors   = 6;
+  string                    gateway_error       = 7;
 }

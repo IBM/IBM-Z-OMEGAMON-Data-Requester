@@ -96,7 +96,7 @@ export function getAgentsAndGroupsNames(
 }
 
 /**
- * Filters agents and groups by a list of affinity IDs.
+ * Filters agents and groups by affinity ID.
  */
 export function filterAgentsAndGroupsByAffinityId(
   { agents, groups, unsupportedAgents }: AgentsAndGroups,
@@ -110,7 +110,11 @@ export function filterAgentsAndGroupsByAffinityId(
     Object.entries(groups).filter(([, group]) => group.affinityEntity.id === affinityId)
   );
 
-  return { agents: filteredAgents, groups: filteredGroups, unsupportedAgents };
+  const filteredUnsupportedAgents: AgentIndex = Object.fromEntries(
+    Object.entries(unsupportedAgents).filter(([, agent]) => agent.affinityEntity.id === affinityId)
+  );
+
+  return { agents: filteredAgents, groups: filteredGroups, unsupportedAgents: filteredUnsupportedAgents };
 }
 
 /**

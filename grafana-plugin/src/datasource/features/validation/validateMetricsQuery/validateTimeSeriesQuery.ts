@@ -8,14 +8,36 @@ import { validateManagedSystems, validateVariableInValue } from './validateVaria
 import { ValidationProblem } from './validatorCommon';
 
 function validateAgents(queryObject: TimeSeriesQueryParams): ValidationProblem[] {
-  return !queryObject.agentsAndGroups.length
+  return !queryObject.agentsAndGroups?.length
     ? [{ severity: 'error', message: 'Query has no agents or groups selected' }]
     : [];
 }
 
 function validateAggregationInterval(queryObject: TimeSeriesQueryParams): ValidationProblem[] {
-  if (queryObject.aggregationIntervalMs === AGGREGATION_INTERVAL.CUSTOM_UNSET) {
+  if (queryObject.aggregationIntervalMinutes === AGGREGATION_INTERVAL.CUSTOM_UNSET) {
     return [{ severity: 'error', message: 'Custom aggregation interval value is required' }];
+  }
+  return [];
+}
+
+export function validateMetrics(queryObject: TimeSeriesQueryParams): ValidationProblem[] {
+  return !queryObject.columns?.length ? [{ severity: 'error', message: 'At least one metric must be selected' }] : [];
+}
+
+function validateLimitValue(queryObject: TimeSeriesQueryParams): ValidationProblem[] {
+  if (
+    queryObject.orderBy !== undefined &&
+    queryObject.orderBy.length > 0 &&
+    (queryObject.limit === undefined || queryObject.limit < 1)
+  ) {
+    return [{ severity: 'error', message: 'Limit is required when Rank by is set' }];
+  }
+  return [];
+}
+
+function validateRankByValue(queryObject: TimeSeriesQueryParams): ValidationProblem[] {
+  if (queryObject.limit !== undefined && (queryObject.orderBy === undefined || queryObject.orderBy.length === 0)) {
+    return [{ severity: 'error', message: 'Rank by is required when Limit is set' }];
   }
   return [];
 }
@@ -45,6 +67,9 @@ export async function validateTimeSeriesQuery(
   return [
     ...validateAgents(queryObject),
     ...validateAggregationInterval(queryObject),
+    ...validateMetrics(queryObject),
+    ...validateLimitValue(queryObject),
+    ...validateRankByValue(queryObject),
     ...validateManagedSystems(queryObject.agentsAndGroups),
     ...validateFilterVariables(queryObject.filter),
   ];

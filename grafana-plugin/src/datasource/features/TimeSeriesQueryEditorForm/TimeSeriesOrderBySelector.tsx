@@ -1,136 +1,151 @@
-import { Field, Select } from '@grafana/ui';
-import React, { useMemo } from 'react';
+import { css } from '@emotion/css';
+import { GrafanaTheme2 } from '@grafana/data';
+import { Field, Select, useStyles2 } from '@grafana/ui';
+import React, { useMemo, useRef, useState } from 'react';
 
 import { tid } from 'datasource/components';
-import {
-  MetricsQueryOrderByItem,
-  TIME_SERIES_AGGREGATION_FUNCS,
-  TimeSeriesAggregationFuncName,
-  TimeSeriesQueryParams,
-} from 'datasource/domain';
+import { TIME_SERIES_AGGREGATION_FUNCS, TimeSeriesAggregationFuncName, TimeSeriesQueryParams } from 'datasource/domain';
 import { useTableMetadata } from 'datasource/features/metadata';
-import { FormOptionsResult, SelectableFormOption, getFormOptionsResult } from 'datasource/features/QueryEditorForm';
+import { SelectableFormOption } from 'datasource/features/QueryEditorForm';
 
-type TimeSeriesOrderByOption = SelectableFormOption & { orderByItem: MetricsQueryOrderByItem };
+const DIRECTION_OPTIONS: Array<SelectableFormOption<'ASC' | 'DESC'>> = [
+  { label: 'ASC', value: 'ASC' },
+  { label: 'DESC', value: 'DESC' },
+];
 
-function stringifyOrderByItem({ columnId, aggregationFunction, type }: MetricsQueryOrderByItem): string {
-  return aggregationFunction ? `${aggregationFunction}(${columnId}):${type}` : `${columnId}:${type}`;
-}
+const AGGREGATION_OPTIONS: Array<SelectableFormOption<TimeSeriesAggregationFuncName>> =
+  TIME_SERIES_AGGREGATION_FUNCS.map((func) => ({ label: func, value: func }));
 
-function useTimeSeriesOrderByOptions(
-  tableId: string,
-  currOrderBy: MetricsQueryOrderByItem[],
-  aggregationFunctions: TimeSeriesAggregationFuncName[]
-): FormOptionsResult<TimeSeriesOrderByOption> {
-  const tableMetadataResult = useTableMetadata(tableId);
+const getStyles = (theme: GrafanaTheme2) => ({
+  aggregationField: css({
+    flexBasis: '14%',
+    flexShrink: 0,
+  }),
+  metricField: css({
+    flexBasis: '30%',
+    flexGrow: 0,
+  }),
+  directionField: css({
+    flexBasis: '14%',
+    flexShrink: 0,
+  }),
+});
 
-  const options = useMemo(() => {
-    if (!tableMetadataResult.data) {
-      return undefined;
-    }
-
-    // All metric columns from table metadata are offered as ranking candidates,
-    // regardless of which metric columns the user has selected for display.
-    const metricColumns = Object.values(tableMetadataResult.data.columns).filter(
-      (col) => col.timeSeriesRole === 'metric'
-    );
-
-    return metricColumns.flatMap((col) => {
-      const result: TimeSeriesOrderByOption[] = [];
-
-      if (aggregationFunctions.length === 0) {
-        // No aggregation functions selected — this happens when all labels are selected
-        // with "No bucket aggregation". In this case data is returned raw (unaggregated),
-        // so ranking options are plain column values without any aggregation wrapper.
-        const ascItem: MetricsQueryOrderByItem = { columnId: col.id, type: 'ASC' };
-        const existingAsc = currOrderBy.find(
-          (ob) => ob.columnId === col.id && ob.aggregationFunction === undefined && ob.type === 'ASC'
-        );
-        result.push({
-          label: `${col.name} (ASC)`,
-          value: stringifyOrderByItem(ascItem),
-          description: col.description,
-          orderByItem: existingAsc ?? ascItem,
-        });
-
-        const descItem: MetricsQueryOrderByItem = { columnId: col.id, type: 'DESC' };
-        const existingDesc = currOrderBy.find(
-          (ob) => ob.columnId === col.id && ob.aggregationFunction === undefined && ob.type === 'DESC'
-        );
-        result.push({
-          label: `${col.name} (DESC)`,
-          value: stringifyOrderByItem(descItem),
-          description: col.description,
-          orderByItem: existingDesc ?? descItem,
-        });
-      } else {
-        // Aggregation functions are selected — always offer all supported functions
-        // (AVG, MIN, MAX, SUM) as ranking options, not just the ones currently selected.
-        // This allows the user to rank by any aggregated metric regardless of which
-        // aggregation functions are active in the query.
-        TIME_SERIES_AGGREGATION_FUNCS.forEach((func) => {
-          const ascItem: MetricsQueryOrderByItem = { columnId: col.id, aggregationFunction: func, type: 'ASC' };
-          const existingAsc = currOrderBy.find(
-            (ob) => ob.columnId === col.id && ob.aggregationFunction === func && ob.type === 'ASC'
-          );
-          result.push({
-            label: `${func}(${col.name}) (ASC)`,
-            value: stringifyOrderByItem(ascItem),
-            description: col.description,
-            orderByItem: existingAsc ?? ascItem,
-          });
-
-          const descItem: MetricsQueryOrderByItem = { columnId: col.id, aggregationFunction: func, type: 'DESC' };
-          const existingDesc = currOrderBy.find(
-            (ob) => ob.columnId === col.id && ob.aggregationFunction === func && ob.type === 'DESC'
-          );
-          result.push({
-            label: `${func}(${col.name}) (DESC)`,
-            value: stringifyOrderByItem(descItem),
-            description: col.description,
-            orderByItem: existingDesc ?? descItem,
-          });
-        });
-      }
-
-      return result;
-    });
-  }, [tableMetadataResult, currOrderBy, aggregationFunctions]);
-
-  return getFormOptionsResult(tableMetadataResult, options);
-}
-
-type TimeSeriesOrderBySelectorProps = Pick<TimeSeriesQueryParams, 'tableId' | 'orderBy' | 'aggregationFunctions'> & {
+type TimeSeriesOrderBySelectorProps = Pick<TimeSeriesQueryParams, 'tableId' | 'orderBy'> & {
   changeTimeSeriesQueryParams: (changedParams: Partial<TimeSeriesQueryParams>) => void;
+  limitRequiresRankBy?: boolean;
+  onRankByFocusChange?: (isFocused: boolean) => void;
   disabled?: boolean;
-  className?: string;
 };
 
 export function TimeSeriesOrderBySelector({
   tableId,
   orderBy,
-  aggregationFunctions,
   disabled = false,
-  className,
   changeTimeSeriesQueryParams,
+  limitRequiresRankBy = false,
+  onRankByFocusChange,
 }: TimeSeriesOrderBySelectorProps) {
-  const orderByOptionsResult = useTimeSeriesOrderByOptions(tableId, orderBy, aggregationFunctions);
+  const styles = useStyles2(getStyles);
+  const tableMetadataResult = useTableMetadata(tableId);
+
+  const metricOptions = useMemo(() => {
+    if (!tableMetadataResult.data) {
+      return undefined;
+    }
+    return Object.values(tableMetadataResult.data.columns)
+      .filter((col) => col.timeSeriesRole === 'metric')
+      .map((col) => ({ label: col.name, value: col.id, description: col.description }));
+  }, [tableMetadataResult.data]);
+
+  // Local state holds partial selections so individual dropdowns retain their value
+  // while the user is filling in the fields. The parent orderBy is only updated
+  // once all three fields are set (all are required).
+  const [fields, setFields] = useState<{
+    aggregation: TimeSeriesAggregationFuncName | null;
+    metric: string | null;
+    direction: 'ASC' | 'DESC' | null;
+  }>(() => ({
+    aggregation: (orderBy[0]?.aggregationFunction ?? (disabled ? null : 'MAX')) as TimeSeriesAggregationFuncName | null,
+    metric: orderBy[0]?.columnId ?? null,
+    direction: orderBy[0]?.type ?? (disabled ? null : 'DESC'),
+  }));
+
+  const selectedMetricRef = useRef<string | null>(orderBy[0]?.columnId ?? null);
+
+  function handleChange(update: Partial<typeof fields>): void {
+    const next = { ...fields, ...update };
+    setFields(next);
+    if (next.aggregation && next.metric && next.direction) {
+      changeTimeSeriesQueryParams({
+        orderBy: [{ columnId: next.metric, aggregationFunction: next.aggregation, type: next.direction }],
+      });
+    } else {
+      changeTimeSeriesQueryParams({ orderBy: [] });
+    }
+  }
+
   return (
-    <Field label="Ranking metric" className={className} data-testid={tid('query-editor.time-series.field.order-by')}>
-      <Select
-        isLoading={orderByOptionsResult.isFetching}
-        options={orderByOptionsResult.data}
-        value={orderBy[0] !== undefined ? stringifyOrderByItem(orderBy[0]) : null}
-        onChange={(rawOption) => {
-          const opt = rawOption as TimeSeriesOrderByOption | null;
-          changeTimeSeriesQueryParams({
-            orderBy: opt ? [opt.orderByItem] : [],
-          });
-        }}
-        disabled={disabled || !orderByOptionsResult.data}
-        isClearable
-        isSearchable
-      />
-    </Field>
+    <>
+      <Field
+        label="Rank by"
+        className={styles.aggregationField}
+        data-testid={tid('query-editor.time-series.field.order-by-aggregation')}
+      >
+        <Select
+          isLoading={tableMetadataResult.isFetching}
+          options={AGGREGATION_OPTIONS}
+          value={fields.aggregation}
+          onChange={(opt) => {
+            handleChange({
+              aggregation: (opt as SelectableFormOption<TimeSeriesAggregationFuncName> | null)?.value ?? null,
+            });
+          }}
+          disabled={disabled}
+          isSearchable={false}
+          placeholder="Select"
+        />
+      </Field>
+      <Field
+        label=""
+        className={styles.metricField}
+        invalid={limitRequiresRankBy && fields.metric === null}
+        error={limitRequiresRankBy && fields.metric === null ? 'Rank by is required' : undefined}
+        data-testid={tid('query-editor.time-series.field.order-by-metric')}
+      >
+        <Select
+          isLoading={tableMetadataResult.isFetching}
+          options={metricOptions}
+          value={fields.metric}
+          onChange={(opt) => {
+            const value = opt?.value ?? null;
+            selectedMetricRef.current = value;
+            handleChange({ metric: value });
+          }}
+          onBlur={() => onRankByFocusChange?.(false)}
+          onFocus={() => onRankByFocusChange?.(true)}
+          disabled={disabled || !metricOptions}
+          isClearable
+          isSearchable
+          placeholder="Select metric"
+        />
+      </Field>
+      <Field
+        label=""
+        className={styles.directionField}
+        data-testid={tid('query-editor.time-series.field.order-by-direction')}
+      >
+        <Select
+          options={DIRECTION_OPTIONS}
+          value={fields.direction}
+          onChange={(opt) => {
+            handleChange({ direction: opt?.value ?? null });
+          }}
+          disabled={disabled}
+          isSearchable={false}
+          placeholder="Select"
+        />
+      </Field>
+    </>
   );
 }

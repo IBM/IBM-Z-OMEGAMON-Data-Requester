@@ -4,7 +4,7 @@ import { AffinityId } from 'public-domain';
 
 import { WithVersion } from 'datasource/features/versioning/common';
 
-import { AggregationFuncName } from './AggregationFunction';
+import { AggregationFuncName, TimeSeriesAggregationFuncName } from './AggregationFunction';
 
 /* Do you want to bump a version?
  * 1. Modify FalconQuery structure(s)
@@ -12,7 +12,7 @@ import { AggregationFuncName } from './AggregationFunction';
  * 3. Run yarn bump:FalconQuery
  * 4. Implement updater function in generated dump file
  */
-export const FALCON_QUERY_VERSION = 11;
+export const FALCON_QUERY_VERSION = 12;
 
 const NON_ITM_HISTORY_TABLE_IDS = [
   'HISTTHRD',
@@ -61,19 +61,15 @@ export const TIME_BUCKET_AGGREGATION_OPTIONS = ['none', 'automatic', 'hourly', '
 
 export type TimeBucketAggregation = (typeof TIME_BUCKET_AGGREGATION_OPTIONS)[number];
 
-/** Well-known aggregation interval values in milliseconds */
+/** Well-known aggregation interval values in minutes */
 export const AGGREGATION_INTERVAL = {
   NONE: 0,
   AUTOMATIC: -1,
   /** Sentinel: Custom option selected but no value entered yet */
   CUSTOM_UNSET: -2,
-  HOURLY: 3_600_000,
-  DAILY: 86_400_000,
+  HOURLY: 60,
+  DAILY: 1_440,
 } as const;
-
-/** Allowed aggregation functions for time-series queries */
-export const TIME_SERIES_AGGREGATION_FUNCS = ['AVG', 'MIN', 'MAX', 'SUM'] as const;
-export type TimeSeriesAggregationFuncName = (typeof TIME_SERIES_AGGREGATION_FUNCS)[number];
 
 export type TimeSeriesQueryParams = {
   affinityId: AffinityId;
@@ -82,9 +78,9 @@ export type TimeSeriesQueryParams = {
   columns: string[];
   aggregationFunctions: TimeSeriesAggregationFuncName[];
   agentsAndGroups: SourceDef[];
-  aggregationIntervalMs: number;
+  aggregationIntervalMinutes: number;
   filter?: MetricsQueryFilter;
-  orderBy: MetricsQueryOrderByItem[];
+  orderBy: TimeSeriesOrderByItem[];
   limit?: number;
 };
 
@@ -136,6 +132,12 @@ export type MetricsQueryColumn = {
 export type MetricsQueryOrderByItem = {
   columnId: string;
   aggregationFunction?: AggregationFuncName;
+  type: 'ASC' | 'DESC';
+};
+
+export type TimeSeriesOrderByItem = {
+  columnId: string;
+  aggregationFunction?: TimeSeriesAggregationFuncName;
   type: 'ASC' | 'DESC';
 };
 

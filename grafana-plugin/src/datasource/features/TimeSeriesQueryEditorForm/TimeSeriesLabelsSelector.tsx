@@ -29,7 +29,7 @@ export const TimeSeriesLabelsSelector = memo(
     const tableMetadataResult = useTableMetadata(tableId);
     const styles = useStyles2(getStyles);
 
-    // Only show string-type columns (excluding WRITETIME)
+    // Only show string-type columns
     const stringColumnOptions = useMemo(() => {
       if (!tableMetadataResult.data) {
         return [];
@@ -70,6 +70,9 @@ export const TimeSeriesLabelsSelector = memo(
               />
             );
           })}
+          {tableId && tableMetadataResult.data !== undefined && stringColumnOptions.length === 0 && (
+            <span>No labels to display</span>
+          )}
           {!tableId && <span>Select an attribute group first</span>}
         </div>
       </Field>

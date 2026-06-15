@@ -1,16 +1,11 @@
-import styled from '@emotion/styled';
+import { css } from '@emotion/css';
 import { Button, Toggletip, IconButton } from '@grafana/ui';
 import { ClickBubblingStopper } from 'public-ui';
 import React, { useState, useCallback } from 'react';
 
 import { tid } from 'datasource/components';
 
-const FooterContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  gap: 0.8em;
-`;
+const footerContainerClass = css({ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', gap: '0.8em' });
 
 type RemoveClauseButtonProps = {
   removeClause: () => void;
@@ -33,7 +28,7 @@ export function RemoveClauseButton({ removeClause }: RemoveClauseButtonProps) {
 
   const header = <strong>Confirm Remove</strong>;
   const footer = (
-    <FooterContainer>
+    <div className={footerContainerClass}>
       <Button
         type="button"
         variant="secondary"
@@ -50,7 +45,7 @@ export function RemoveClauseButton({ removeClause }: RemoveClauseButtonProps) {
       >
         Remove
       </Button>
-    </FooterContainer>
+    </div>
   );
 
   return (

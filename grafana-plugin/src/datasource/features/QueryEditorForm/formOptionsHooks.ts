@@ -5,15 +5,19 @@ import {
   QueryObserverLoadingErrorResult,
   UseQueryResult,
 } from '@tanstack/react-query';
-import { AffinityId } from 'public-domain';
+import { AffinityId, HistoryCollectionEligibility } from 'public-domain';
 import { useMemo } from 'react';
 
 import { useApplicationMetadatas } from 'datasource/features/metadata';
 
 export type SelectableFormOption<T = string> = SelectableValue<T> & { value: T };
 
+export type TableFormOption = SelectableFormOption & {
+  historyCollectionEligibility?: HistoryCollectionEligibility;
+};
+
 export type TableOptionsMap = {
-  [id: string]: FormOptionsResult;
+  [id: string]: FormOptionsResult<TableFormOption>;
 };
 
 export type FormOptionsSuccessResult<OPTION_TYPE extends SelectableFormOption = SelectableFormOption> = Omit<
@@ -56,13 +60,14 @@ export function useAppsAndTablesOptions(): {
         value: v.id,
         label: v.applicationName,
       });
-      tableResult[v.id] = getFormOptionsResult(
-        applicationMetadatasResult,
-        v.tables.map((t) => ({
+      const tableOptions = v.tables
+        .map((t) => ({
           value: t.id,
           label: t.name,
+          historyCollectionEligibility: t.historyCollectionEligibility,
         }))
-      );
+        .sort((a, b) => a.label.localeCompare(b.label));
+      tableResult[v.id] = getFormOptionsResult(applicationMetadatasResult, tableOptions);
     });
 
     appResult.sort((a, b) => a.label.localeCompare(b.label));

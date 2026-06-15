@@ -1,5 +1,6 @@
-import styled from '@emotion/styled';
-import { Button, Toggletip } from '@grafana/ui';
+import { css } from '@emotion/css';
+import { GrafanaTheme2 } from '@grafana/data';
+import { Button, Toggletip, useStyles2 } from '@grafana/ui';
 import { throwIfNullish } from 'public-common';
 import { ClickBubblingStopper, type ConnectorLabelProps } from 'public-ui';
 import React, { useState, useCallback } from 'react';
@@ -7,31 +8,21 @@ import React, { useState, useCallback } from 'react';
 import { tid } from 'datasource/components';
 import { MetricsQueryFilter, MetricsQueryFilterClause, MetricsQueryFilterOf } from 'datasource/domain';
 
-const ConnectorButton = styled.button`
-  width: 3.4em;
-  text-align: center;
-  padding: 0.5em;
-  border-radius: 3em;
-  border: 1px solid ${({ theme }) => theme.colors.border.medium};
-  background-color: ${({ theme }) => theme.colors.background.primary};
-`;
-
-const EditorContainer = styled.div``;
-
-const EditorHeader = styled.p`
-  margin: 0;
-  font-weight: bold;
-`;
-
-const EditorParagraph = styled.p`
-  margin: 2em 0 1em 0;
-`;
-
-const EditorButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-`;
+function getStyles(theme: GrafanaTheme2) {
+  return {
+    connectorButton: css({
+      width: '3.4em',
+      textAlign: 'center',
+      padding: '0.5em',
+      borderRadius: '3em',
+      border: `1px solid ${theme.colors.border.medium}`,
+      backgroundColor: theme.colors.background.primary,
+    }),
+    editorHeader: css({ margin: 0, fontWeight: 'bold' }),
+    editorParagraph: css({ margin: '2em 0 1em 0' }),
+    editorButtonWrapper: css({ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }),
+  };
+}
 
 /**
  * Returns the clause that is supposed to be rendered in the very bottom
@@ -67,6 +58,7 @@ export function ConnectorLabel({
   const reverseConnector = connector === 'and' ? 'or' : 'and';
   const reversedConnectorStr = reverseConnector.toUpperCase();
 
+  const styles = useStyles2(getStyles);
   const [editorIsShown, setEditorIsShown] = useState(false);
   const showEditor = useCallback(() => {
     setEditorIsShown(true);
@@ -89,36 +81,36 @@ export function ConnectorLabel({
 
   const ConnectorEditingPanel = (
     <ClickBubblingStopper>
-      <EditorContainer>
-        <EditorHeader>Change condition</EditorHeader>
-        <EditorParagraph>Add new clause to the &apos;{connectorStr}&apos; condition</EditorParagraph>
-        <EditorButtonWrapper>
+      <div>
+        <p className={styles.editorHeader}>Change condition</p>
+        <p className={styles.editorParagraph}>Add new clause to the &apos;{connectorStr}&apos; condition</p>
+        <div className={styles.editorButtonWrapper}>
           <Button onClick={onAddClause} data-testid={tid('connector-label.dialog.add-clause')}>
             Add clause
           </Button>
-        </EditorButtonWrapper>
+        </div>
         {!isRoot ? null : (
           <>
-            <EditorParagraph>
+            <p className={styles.editorParagraph}>
               Wrap root condition into a new &apos;{reversedConnectorStr}&apos; condition
-            </EditorParagraph>
-            <EditorButtonWrapper>
+            </p>
+            <div className={styles.editorButtonWrapper}>
               <Button onClick={onWrapIntoNewFilter} data-testid={tid('connector-label.dialog.wrap')}>
                 Wrap into {reversedConnectorStr}
               </Button>
-            </EditorButtonWrapper>
+            </div>
           </>
         )}
 
-        <EditorParagraph>
+        <p className={styles.editorParagraph}>
           Change &apos;{connectorStr}&apos; with &apos;{reversedConnectorStr}&apos; condition in the filter
-        </EditorParagraph>
-        <EditorButtonWrapper>
+        </p>
+        <div className={styles.editorButtonWrapper}>
           <Button disabled data-testid={tid('connector-label.dialog.change-condition')}>
             Change to {reversedConnectorStr.toUpperCase()}
           </Button>
-        </EditorButtonWrapper>
-      </EditorContainer>
+        </div>
+      </div>
     </ClickBubblingStopper>
   );
 
@@ -130,9 +122,13 @@ export function ConnectorLabel({
       content={ConnectorEditingPanel}
       data-testid={tid('connector-label')}
     >
-      <ConnectorButton style={connectorButtonStyle} data-testid={tid('connector-label.button')}>
+      <button
+        className={styles.connectorButton}
+        style={connectorButtonStyle}
+        data-testid={tid('connector-label.button')}
+      >
         {connector.toUpperCase()}
-      </ConnectorButton>
+      </button>
     </Toggletip>
   );
 }

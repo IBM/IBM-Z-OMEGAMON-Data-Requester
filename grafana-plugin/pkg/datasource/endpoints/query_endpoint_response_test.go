@@ -246,3 +246,217 @@ func TestGetFrames_WithWritetimeConversion(t *testing.T) {
 		}
 	}
 }
+
+func TestGetFrames_TimeSeriesPerAgentSplit(t *testing.T) {
+	t.Run("splits rows by originnode into separate dense frames", func(t *testing.T) {
+		rows := []domain.GenericRow{
+			{"time_bucket": time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC), "originnode": "agentA", "CPU": float64(10)},
+			{"time_bucket": time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC), "originnode": "agentB", "CPU": float64(20)},
+			{"time_bucket": time.Date(2026, 1, 1, 0, 1, 0, 0, time.UTC), "originnode": "agentA", "CPU": float64(15)},
+			{"time_bucket": time.Date(2026, 1, 1, 0, 15, 0, 0, time.UTC), "originnode": "agentB", "CPU": float64(25)},
+		}
+
+		response := &QueryResponse{
+			name:              "TestTable",
+			rows:              &rows,
+			requestColumns:    []string{"time_bucket", "originnode", "CPU"},
+			isTimeSeriesQuery: true,
+		}
+
+		frames := response.getFrames()
+
+		if len(frames) != 2 {
+			t.Fatalf("Expected 2 frames, got %d", len(frames))
+		}
+
+		if frames[0].Name != "TestTable - agentA" {
+			t.Errorf("Expected frame name 'TestTable - agentA', got '%s'", frames[0].Name)
+		}
+		if frames[1].Name != "TestTable - agentB" {
+			t.Errorf("Expected frame name 'TestTable - agentB', got '%s'", frames[1].Name)
+		}
+
+		// Each agent frame should have exactly 2 rows (dense, no cross-agent null gaps)
+		for _, frame := range frames {
+			for _, field := range frame.Fields {
+				if field.Len() != 2 {
+					t.Errorf("Frame %s, field %s: expected 2 rows, got %d", frame.Name, field.Name, field.Len())
+				}
+			}
+		}
+
+		// originnode should NOT be a field column
+		for _, frame := range frames {
+			for _, field := range frame.Fields {
+				if field.Name == "originnode" {
+					t.Errorf("Frame %s: originnode should not be a field column", frame.Name)
+				}
+			}
+		}
+
+		// originnode should be a Label on non-time fields
+		agents := []string{"agentA", "agentB"}
+		for i, frame := range frames {
+			for _, field := range frame.Fields {
+				ft := field.Type()
+				if ft == data.FieldTypeTime || ft == data.FieldTypeNullableTime {
+					continue
+				}
+				if field.Labels == nil || field.Labels["originnode"] != agents[i] {
+					t.Errorf("Frame %s, field %s: expected label originnode=%s, got %v",
+						frame.Name, field.Name, agents[i], field.Labels)
+				}
+			}
+		}
+
+		// Value fields should have no nil values (dense data)
+		for _, frame := range frames {
+			for _, field := range frame.Fields {
+				for i := 0; i < field.Len(); i++ {
+					if field.At(i) == nil {
+						t.Errorf("Frame %s, field %s: unexpected nil at index %d", frame.Name, field.Name, i)
+					}
+				}
+			}
+		}
+	})
+
+	t.Run("single agent produces one frame with label", func(t *testing.T) {
+		rows := []domain.GenericRow{
+			{"time_bucket": time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC), "originnode": "agentA", "CPU": float64(10)},
+			{"time_bucket": time.Date(2026, 1, 1, 0, 1, 0, 0, time.UTC), "originnode": "agentA", "CPU": float64(15)},
+		}
+
+		response := &QueryResponse{
+			name:              "TestTable",
+			rows:              &rows,
+			requestColumns:    []string{"time_bucket", "originnode", "CPU"},
+			isTimeSeriesQuery: true,
+		}
+
+		frames := response.getFrames()
+
+		if len(frames) != 1 {
+			t.Fatalf("Expected 1 frame, got %d", len(frames))
+		}
+		if frames[0].Name != "TestTable - agentA" {
+			t.Errorf("Expected frame name 'TestTable - agentA', got '%s'", frames[0].Name)
+		}
+	})
+
+	t.Run("no originnode falls back to single frame", func(t *testing.T) {
+		rows := []domain.GenericRow{
+			{"time_bucket": time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC), "CPU": float64(10)},
+			{"time_bucket": time.Date(2026, 1, 1, 0, 1, 0, 0, time.UTC), "CPU": float64(15)},
+		}
+
+		response := &QueryResponse{
+			name:              "TestTable",
+			rows:              &rows,
+			requestColumns:    []string{"time_bucket", "CPU"},
+			isTimeSeriesQuery: true,
+		}
+
+		frames := response.getFrames()
+
+		if frames[0].Name != "TestTable" {
+			t.Errorf("Expected frame name 'TestTable', got '%s'", frames[0].Name)
+		}
+	})
+
+	t.Run("metadata attached only to first frame", func(t *testing.T) {
+		rows := []domain.GenericRow{
+			{"time_bucket": time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC), "originnode": "agentA", "CPU": float64(10)},
+			{"time_bucket": time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC), "originnode": "agentB", "CPU": float64(20)},
+		}
+
+		response := &QueryResponse{
+			name:              "TestTable",
+			rows:              &rows,
+			requestColumns:    []string{"time_bucket", "originnode", "CPU"},
+			isTimeSeriesQuery: true,
+			custom:            map[string]any{"__gateway_debug": "large_debug_data"},
+			perSourceErrors:   map[string]string{"source1": "error1"},
+		}
+
+		frames := response.getFrames()
+
+		if len(frames) != 2 {
+			t.Fatalf("Expected 2 frames, got %d", len(frames))
+		}
+
+		// First frame has metadata
+		if frames[0].Meta == nil || frames[0].Meta.Custom == nil {
+			t.Error("First frame should have custom metadata")
+		}
+		if frames[0].Meta == nil || len(frames[0].Meta.Notices) == 0 {
+			t.Error("First frame should have notices from perSourceErrors")
+		}
+
+		// Second frame should not have custom metadata or notices
+		hasCustom := frames[1].Meta != nil && frames[1].Meta.Custom != nil
+		hasNotices := frames[1].Meta != nil && len(frames[1].Meta.Notices) > 0
+		if hasCustom || hasNotices {
+			t.Error("Second frame should not have custom metadata or notices")
+		}
+	})
+
+	t.Run("with additional labels besides originnode", func(t *testing.T) {
+		rows := []domain.GenericRow{
+			{"time_bucket": time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC), "originnode": "agentA", "region": "east", "CPU": float64(10)},
+			{"time_bucket": time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC), "originnode": "agentA", "region": "west", "CPU": float64(20)},
+			{"time_bucket": time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC), "originnode": "agentB", "region": "east", "CPU": float64(30)},
+		}
+
+		response := &QueryResponse{
+			name:              "TestTable",
+			rows:              &rows,
+			requestColumns:    []string{"time_bucket", "originnode", "region", "CPU"},
+			isTimeSeriesQuery: true,
+		}
+
+		frames := response.getFrames()
+
+		if len(frames) != 2 {
+			t.Fatalf("Expected 2 frames, got %d", len(frames))
+		}
+
+		// After wide conversion, value fields should have both originnode and region labels
+		for _, frame := range frames {
+			for _, field := range frame.Fields {
+				ft := field.Type()
+				if ft == data.FieldTypeTime || ft == data.FieldTypeNullableTime {
+					continue
+				}
+				if _, ok := field.Labels["originnode"]; !ok {
+					t.Errorf("Frame %s, field %s: missing originnode label, got %v",
+						frame.Name, field.Name, field.Labels)
+				}
+			}
+		}
+	})
+
+	t.Run("non-timeseries query is not split", func(t *testing.T) {
+		rows := []domain.GenericRow{
+			{"WRITETIME": "2026-01-20T07:30:00-05:00", "originnode": "agentA", "CPU": float64(10)},
+			{"WRITETIME": "2026-01-20T07:30:00-05:00", "originnode": "agentB", "CPU": float64(20)},
+		}
+
+		response := &QueryResponse{
+			name:              "TestTable",
+			rows:              &rows,
+			requestColumns:    []string{"WRITETIME", "originnode", "CPU"},
+			isHistoricalQuery: true,
+			isTimeSeriesQuery: false,
+		}
+
+		frames := response.getFrames()
+
+		if len(frames) != 1 {
+			t.Fatalf("Expected 1 frame for non-timeseries query, got %d", len(frames))
+		}
+		if frames[0].Name != "TestTable" {
+			t.Errorf("Expected frame name 'TestTable', got '%s'", frames[0].Name)
+		}
+	})
+}
