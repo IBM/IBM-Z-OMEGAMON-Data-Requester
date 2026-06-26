@@ -13,6 +13,7 @@
     "dev:compose": "dotenv -e ../../.go.env -- docker compose up --build --abort-on-container-exit",
     "dev:compose-debug": "dotenv -e ../../.go.env -- docker compose -f docker-compose.yaml -f docker-compose.debug.yaml up --build --abort-on-container-exit",
     "test:go": "dotenv -e ../../.go.env -- mage -v falcon:test",
+    "gosec": "dotenv -e ../../.go.env -- go run github.com/securego/gosec/v2/cmd/gosec@latest ./...",
     "test": "jest --watch --onlyChanged",
     "test:silent": "jest --watch --onlyChanged --silent",
     "test:ci": "jest --passWithNoTests --maxWorkers 4 --silent",

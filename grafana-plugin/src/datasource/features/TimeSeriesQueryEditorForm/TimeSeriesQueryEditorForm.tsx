@@ -82,6 +82,18 @@ export function TimeSeriesQueryEditorForm({
 
   const filterEditorStyles = useFilterEditorStyles();
 
+  const filteredTableMetadata = useMemo(() => {
+    if (!tableMetadata) {
+      return null;
+    }
+    const filteredColumns = Object.fromEntries(
+      Object.entries(tableMetadata.columns).filter(
+        ([, col]) => col.timeSeriesRole === 'metric' || col.timeSeriesRole === 'label'
+      )
+    );
+    return { ...tableMetadata, columns: filteredColumns };
+  }, [tableMetadata]);
+
   // Validation flags for invalid query configurations
   const allLabelsSelected = useMemo(() => {
     if (!tableMetadata) {
@@ -274,14 +286,16 @@ export function TimeSeriesQueryEditorForm({
           testId={tid('query-editor.time-series.collapse.filters')}
           onToggle={() => setIsFiltersCollapseExpanded((v) => !v)}
         >
-          <FilterEditor
-            filter={params.filter}
-            changeFilter={changeFilter}
-            NoFiltersMessage={NoFiltersMessage}
-            ClauseEditor={ClauseEditor}
-            ConnectorLabel={ConnectorLabel}
-            styles={filterEditorStyles}
-          />
+          <CurrentTableMetadataProvider tableMetadata={filteredTableMetadata}>
+            <FilterEditor
+              filter={params.filter}
+              changeFilter={changeFilter}
+              NoFiltersMessage={NoFiltersMessage}
+              ClauseEditor={ClauseEditor}
+              ConnectorLabel={ConnectorLabel}
+              styles={filterEditorStyles}
+            />
+          </CurrentTableMetadataProvider>
         </CollapseWithInfoIcon>
 
         {/* Limit and Rank by - same row */}
