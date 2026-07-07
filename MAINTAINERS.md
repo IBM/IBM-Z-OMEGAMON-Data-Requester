@@ -1,9 +1,7 @@
 # MAINTAINERS
 
-Ainis Girnys - agirnys@rocketsoftware.com
+Ainis Girnys - Ainis.Girnys@partner.ibm.com
 
-Dzmitry Skachkou - dskachkou@rocketsoftware.com
+Dzmitry Skachkou - Dzmitry.Skachkou@ibm.com
 
-Suk Wong - sukw@rocketsoftware.com
-
-Anton Semizarov - asemizarov@rocketsoftware.com
+Suk Wong - Suk.Wong1@ibm.com
