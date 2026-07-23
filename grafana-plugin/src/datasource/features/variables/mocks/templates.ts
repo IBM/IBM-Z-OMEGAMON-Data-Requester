@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export const templateMocks = {
   jobname: '${JOBNAME}',
   stepname: '$STEPNAME',

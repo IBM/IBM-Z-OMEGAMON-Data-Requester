@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 package domain
 
 type AffinityId string

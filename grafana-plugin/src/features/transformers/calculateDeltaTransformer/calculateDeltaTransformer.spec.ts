@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { DataFrame, FieldType } from '@grafana/data';
 
 import { transformFrames } from './calculateDeltaTransformer';

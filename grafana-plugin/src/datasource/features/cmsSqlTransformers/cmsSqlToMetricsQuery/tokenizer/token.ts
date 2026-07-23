@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { TokenKind, GenericKind } from './tokenKind';
 
 export type TokenizerProblemSeverity = 'warning' | 'error';

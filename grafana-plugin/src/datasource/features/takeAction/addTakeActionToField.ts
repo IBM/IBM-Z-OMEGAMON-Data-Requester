@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { Field, DataLink, DataLinkClickEvent, InterpolateFunction } from '@grafana/data';
 import { TableMetadata } from 'public-domain';
 

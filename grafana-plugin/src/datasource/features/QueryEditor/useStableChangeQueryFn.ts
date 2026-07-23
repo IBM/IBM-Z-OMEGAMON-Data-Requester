@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { useRef, useCallback } from 'react';
 
 import { FalconQuery } from 'datasource/domain';

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { Token, TokenKind, GenericKind } from 'datasource/features/cmsSqlTransformers/cmsSqlToMetricsQuery/tokenizer';
 
 import { parseIdentifier } from './parseIdentifier';

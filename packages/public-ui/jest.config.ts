@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import type { Config } from 'jest';
 
 // It's okay to use undefined variables in this Jest config file because they are provided by the Jest environment

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { Field, FieldType, SelectableValue, getFieldDisplayName } from '@grafana/data';
 
 export function getMinTimeStep(timeField: Field): number {

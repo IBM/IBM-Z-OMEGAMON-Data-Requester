@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { platform } from 'node:process';
 
 // import CopyWebpackPlugin from 'copy-webpack-plugin';

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { ApplicationMetadata, AffinityId } from 'public-domain';
 
 export const mockedApplicationMetadatas: ApplicationMetadata[] = [

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { MetricsQueryParma } from 'datasource/domain';
 
 export function parmaIsNodelist(parma: MetricsQueryParma): boolean {

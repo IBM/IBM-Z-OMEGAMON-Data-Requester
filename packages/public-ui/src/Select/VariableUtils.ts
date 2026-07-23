@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export type VariableState = { insideVariable: false } | { insideVariable: true; varStart: number; varEnd: number };
 
 export const isInsideVariable = (input: string, caretPosition: number): VariableState => {

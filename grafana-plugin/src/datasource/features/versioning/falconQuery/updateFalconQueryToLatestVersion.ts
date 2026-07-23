@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { FalconQuery as LatestVersionFalconQuery } from 'datasource/domain';
 import { MetadataLoader } from 'datasource/features/metadata';
 import { WithOptionalVersion, updateToLatestVersion, ValidateUpdaters } from 'datasource/features/versioning/common';

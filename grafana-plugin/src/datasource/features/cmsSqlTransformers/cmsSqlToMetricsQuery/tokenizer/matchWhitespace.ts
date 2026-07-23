@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { createToken } from './createToken';
 import { scanWhile, isWhitespace } from './scanHelpers';
 import { Token } from './token';

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { writetimeColumnMetadata } from 'public-domain';
 
 import { ConverterError } from 'datasource/features/cmsSqlTransformers/cmsSqlToMetricsQuery/converter/internals';

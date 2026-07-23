@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export { detectApplicationAndTable } from './detectApplicationAndTable';
 export { parseCmsSqlQuery } from './parseCmsSqlQuery';
 export type { CmsSqlParsingProblem, CmsSqlParsingResult } from './parseCmsSqlQuery';

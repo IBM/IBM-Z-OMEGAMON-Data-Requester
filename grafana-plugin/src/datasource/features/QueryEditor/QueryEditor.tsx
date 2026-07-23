@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { IconName } from '@grafana/data';
 import { RadioButtonGroup, Field } from '@grafana/ui';
 import React, { useCallback } from 'react';

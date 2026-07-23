@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { Combobox, ComboboxProps } from '@headlessui/react';
 import { isEqual } from 'lodash';
 import React, { useRef, useState } from 'react';

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { UnionToIntersection } from 'public-common';
 
 type BuildKind<SPECIFIC_KIND extends string, GENERIC_KIND extends string> = `${SPECIFIC_KIND}_${GENERIC_KIND}`;

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export { MetadataLoader } from './MetadataLoader';
 export { useCurrentTableMetadata, CurrentTableMetadataProvider } from './CurrentTableMetadataProvider';
 export { MetadataLoaderProvider, useMetadataLoader } from './MetadataLoaderProvider';

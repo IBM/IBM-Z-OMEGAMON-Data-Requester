@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 /** A callback that can be used to stop event propagation so you don't need to
  * invoke 'useCallback' all the time just to stop some event from bubbling further.
  *

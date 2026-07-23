@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import React from 'react';
 
 // eslint-disable-next-line import/no-cycle

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { css } from '@emotion/css';
 import { Button, Toggletip, IconButton } from '@grafana/ui';
 import { ClickBubblingStopper } from 'public-ui';

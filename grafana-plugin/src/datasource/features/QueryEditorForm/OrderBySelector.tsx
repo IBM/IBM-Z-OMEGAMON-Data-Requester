@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { MultiSelect, Field } from '@grafana/ui';
 import { ColumnMetadata, writetimeColumnMetadata } from 'public-domain';
 import React, { useMemo } from 'react';

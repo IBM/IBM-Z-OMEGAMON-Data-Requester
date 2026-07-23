@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { css } from '@emotion/css';
 import { useTheme2 } from '@grafana/ui';
 import { type FilterEditorStyles } from 'public-ui';

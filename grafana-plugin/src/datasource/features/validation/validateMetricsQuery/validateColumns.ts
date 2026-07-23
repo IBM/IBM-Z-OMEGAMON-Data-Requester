@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { writetimeColumnMetadata, ColumnMetadata, TableMetadata, KNOWN_COLUMN_TYPES } from 'public-domain';
 
 import {

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { ColumnMetadata } from 'public-domain';
 
 import { convertToNumberOrThrow } from './convertToNumberOrThrow';

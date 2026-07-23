@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { throwIfNullish } from 'public-common';
 
 import { createToken } from './createToken';

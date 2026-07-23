@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { ColumnMetadata, EnumMap } from 'public-domain';
 
 import { simpleAndHexNumbers } from './mocks';

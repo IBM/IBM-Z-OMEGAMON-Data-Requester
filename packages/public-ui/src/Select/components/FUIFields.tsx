@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import * as React from 'react';
 
 type FUIComboboxFieldsProps<T extends React.ElementType> = {

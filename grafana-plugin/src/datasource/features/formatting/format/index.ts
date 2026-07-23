@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export { convertToNumber } from './convertToNumber';
 export { applyAllFormatting, applyBaseFormatting, applyGrafanaFormatting } from './format';
 export { formatEnumKeysInColumnMd, formatEnumKeysInTableMd } from './formatEnumKeys';

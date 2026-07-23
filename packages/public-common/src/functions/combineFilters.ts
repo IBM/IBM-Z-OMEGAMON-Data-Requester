@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import type { Filter } from '../types';
 
 export type FilterCombinationResult<CLAUSE> = Filter<CLAUSE> | 'always_true' | 'always_false' | 'no_filter';

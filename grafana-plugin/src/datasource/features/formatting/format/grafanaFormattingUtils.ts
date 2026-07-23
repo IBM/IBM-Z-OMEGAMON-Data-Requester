@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { Field, FieldType, MappingType, SpecialValueMatch, ValueMap, ValueMapping } from '@grafana/data';
 import { ColumnMetadata, TIME_UNITS } from 'public-domain';
 

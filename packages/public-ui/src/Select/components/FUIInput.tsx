@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { ComboboxInput, ComboboxInputProps } from '@headlessui/react';
 import React, { useContext } from 'react';
 

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { assert } from './assert';
 
 const touchedSymbol = Symbol.for('touched');

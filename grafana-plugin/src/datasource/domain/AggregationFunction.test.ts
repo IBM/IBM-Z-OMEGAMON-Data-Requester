@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { extractAggFuncFromFieldName, extractColumnIdFromFieldName } from './AggregationFunction';
 
 describe(extractColumnIdFromFieldName.name, () => {

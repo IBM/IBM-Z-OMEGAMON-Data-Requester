@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export const KNOWN_COLUMN_TYPES = ['string', 'number', 'itmTimestamp', 'timestamp'] as const; //rawDataType TODO find all possible values
 
 export type EnumMap = Record<string | number, string | number>;

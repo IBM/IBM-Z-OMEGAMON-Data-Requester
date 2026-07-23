@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { assert } from 'public-common';
 import { ColumnMetadata } from 'public-domain';
 

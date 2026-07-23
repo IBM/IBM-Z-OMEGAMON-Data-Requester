@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 /* Those queries are used in order to test each of underlying components
  * separately but on the same set of data.
  * Refer to snapshot-testing.spec.ts in component directories

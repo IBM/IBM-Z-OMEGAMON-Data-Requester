@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { TransformerRegistryItem, DataFrame, DataTransformerInfo, DataLink, DataLinkClickEvent } from '@grafana/data';
 import { mergeMap } from 'rxjs';
 

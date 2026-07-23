@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { css } from '@emotion/css';
 import { InlineField, Input, useStyles2 } from '@grafana/ui';
 import React, { ChangeEvent, useCallback } from 'react';

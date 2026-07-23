@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 const INVALID_TIMESTAMP = new Date(NaN);
 
 const ITM_TIMESTAMP_FORMAT = 'CYYMMDDhhmmss000';

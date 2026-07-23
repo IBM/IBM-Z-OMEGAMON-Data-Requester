@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { DataFrame, QueryResultMetaNotice } from '@grafana/data';
 import { uniq } from 'lodash';
 

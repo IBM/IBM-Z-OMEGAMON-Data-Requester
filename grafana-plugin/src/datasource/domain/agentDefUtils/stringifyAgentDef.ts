@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import type { SourceDef } from 'datasource/domain';
 
 /** Converts AgentDef into a human-readable string */

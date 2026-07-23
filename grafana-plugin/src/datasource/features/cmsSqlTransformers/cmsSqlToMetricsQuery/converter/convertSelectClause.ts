@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { MetricsQueryColumn, ALLOWED_AGGREGATION_FUNCS, AggregationFuncName } from 'datasource/domain';
 import {
   Identifier,

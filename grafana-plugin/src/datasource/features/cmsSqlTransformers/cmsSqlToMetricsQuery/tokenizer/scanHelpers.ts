@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export function isNumeric(character: string): boolean {
   return /[0-9]/.test(character);
 }

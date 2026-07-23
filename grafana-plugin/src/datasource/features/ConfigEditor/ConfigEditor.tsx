@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { config } from '@grafana/runtime';
 import { Divider } from '@grafana/ui';
 import React from 'react';

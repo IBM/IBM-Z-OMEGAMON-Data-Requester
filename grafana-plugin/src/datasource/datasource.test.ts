@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { AdHocVariableFilter, ScopedVars } from '@grafana/data';
 import { VariableInterpolation } from '@grafana/runtime';

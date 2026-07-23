@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { ScopedVars } from '@grafana/data';
 import { uniq } from 'lodash';
 import { AffinityId, MVS_CICS_AFFINITY_ID } from 'public-domain';

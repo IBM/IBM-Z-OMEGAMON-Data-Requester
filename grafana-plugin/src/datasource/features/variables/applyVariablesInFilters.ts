@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { ScopedVars } from '@grafana/data';
 import { FilterCombinationResult, throwIfNullish } from 'public-common';
 import { TableMetadata, ColumnMetadata } from 'public-domain';

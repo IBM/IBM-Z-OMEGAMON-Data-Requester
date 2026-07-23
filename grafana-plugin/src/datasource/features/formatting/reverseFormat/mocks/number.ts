@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export const negativeNumbersAsHex2sComplements = [
   '0xFFFFFFFF',
   '0xFFFFBA98',

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { TypedVariableModel } from '@grafana/data';
 
 // eslint-disable-next-line import/no-internal-modules

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { parseCmsSqlQuery } from 'datasource/features/cmsSqlTransformers/cmsSqlToMetricsQuery';
 import { mockedMetadataLoader } from 'datasource/features/metadata/mocks';
 

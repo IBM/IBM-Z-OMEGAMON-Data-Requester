@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { unquote } from './unquote';
 
 export function errorToString(error: unknown): string {

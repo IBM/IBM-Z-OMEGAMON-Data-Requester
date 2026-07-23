@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { Field, DataQueryResponse, DataFrame, FieldType, DataQueryRequest } from '@grafana/data';
 import { TableCellDisplayMode } from '@grafana/schema';
 import { throwIfNullish } from 'public-common';

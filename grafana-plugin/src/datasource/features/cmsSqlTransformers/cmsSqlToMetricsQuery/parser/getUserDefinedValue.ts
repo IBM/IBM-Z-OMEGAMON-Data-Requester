@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { Value, StringLiteral } from 'datasource/features/cmsSqlTransformers/cmsSqlToMetricsQuery/tokenizer';
 
 import { ParserError } from './ParserError';

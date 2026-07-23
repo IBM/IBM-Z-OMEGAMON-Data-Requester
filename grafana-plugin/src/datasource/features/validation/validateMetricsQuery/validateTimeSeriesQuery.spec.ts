@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { AffinityId } from 'public-domain';
 
 import { AGGREGATION_INTERVAL, TimeSeriesQueryParams } from 'datasource/domain';

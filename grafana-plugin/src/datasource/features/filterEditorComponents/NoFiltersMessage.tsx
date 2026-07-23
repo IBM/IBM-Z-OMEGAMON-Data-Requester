@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { Alert, VerticalGroup, Button } from '@grafana/ui';
 import { type NoFiltersMessageProps, ClickBubblingStopper } from 'public-ui';
 import React, { useCallback } from 'react';

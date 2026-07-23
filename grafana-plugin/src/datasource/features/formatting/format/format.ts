@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { Field, createTheme, getDisplayProcessor } from '@grafana/data';
 import { config } from '@grafana/runtime';
 import { ColumnMetadata } from 'public-domain';

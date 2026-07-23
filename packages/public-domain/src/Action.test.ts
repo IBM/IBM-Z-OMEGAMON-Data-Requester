@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { validateAction, type ActionDefinition } from './Action';
 
 const heapDumpActionDefinition: ActionDefinition = {

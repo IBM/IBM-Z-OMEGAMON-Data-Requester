@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 /**
  * KeysOfUnion<T> iterates over each member of a union type T
  * to collect all keys from each member into a single union of keys.

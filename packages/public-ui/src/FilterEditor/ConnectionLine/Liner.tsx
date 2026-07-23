@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import React, { ReactNode } from 'react';
 
 import { lineLeftMargin } from './ConnectionLine';

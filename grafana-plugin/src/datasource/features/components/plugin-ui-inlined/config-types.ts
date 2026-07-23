@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 /**
  * Config types - inlined from @grafana/plugin-ui to avoid internal package dependency
  * Source: https://github.com/grafana/plugin-ui/blob/main/src/components/ConfigEditor/types.ts

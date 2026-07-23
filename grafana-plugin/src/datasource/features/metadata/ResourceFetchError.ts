@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { FetchError } from '@grafana/runtime';
 import { isString } from 'lodash';
 

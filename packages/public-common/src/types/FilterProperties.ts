@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 // FilterProperties<{
 //   a: string,
 //   b: string | number,

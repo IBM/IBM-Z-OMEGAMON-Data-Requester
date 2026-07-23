@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { ColumnMetadata, TableMetadata } from 'public-domain';
 
 import { MetricsQueryFilter, MetricsQueryFilterClause } from 'datasource/domain';

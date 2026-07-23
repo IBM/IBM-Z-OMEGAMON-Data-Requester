@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { TypedVariableModel, ScopedVars, VariableType, CustomVariableModel, QueryVariableModel } from '@grafana/data';
 import { VariableInterpolation, getTemplateSrv } from '@grafana/runtime';
 import { normalizeToArray } from 'public-common';

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export function debounce<F extends (...args: Parameters<F>) => void>(
   func: F,
   msOfDelay: number

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import '@emotion/react';
 import { GrafanaTheme2 } from '@grafana/data';
 

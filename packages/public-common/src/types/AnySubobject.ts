@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 // (Recurcively) returns a union of any object-like field and T itself
 //
 // type A = {

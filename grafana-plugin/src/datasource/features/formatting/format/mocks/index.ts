@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export { ColumnMetadataAndValues } from './ColumnMetadataAndValues';
 export { numberEnumColumnMetadataAndValues, stringEnumColumnMetadataAndValues } from './enum';
 export {

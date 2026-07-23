@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { FieldType } from '@grafana/data';
 
 import { getMinTimeStep } from './field';

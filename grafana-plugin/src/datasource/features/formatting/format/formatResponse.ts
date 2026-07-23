@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { Field, DataQueryResponse, DataFrame, FieldType } from '@grafana/data';
 import { throwIfNullish } from 'public-common';
 import { ColumnMetadata, TableMetadata, WRITETIME_COLUMN_ID, writetimeColumnMetadata } from 'public-domain';

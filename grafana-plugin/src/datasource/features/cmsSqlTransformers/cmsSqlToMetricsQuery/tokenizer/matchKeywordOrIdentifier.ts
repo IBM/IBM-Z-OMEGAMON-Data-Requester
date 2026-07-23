@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { createToken } from './createToken';
 import { isAlpha, scanWhile, isAlphaNumUnderscore } from './scanHelpers';
 import { Token } from './token';

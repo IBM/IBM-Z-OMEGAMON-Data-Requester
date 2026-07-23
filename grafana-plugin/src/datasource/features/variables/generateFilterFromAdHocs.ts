@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { combineWithAnd } from 'public-common';
 import type { TableMetadata } from 'public-domain';
 

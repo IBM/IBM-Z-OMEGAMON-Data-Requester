@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { standardTransformersRegistry } from '@grafana/data';
 
 import { getCalculateCounterRateTransformer } from 'features/transformers/calculateCounterRateTransformer';

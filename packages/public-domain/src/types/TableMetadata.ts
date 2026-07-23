@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { type DeepPropNames, type DeepPick } from 'public-common';
 
 import { type AffinityEntity } from './AffinityEntity';

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export type { AnySubobject } from './AnySubobject';
 export type { Branded } from './Branded';
 export type { DeepPick } from './DeepPick';

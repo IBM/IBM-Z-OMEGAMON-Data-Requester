@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { useStyles2, Label, Button } from '@grafana/ui';
 import React, { useCallback, memo, useState, useMemo } from 'react';
 

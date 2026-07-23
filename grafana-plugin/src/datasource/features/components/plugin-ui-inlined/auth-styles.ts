@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 /**
  * Common styles for Auth components - inlined from @grafana/plugin-ui v0.10.10
  * Source: https://unpkg.com/@grafana/plugin-ui@0.10.10/dist/esm/components//Auth/styles.js

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { formatNumber } from './formatNumber';
 import { getNumberTestCaseSummary } from './getNumberTestCaseSummary';
 import { numberColumnMds, numberCasesAsNumbersAndAsStrings, brokenNumberCasesAsStrings } from './mocks';

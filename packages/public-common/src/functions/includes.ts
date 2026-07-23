@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 /**
  * Wrapper on top of Array.includes, that fixes some of it's annoying problems.
  * (If interested, can check here https://github.com/microsoft/TypeScript/issues/26255)

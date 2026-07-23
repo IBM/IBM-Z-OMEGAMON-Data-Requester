@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { AnySubobject, FilterProperties } from 'public-common';
 
 import { MetricsQueryParams } from 'datasource/domain';

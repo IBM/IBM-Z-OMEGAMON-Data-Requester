@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { Expression, Identifier } from 'datasource/features/cmsSqlTransformers/cmsSqlToMetricsQuery/parser';
 import { TokenBase } from 'datasource/features/cmsSqlTransformers/cmsSqlToMetricsQuery/tokenizer';
 

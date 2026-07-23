@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { DataQueryRequest } from '@grafana/data';
 
 import { FalconQuery } from 'datasource/domain';

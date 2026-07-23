@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { ColumnMetadata } from 'public-domain';
 
 export function getNumberTestCaseSummary(val: string | number, columnMd: ColumnMetadata): string {

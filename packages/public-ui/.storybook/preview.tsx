@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import type { Preview } from '@storybook/react';
 import type { PartialStoryFn, StoryContext } from 'storybook/internal/types';
 

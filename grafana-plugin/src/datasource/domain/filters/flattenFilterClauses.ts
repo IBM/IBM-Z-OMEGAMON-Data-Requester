@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { MetricsQueryFilter, MetricsQueryFilters, MetricsQueryFilterClause } from 'datasource/domain';
 
 export function flattenFilterClauses(

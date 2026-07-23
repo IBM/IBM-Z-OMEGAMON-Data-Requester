@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import type { Filter } from '../types';
 
 import { combineWithOr, FilterCombinationResult, combineWithAnd } from './combineFilters';

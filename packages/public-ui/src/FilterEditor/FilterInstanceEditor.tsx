@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { type Filter, type ClauseFilter, type CompositeFilter, addTouchedFalse } from 'public-common';
 import React, { ReactNode, ReactElement, useCallback, memo, Fragment } from 'react';
 

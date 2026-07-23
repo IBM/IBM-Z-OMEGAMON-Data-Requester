@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { FalconQuery_V9 } from './FalconQuery_V9';
 
 const NON_ITM_HISTORY_TABLES_V10: Record<string, Set<string>> = {

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export function isTimeColumn(columnType: string, value?: string): boolean {
   if (columnType === 'timestamp' || columnType === 'itmTimestamp') {
     return true;

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { options, variables } from './data';

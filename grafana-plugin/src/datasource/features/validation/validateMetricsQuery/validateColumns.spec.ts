@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { TableMetadata, WRITETIME_COLUMN_ID } from 'public-domain';
 
 import { MetricsQueryOrderByItem, MetricsQueryParams } from 'datasource/domain';

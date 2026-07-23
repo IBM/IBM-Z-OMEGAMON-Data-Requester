@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { InlineField, InlineSwitch } from '@grafana/ui';
 import React from 'react';
 

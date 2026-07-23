@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { variableRegex } from 'datasource/features/variables/utils';
 
 import { createToken } from './createToken';

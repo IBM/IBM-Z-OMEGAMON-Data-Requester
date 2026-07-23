@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { getTemplateSrv } from '@grafana/runtime';
 
 import { MetricsQueryParams, MetricsQueryParma, MetricsQueryFilters, SourceDef } from 'datasource/domain';

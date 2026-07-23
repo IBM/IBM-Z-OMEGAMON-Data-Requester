@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { DataSourceInstanceSettings } from '@grafana/data';
 import { BackendSrvRequest, DataSourceWithBackend, isFetchError } from '@grafana/runtime';
 import { QueryClient as TanStackQueryClient } from '@tanstack/react-query';

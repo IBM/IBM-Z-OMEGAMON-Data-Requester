@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { ColumnMetadata } from 'public-domain';
 
 import { validateUserDefinedValue, validateVariableInValue } from 'datasource/features/validation/validateMetricsQuery';

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export { assert } from './assert';
 export { errorToString } from './errorToString';
 export { includes } from './includes';

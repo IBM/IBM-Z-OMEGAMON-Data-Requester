@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export function triggerPopup(url: string): Window | null {
   return window.open(url, '_blank', getPopupOptions());
 }

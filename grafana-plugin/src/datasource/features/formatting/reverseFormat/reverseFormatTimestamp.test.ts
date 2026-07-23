@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { formatItmTimestamp } from 'public-domain';
 
 import { validItmTimestamps } from 'datasource/features/formatting/format/mocks';

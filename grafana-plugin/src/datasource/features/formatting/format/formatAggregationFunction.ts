@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { AllAggFuncName } from 'datasource/domain';
 
 export const countColumnDisplayName = 'Count of group members';

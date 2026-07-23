@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import type { Filter, FilterCombinationResult, ClauseFilter, WithTouched } from 'public-common';
 
 export type ReplacementDefinition<CLAUSE> = [Filter<CLAUSE> | 'root', FilterCombinationResult<CLAUSE>];

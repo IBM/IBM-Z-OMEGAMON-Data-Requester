@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { RecursivePartial } from 'public-common';
 import { TableMetadata } from 'public-domain';
 

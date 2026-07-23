@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { QueryClientProvider as TanStackQueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools as TanStackQueryDevtools } from '@tanstack/react-query-devtools';
 import React, { ReactNode, createContext, useContext } from 'react';

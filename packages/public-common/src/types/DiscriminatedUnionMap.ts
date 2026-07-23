@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export type DiscriminatedUnionMap<T extends Record<K, string>, K extends keyof T> = {
   [V in T[K]]: Extract<T, Record<K, V>>;
 };

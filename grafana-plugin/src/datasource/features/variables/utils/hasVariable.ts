@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 // Grafana variable name has no specific requirements for the first character
 // When used instead of column-name as a
 // GROUP BY parameter, $DUMMY

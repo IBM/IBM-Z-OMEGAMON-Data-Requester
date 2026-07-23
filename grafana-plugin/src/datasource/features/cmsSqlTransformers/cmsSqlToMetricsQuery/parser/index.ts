@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export * from './AstNode';
 export * from './helpers';
 export { parseSelectStatement } from './parseSelectStatement';

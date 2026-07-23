@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { css } from '@emotion/css';
 import { DataFrame, FieldType, GrafanaTheme2, SelectableValue, TransformerUIProps } from '@grafana/data';
 import { FieldValidationMessage, InlineField, InlineFieldRow, Input, Select, useStyles2 } from '@grafana/ui';

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { convertToNumberOrThrow } from './convertToNumberOrThrow';
 
 function isValidDec(val: string): boolean {

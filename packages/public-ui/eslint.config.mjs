@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import eslintReact from 'devtools-configs/eslintReact.mjs';
 
 /** @type {import('eslint').Linter.Config[]} */

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { TableMetadata, AffinityId } from 'public-domain';
 
 export const mockedTableMetadatas: TableMetadata[] = [

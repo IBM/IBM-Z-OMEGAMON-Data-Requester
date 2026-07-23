@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type VersionUpdaterWithPromise<TPayload> = (obj: any, payload: TPayload) => object | Promise<object>;
 export type VersionUpdatersWithPromise<TPayload = undefined> = ReadonlyArray<VersionUpdaterWithPromise<TPayload>>;

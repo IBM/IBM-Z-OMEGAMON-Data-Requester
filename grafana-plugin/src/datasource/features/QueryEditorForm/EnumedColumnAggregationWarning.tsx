@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { css } from '@emotion/css';
 import { Alert, VerticalGroup } from '@grafana/ui';
 import _ from 'lodash';

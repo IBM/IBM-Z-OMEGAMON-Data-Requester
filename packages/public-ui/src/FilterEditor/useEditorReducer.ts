@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { addTouchedTrue, isTouched, type ClauseFilter, combineWith, type Filter } from 'public-common';
 import { useCallback, useReducer } from 'react';
 

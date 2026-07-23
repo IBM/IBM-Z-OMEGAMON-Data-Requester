@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { SelectableValue } from '@grafana/data';
 import { Field, Select } from '@grafana/ui';
 import { AffinityId } from 'public-domain';

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 /**
  * Defines a range of character position in a string.
  * Helps to track position for variable insert, highlight variables or errors in selected options.

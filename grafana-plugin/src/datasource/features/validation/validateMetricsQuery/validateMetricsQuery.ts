@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { MetricsQueryParams } from 'datasource/domain';
 import { TokenMapping } from 'datasource/features/cmsSqlTransformers/cmsSqlToMetricsQuery/converter';
 import { MetadataLoader } from 'datasource/features/metadata';

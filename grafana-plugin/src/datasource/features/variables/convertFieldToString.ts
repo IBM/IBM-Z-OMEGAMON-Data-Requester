@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { Field, FieldType } from '@grafana/data';
 
 type DataQueryResponseFieldValue = string | number | boolean;

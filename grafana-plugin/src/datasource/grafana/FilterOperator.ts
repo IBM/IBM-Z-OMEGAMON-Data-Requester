@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { ComparisonOperator } from 'datasource/domain';
 
 export type FilterOperator = '=' | '!=' | '>' | '<' | '=~' | '!~';

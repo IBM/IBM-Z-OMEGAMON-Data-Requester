@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 type Append<A extends string, B extends string | number> = A extends '' ? B & string : `${A}.${B}`;
 type PropTypes<T extends object> = T[keyof T]; // { n: number, s: string} => number | string
 type GetKey<VALUE extends string> = VALUE extends `${string}.*` ? never : VALUE;

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { ColumnMetadata } from 'public-domain';
 
 export const numberCasesAsNumbers = [-123, -1, 0, 1, 10, 123, 72491];

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import js from "@eslint/js";
 import { fixupPluginRules } from "@eslint/compat";
 import tseslint from "typescript-eslint";

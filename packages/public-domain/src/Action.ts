@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export type LiteralPatternItem = { type: 'literal'; value: string };
 export type VariablePatternItem = { type: 'variable'; name: string };
 

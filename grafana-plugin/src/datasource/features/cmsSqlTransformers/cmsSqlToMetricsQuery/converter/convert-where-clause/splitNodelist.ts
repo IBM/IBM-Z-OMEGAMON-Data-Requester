@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 /** Split SYSTEM.PARMA("NODELIST", VALUE) value into a list of single human-readable entries.
  * Unlike String.split(','), it ignores commas in function-call-like cases
  */

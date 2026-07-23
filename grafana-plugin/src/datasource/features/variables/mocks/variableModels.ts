@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { LoadingState, VariableRefresh, TypedVariableModel } from '@grafana/data';
 
 export const mockedTypedVariableModels = [

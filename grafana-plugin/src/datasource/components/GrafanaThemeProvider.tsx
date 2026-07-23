@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { ThemeProvider } from '@emotion/react';
 import { useTheme2 } from '@grafana/ui';
 import React, { PropsWithChildren } from 'react';

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 /* eslint-disable */
 
 // force timezone to UTC to allow tests to work regardless of local timezone

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { monacoTypes } from '@grafana/ui';
 
 import { CmsSqlParsingProblem } from 'datasource/features/cmsSqlTransformers/cmsSqlToMetricsQuery';

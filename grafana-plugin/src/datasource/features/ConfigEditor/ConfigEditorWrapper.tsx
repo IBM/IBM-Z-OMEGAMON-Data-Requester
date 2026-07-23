@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { Alert, VerticalGroup } from '@grafana/ui';
 import React from 'react';
 

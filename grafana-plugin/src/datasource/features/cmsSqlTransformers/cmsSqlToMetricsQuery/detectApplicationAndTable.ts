@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { skipUntil, parseFromClause } from './parser';
 import { tokenize } from './tokenizer';
 

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export type { AffinityEntity, AffinityId, AffinityIdToNameAndGroup, Product } from './AffinityEntity';
 export {
   ZVM_AFFINITY_ID,

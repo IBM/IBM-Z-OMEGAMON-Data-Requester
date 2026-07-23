@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import type { Expression } from 'datasource/features/cmsSqlTransformers/cmsSqlToMetricsQuery/parser';
 import type { TokenOfGenericKind } from 'datasource/features/cmsSqlTransformers/cmsSqlToMetricsQuery/tokenizer';
 

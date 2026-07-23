@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 /**
  * ConfigSection component - inlined from @grafana/plugin-ui to avoid internal package dependency
  * Source: https://github.com/grafana/plugin-ui/blob/main/src/components/ConfigEditor/ConfigSection/ConfigSection.tsx

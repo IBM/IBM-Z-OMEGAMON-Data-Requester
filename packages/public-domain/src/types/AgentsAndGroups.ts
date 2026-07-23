@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { type Branded } from 'public-common';
 
 import { type AffinityEntity } from './AffinityEntity';

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { DataQuery } from '@grafana/schema';
 import { DiscriminatedUnionMap } from 'public-common';
 import { AffinityId } from 'public-domain';

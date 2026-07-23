@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { Variable, StringLiteral, Token } from './token';
 import { tokenize } from './tokenize';
 

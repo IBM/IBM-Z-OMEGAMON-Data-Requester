@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { resolveAutomaticIntervalMinutes } from './timeSeriesInterval';
 
 const MIN = 1; // 1 minute

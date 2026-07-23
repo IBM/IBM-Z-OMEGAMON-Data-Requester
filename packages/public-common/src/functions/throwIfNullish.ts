@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export function throwIfNullish<T>(
   value: T | null | undefined,
   explanationWhyItShouldNotBeNullish: string

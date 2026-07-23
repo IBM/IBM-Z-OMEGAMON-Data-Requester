@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { useRef, useEffect, useMemo, useDebugValue, useSyncExternalStore } from 'react';
 
 function is(x, y) {

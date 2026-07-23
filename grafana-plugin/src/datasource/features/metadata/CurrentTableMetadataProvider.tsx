@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { TableMetadata } from 'public-domain';
 import React, { createContext, ReactNode, useContext } from 'react';
 

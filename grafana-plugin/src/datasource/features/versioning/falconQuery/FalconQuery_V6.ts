@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 /* eslint-disable @typescript-eslint/no-namespace */
 
 import { FalconQuery_V5 } from './FalconQuery_V5';

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 /** Minimum supported aggregation interval: 1 minute */
 const MIN_AGGREGATION_INTERVAL_MINUTES = 1;
 

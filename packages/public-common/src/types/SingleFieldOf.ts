@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 /**
  * type AB = SingleFieldOf<{a: string; b: string;}>
  * const a: AB = {a: 'test'} // OK

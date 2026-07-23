@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 const numberAsStringRegex = /^(?:-?\d+(\.\d+)?|0[xX][0-9A-Fa-f]+)$/;
 
 /**

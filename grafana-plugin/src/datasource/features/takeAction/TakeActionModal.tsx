@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { css } from '@emotion/css';
 import { Modal } from '@grafana/ui';
 import React, { useEffect, useState } from 'react';

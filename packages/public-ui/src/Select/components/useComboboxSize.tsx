@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { useContext, useEffect, useState } from 'react';
 
 // eslint-disable-next-line import/no-cycle

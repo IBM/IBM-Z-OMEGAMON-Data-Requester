@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { parseAgentDef } from './parseAgentDef';
 
 test('should return argument for a valid originnode', () => {

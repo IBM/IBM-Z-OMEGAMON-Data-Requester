@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 function formatTimeUnit(timeUnitAsNumber: number, minimalRequiredLength = 2): string {
   const timeUnitAsFormattedString = timeUnitAsNumber.toString().padStart(minimalRequiredLength, '0');
   return timeUnitAsFormattedString;

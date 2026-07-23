@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { fileURLToPath } from 'node:url';
 import { extname, relative, resolve } from 'path';
 

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import prettierConfig from 'devtools-configs/prettier.mjs';
 
 export default {

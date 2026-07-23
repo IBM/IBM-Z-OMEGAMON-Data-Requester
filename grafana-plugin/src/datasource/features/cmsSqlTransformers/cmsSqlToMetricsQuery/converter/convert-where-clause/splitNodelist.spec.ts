@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { splitNodelist } from './splitNodelist';
 
 test('should return input for a single originnode', () => {

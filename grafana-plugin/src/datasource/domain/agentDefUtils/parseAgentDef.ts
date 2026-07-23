@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import type { SourceDef, AtLparDef } from 'datasource/domain';
 
 const atLparRegexpr = /^@Lpar\((.*)\)$/i;

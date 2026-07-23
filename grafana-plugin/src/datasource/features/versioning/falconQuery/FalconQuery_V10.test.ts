@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { MetricsQueryParams, MetricsQueryParma } from 'datasource/domain';
 
 import { updateTo_V10 } from './FalconQuery_V10';

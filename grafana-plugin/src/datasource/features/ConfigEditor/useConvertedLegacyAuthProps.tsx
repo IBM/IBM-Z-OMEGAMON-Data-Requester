@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { AuthMethodEnum as AuthMethod, convertLegacyAuthProps } from 'datasource/features/components/plugin-ui-inlined';
 
 import { FalconDataSourceOptionsProps } from './FalconDataSourceOptionsProps';

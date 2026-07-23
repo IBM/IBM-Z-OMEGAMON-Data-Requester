@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { BackendSrvRequest, DataSourceWithBackend } from '@grafana/runtime';
 import {
   ApplicationMetadata,

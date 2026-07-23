@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { ArrowDown } from '@carbon/icons-react';
 import { TextInput, Button, DismissibleTag } from '@carbon/react';
 import React, { forwardRef } from 'react';

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { InlineNotification } from '@carbon/react';
 import React, { Component, ReactNode } from 'react';
 

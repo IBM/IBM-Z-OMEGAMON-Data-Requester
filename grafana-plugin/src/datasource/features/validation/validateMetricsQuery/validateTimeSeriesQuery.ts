@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { AGGREGATION_INTERVAL, MetricsQueryParams, TimeSeriesQueryParams } from 'datasource/domain';
 import { flattenFilterClauses } from 'datasource/domain/filters';
 import { MetadataLoader } from 'datasource/features/metadata';

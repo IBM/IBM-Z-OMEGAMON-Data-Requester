@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export type { FalconDatasourceJsonData, FalconDatasourceConfig, UnknownConfig } from './FalconDatasourceConfig';
 export { FALCON_DATASOURCE_OPTIONS_VERSION, constructDefaultConfig } from './FalconDatasourceConfig';
 export {

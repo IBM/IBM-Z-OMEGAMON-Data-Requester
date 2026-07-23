@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { ApplicationMetadata, AffinityId, ManagedSystems, TableMetadata } from 'public-domain';
 

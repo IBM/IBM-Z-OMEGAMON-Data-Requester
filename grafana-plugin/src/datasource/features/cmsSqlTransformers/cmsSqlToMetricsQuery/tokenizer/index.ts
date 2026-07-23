@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export { getVariablesFromStr } from './processStringWithVariables';
 export { isValueGroupToken, isValueToken } from './token';
 export type {

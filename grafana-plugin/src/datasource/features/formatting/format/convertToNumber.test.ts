@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { convertToNumber } from './convertToNumber';
 import { brokenNumberCasesAsStrings } from './mocks';
 

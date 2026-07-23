@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 type BothAreTrue<A, B> = A extends true ? (B extends true ? true : false) : false;
 
 type AreSameTypes<A, B> = [A] extends [B] ? ([B] extends [A] ? true : false) : false;

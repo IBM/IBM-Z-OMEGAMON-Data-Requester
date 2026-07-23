@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import type { ClauseEditorProps } from 'public-ui';
 import React, { useCallback } from 'react';
 

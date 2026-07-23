@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { ScopedVars } from '@grafana/data';
 import { getTemplateSrv, VariableInterpolation } from '@grafana/runtime';
 

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { TokenKindsFromTokenMap, ConvertToTokenMap } from './utilityTypes';
 
 export const SYMBOLIC_TOKENS = {

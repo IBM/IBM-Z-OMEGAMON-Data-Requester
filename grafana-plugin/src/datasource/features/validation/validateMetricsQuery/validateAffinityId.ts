@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { SUPPORTED_AFFINITIES_FOR_METRICS } from 'public-domain';
 
 import { MetricsQueryParams } from 'datasource/domain';

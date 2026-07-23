@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { getTemplateSrv } from '@grafana/runtime';
 
 import { AdHocVariableModel, AdHocVariableFilter } from 'datasource/grafana';

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 export function updateTo_V1(current: unknown): CalculateCounterRateTransformerOptions_V1 {
   const currentAsObject = typeof current === 'object' ? current : {};
   return { ...currentAsObject, falconVersion: 1 };

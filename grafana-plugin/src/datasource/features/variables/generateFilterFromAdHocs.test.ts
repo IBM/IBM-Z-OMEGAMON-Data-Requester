@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { mockedTablesResponse } from 'datasource/features/metadata/mocks';
 
 import { generateFilterFromAdHocs } from './generateFilterFromAdHocs';

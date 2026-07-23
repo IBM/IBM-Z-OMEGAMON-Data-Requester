@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { css } from '@emotion/css';
 import { GrafanaTheme2, TransformerUIProps, SelectableValue } from '@grafana/data';
 import { getDataSourceSrv } from '@grafana/runtime';

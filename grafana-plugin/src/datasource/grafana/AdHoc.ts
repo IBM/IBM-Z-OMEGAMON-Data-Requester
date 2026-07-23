@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { BaseVariableModel } from '@grafana/data';
 
 import { FilterOperator } from './FilterOperator';

@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { VariableInterpolation } from '@grafana/runtime';
 
 export const variableInterpolationMocks = {

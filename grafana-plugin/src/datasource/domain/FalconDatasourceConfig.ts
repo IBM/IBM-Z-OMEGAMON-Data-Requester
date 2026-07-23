@@ -1,3 +1,5 @@
+// Copyright contributors to the IBM-Z-OMEGAMON-data-requester project.
+
 import { DataSourceJsonData, DataSourceSettings } from '@grafana/data';
 
 import { WithVersion } from 'datasource/features/versioning/common';
