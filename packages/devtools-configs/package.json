@@ -5,7 +5,7 @@
   "author": "Rocket software",
   "license": "Apache-2.0",
   "type": "module",
-  "dependencies": {
+  "devDependencies": {
     "@eslint/compat": "catalog:",
     "@eslint/js": "catalog:",
     "eslint": "catalog:",

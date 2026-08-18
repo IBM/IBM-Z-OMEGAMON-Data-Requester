@@ -97,6 +97,7 @@ export function getAgentsAndGroupsNames(
   return names;
 }
 
+// TODO OMUI5-3438 change to filter by multiple AffinityIds
 /**
  * Filters agents and groups by affinity ID.
  */

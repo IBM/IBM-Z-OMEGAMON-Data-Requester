@@ -22,6 +22,8 @@ import (
 
 const protoAccept = "application/x-protobuf"
 
+const apiV1Path = "/api/v1"
+
 type jsonErrorResponse struct {
 	GatewayError string `json:"gatewayError"`
 	Reason       string `json:"reason"`
@@ -43,7 +45,7 @@ func parseJSONGatewayError(body []byte, statusCode int) error {
 func Get[T any](ctx context.Context, config domain.Configuration, apiPath string, query url.Values) (data T, httpStatusCode int, err error) {
 	logger := backend.Logger.FromContext(ctx)
 	var zero T
-	targetUrl, err := url.JoinPath(config.GatewayBaseUrl, "/api", apiPath)
+	targetUrl, err := url.JoinPath(config.GatewayBaseUrl, apiV1Path, apiPath)
 	if err != nil {
 		logger.Error("failed to build request url", "error", err)
 		return zero, 0, err
@@ -78,7 +80,7 @@ func Post[T any](ctx context.Context, config domain.Configuration, apiPath strin
 	logger := backend.Logger.FromContext(ctx)
 	var zero T
 
-	targetUrl, err := url.JoinPath(config.GatewayBaseUrl, "/api", apiPath)
+	targetUrl, err := url.JoinPath(config.GatewayBaseUrl, apiV1Path, apiPath)
 	if err != nil {
 		logger.Error("failed to build request url", "error", err)
 		return zero, 0, err
@@ -113,7 +115,7 @@ func Post[T any](ctx context.Context, config domain.Configuration, apiPath strin
 // directly into msg.  msg must be a non-nil proto.Message.
 func GetProto[MSG proto.Message](ctx context.Context, config domain.Configuration, apiPath string, query url.Values, msg MSG) (int, error) {
 	logger := backend.Logger.FromContext(ctx)
-	targetUrl, err := url.JoinPath(config.GatewayBaseUrl, "/api", apiPath)
+	targetUrl, err := url.JoinPath(config.GatewayBaseUrl, apiV1Path, apiPath)
 	if err != nil {
 		return 0, err
 	}
@@ -153,7 +155,7 @@ func PostProto[MSG proto.Message](ctx context.Context, config domain.Configurati
 	if err != nil {
 		return 0, err
 	}
-	targetUrl, err := url.JoinPath(config.GatewayBaseUrl, "/api", apiPath)
+	targetUrl, err := url.JoinPath(config.GatewayBaseUrl, apiV1Path, apiPath)
 	if err != nil {
 		return 0, err
 	}

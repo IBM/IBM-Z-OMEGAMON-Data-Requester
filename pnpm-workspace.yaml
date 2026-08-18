@@ -5,8 +5,8 @@ catalogs:
   react18or19:
     "@types/react": ^18.3.28 || ^19.2.14
     "@types/react-dom": ^18.3.7 || ^19.2.3
-    react: ^18.3.1 || ^19.2.6
-    react-dom: ^18.3.1 || ^19.2.6
+    react: ^18.3.1 || ^19.2.8
+    react-dom: ^18.3.1 || ^19.2.8
   react18:
     "@types/react": ^18.3.28
     "@types/react-dom": ^18.3.7
@@ -22,11 +22,11 @@ catalog:
   "@emotion/react": ^11.14.0
   "@eslint/js": ^10.0.1
   "@eslint/compat": ^2.0.3
-  "@grafana/data": ^13.1.0-27316398859
-  "@grafana/runtime": ^13.1.0-27316398859
-  "@grafana/schema": ^13.1.0-27316398859
+  "@grafana/data": ^13.1.3
+  "@grafana/runtime": ^13.1.3
+  "@grafana/schema": ^13.1.3
   "@grafana/tsconfig": ^2.1.0
-  "@grafana/ui": ^13.1.0-27316398859
+  "@grafana/ui": ^13.1.3
   "@swc/core": ^1.15.33
   "@swc/helpers": ^0.5.21
   "@swc/jest": ^0.2.39
