@@ -60,14 +60,20 @@ func NewFalconDatasource(ctx context.Context, settings backend.DataSourceInstanc
 	defer falcon_utils.LogPanic("NewFalconDatasource")
 
 	backend.Logger.Info("Start spawning new OMEGAMON datasource instance", "id", settings.ID, "UID", settings.UID, "Name", settings.Name)
+
+	var s JsonDataSettings
+	jsonParseErr := json.Unmarshal(settings.JSONData, &s)
+	if jsonParseErr != nil {
+		return nil, jsonParseErr
+	}
+
 	backend.Logger.Debug("Datasource instance settings",
 		"ID", settings.ID,
 		"UID", settings.UID,
 		"Name", settings.Name,
 		"User", settings.User,
 		"BasicAuthEnabled", settings.BasicAuthEnabled,
-		"BasicAuthUser", settings.BasicAuthUser,
-		"JSONData", settings.JSONData,
+		"OauthPassthrough", s.OauthPassThru,
 		"Updated", settings.Updated.String(),
 	)
 
@@ -80,12 +86,6 @@ func NewFalconDatasource(ctx context.Context, settings backend.DataSourceInstanc
 	httpClientOptions, err := settings.HTTPClientOptions(ctx)
 	if err != nil {
 		return nil, err
-	}
-
-	var s JsonDataSettings
-	jsonParseErr := json.Unmarshal(settings.JSONData, &s)
-	if jsonParseErr != nil {
-		return nil, jsonParseErr
 	}
 
 	if s.OauthPassThru == true {
@@ -171,5 +171,9 @@ func (d *FalconDatasource) PublishStream(_ context.Context, req *backend.Publish
 
 // TODO: properly integrate with tracing capabilities
 func getCtxWithRequestID(ctx context.Context) context.Context {
-	return log.WithContextualAttributes(ctx, []any{"RequestID", falcon_utils.GetRandomString(15)})
+	reqId, err := falcon_utils.GetRandomString(15)
+	if err != nil {
+		reqId = "0xDEADBEEF"
+	}
+	return log.WithContextualAttributes(ctx, []any{"RequestID", reqId})
 }

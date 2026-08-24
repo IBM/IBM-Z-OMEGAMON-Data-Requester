@@ -64,7 +64,7 @@ func Get[T any](ctx context.Context, config domain.Configuration, apiPath string
 	if err != nil {
 		statusCodeStr := "<not received>"
 		if resp != nil {
-			statusCodeStr = strconv.FormatInt(int64(resp.StatusCode), 10)
+			statusCodeStr = strconv.Itoa(resp.StatusCode)
 		}
 		logger.Error("failed GET response from Gateway", "HTTP code", statusCodeStr, "URL", targetUrl, "error", err)
 		return zero, 0, err
@@ -101,7 +101,11 @@ func Post[T any](ctx context.Context, config domain.Configuration, apiPath strin
 
 	resp, err := config.HttpClient.Do(req)
 	if err != nil {
-		logger.Error("failed POST response from Gateway", "HTTP code", resp.StatusCode, "URL", targetUrl, "error", err)
+		statusCodeStr := "<not received>"
+		if resp != nil {
+			statusCodeStr = strconv.Itoa(resp.StatusCode)
+		}
+		logger.Error("failed POST response from Gateway", "HTTP code", statusCodeStr, "URL", targetUrl, "error", err)
 		return zero, 0, err
 	}
 
