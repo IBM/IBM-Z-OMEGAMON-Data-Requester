@@ -3,6 +3,8 @@
 import { TransformerRegistryItem, DataFrame, DataTransformerInfo, DataLink, DataLinkClickEvent } from '@grafana/data';
 import { mergeMap } from 'rxjs';
 
+import { expectsAsyncTransformers } from 'features/grafanaVersion';
+
 import { WebhookTransformerEditor } from './WebhookTransformerEditor';
 
 export type WebhookTransformerOptions = {
@@ -74,11 +76,12 @@ function getWebhookTransformation(): DataTransformerInfo<WebhookTransformerOptio
 
 export function getWebhookTransformer(): TransformerRegistryItem<WebhookTransformerOptions> {
   const transformer = getWebhookTransformation();
+  const transformationVal = expectsAsyncTransformers() ? () => transformer : transformer;
 
   return {
     id: transformer.id,
     editor: WebhookTransformerEditor,
-    transformation: () => Promise.resolve(transformer),
+    transformation: transformationVal as unknown as () => Promise<DataTransformerInfo<WebhookTransformerOptions>>,
     name: transformer.name,
     imageDark: '',
     imageLight: '',

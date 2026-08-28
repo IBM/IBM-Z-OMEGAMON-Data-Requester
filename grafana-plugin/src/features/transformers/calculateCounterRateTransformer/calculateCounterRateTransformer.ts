@@ -5,6 +5,7 @@ import { mergeMap } from 'rxjs';
 
 import { WithOptionalVersion } from 'datasource/features/versioning/common';
 
+import { expectsAsyncTransformers } from 'features/grafanaVersion';
 import { fieldToSelectableValue, validateTimeStep, processNotices, addNotice } from 'features/transformers/common';
 import { updateCalculateCounterRateTransformerOptionsToLatestVersion } from 'features/versioning/calculateCounterRateTransformer';
 
@@ -141,11 +142,13 @@ function getCalculateCounterRateTransformation(): DataTransformerInfo<CalculateC
 
 export function getCalculateCounterRateTransformer(): TransformerRegistryItem<CalculateCounterRateTransformerOptions> {
   const transformation = getCalculateCounterRateTransformation();
+  const transformationVal = expectsAsyncTransformers() ? () => transformation : transformation;
+
   return {
     id: transformation.id,
     editor: CalculateCounterRateTransformerEditor,
     // TODO Remove cast once @grafana/data nightly (13.1.0-pre) types are replaced by stable 13.x and the Grafana runtime supports the async transformer API
-    transformation: transformation as unknown as () => Promise<
+    transformation: transformationVal as unknown as () => Promise<
       DataTransformerInfo<CalculateCounterRateTransformerOptions>
     >,
     name: transformation.name,

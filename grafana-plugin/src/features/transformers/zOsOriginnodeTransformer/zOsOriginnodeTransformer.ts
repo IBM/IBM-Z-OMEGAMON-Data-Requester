@@ -8,6 +8,7 @@ import { mergeMap } from 'rxjs';
 import { FalconDatasource } from 'datasource';
 import { WithOptionalVersion } from 'datasource/features/versioning/common';
 
+import { expectsAsyncTransformers } from 'features/grafanaVersion';
 import { updateZOsOriginnodeTransformerOptionsToLatestVersion } from 'features/versioning/zOsOriginnodeTransformer';
 
 import { ZOsOriginnodeTransformerEditor } from './ZOsOriginnodeTransformerEditor';
@@ -97,10 +98,11 @@ function getZOsOriginnodeTransformation(): DataTransformerInfo<ZOsOriginnodeTran
 
 export function getZOsOriginnodeTransformer(): TransformerRegistryItem<ZOsOriginnodeTransformerOptions> {
   const transformation = getZOsOriginnodeTransformation();
+  const transformationVal = expectsAsyncTransformers() ? () => transformation : transformation;
   return {
     id: transformation.id,
     editor: ZOsOriginnodeTransformerEditor,
-    transformation: () => Promise.resolve(transformation),
+    transformation: transformationVal as unknown as () => Promise<DataTransformerInfo<ZOsOriginnodeTransformerOptions>>,
     name: transformation.name,
     imageDark: '',
     imageLight: '',
