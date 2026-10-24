@@ -51,7 +51,7 @@
     "prettier-plugin-tailwindcss": "catalog:",
     "react": "catalog:react18",
     "react-dom": "catalog:react18",
-    "storybook": "^10.4.0",
+    "storybook": "^10.6.2",
     "tailwindcss": "catalog:",
     "ts-node": "catalog:",
     "typescript": "catalog:",
